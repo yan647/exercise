@@ -1,0 +1,62 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head runat="server">  
+<meta charset="UTF-8">
+    <title></title>  
+    <script language="javascript">  
+    //标题动态变化 
+/*  var m1= "来消息啦...";  
+  var m2= "-";  
+  var msg=m2+m1;  
+  function titnimation() {  
+   msg=msg.substring(1,msg.length)+msg.substring(0,1);   
+   document.title = msg;  
+  }  */ 
+
+  // Adapted slightly from Sam Dutton
+// Set name of hidden property and visibility change event
+// since some browsers only offer vendor-prefixed support
+//判断兼容
+var hidden, state, visibilityChange; 
+if (typeof document.hidden !== "undefined") {
+  hidden = "hidden";
+  visibilityChange = "visibilitychange";
+  state = "visibilityState";
+} else if (typeof document.mozHidden !== "undefined") {
+  hidden = "mozHidden";
+  visibilityChange = "mozvisibilitychange";
+  state = "mozVisibilityState";
+} else if (typeof document.msHidden !== "undefined") {
+  hidden = "msHidden";
+  visibilityChange = "msvisibilitychange";
+  state = "msVisibilityState";
+} else if (typeof document.webkitHidden !== "undefined") {
+  hidden = "webkitHidden";
+  visibilityChange = "webkitvisibilitychange";
+  state = "webkitVisibilityState";
+}
+
+//方法一
+// Add a listener that constantly changes the title
+/*document.addEventListener(visibilityChange, function() {
+  document.title = document[state];
+}, false);
+
+// Set the initial value
+document.title = document[state];*/
+
+//方法二
+document.addEventListener(visibilityChange, function() {
+  if(document[state]=='visible'){
+    document.title = "这是原标题";
+  } else document.title = "看这里";
+}, false);
+
+    
+    </script>  
+</head>  
+<body style="cursor:url(1.cur); "> 
+<p>当用户浏览别的网页时，浏览器标题栏显示一个标题，当用户浏览该网页时，又显示另一个标题</p> 
+<p>来源   https://davidwalsh.name/page-visibility</p>
+</body>  
+</html> 

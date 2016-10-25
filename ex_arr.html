@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>纯CSS画的图</title>
+</head>
+<style type="text/css">
+	.arrow{
+		border-left:8px solid transparent;
+		border-right:8px solid transparent;
+		border-top:8px solid black;
+	}
+	 b{
+		display: inline-block;
+		width:12px;
+		height:2px;
+		background-color: #f00;
+		font-size: 0;
+		line-height:0;
+		vertical-align: middle;
+		-webkit-transform:rotate(45deg);
+	} 
+	 b:after{
+		content:'.';
+		display: block;
+		width:12px;
+		height:2px;
+		background-color: #f00;
+		-webkit-transform:rotate(-90deg);
+	} 
+
+.pre { 
+width: 80px; 
+height: 80px; 
+} 
+.pre1 { 
+border-width: 40px; 
+/* border-color: transparent #F30 transparent transparent;  */
+border-color: transparent  transparent #F30 transparent; 
+} 
+.pre2 { 
+border-width: 40px; 
+/* border-color: transparent #FFF transparent  transparent; */ 
+border-color: transparent transparent #FFF transparent; 
+position: relative; 
+top: -70px; 
+/* left: 15px;  */
+} 
+.pre1, .pre2 { 
+/*****设置border-style:dashed;使ie6支持border透明*****/ 
+border-style: dashed solid dashed dashed; 
+/*****设置容器宽高为0*****/ 
+width: 0; 
+height: 0; 
+/*****去掉ie6下默认高度，设置以下属性*****/ 
+line-height: 0; 
+font-size: 0; 
+overflow: hidden; 
+} 
+</style>
+<body>
+	<span>向下的箭头</span><span class="arrow"></span><br>
+	<span>叉号</span><b></b>
+
+<p>来源 http://www.jb51.net/css/41445.html</p>
+<div class="pre"> 
+<div class="pre1"></div> 
+<div class="pre2"></div> 
+</div> 
+</body>
+</html>

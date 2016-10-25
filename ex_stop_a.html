@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>阻止a标签默认行为的方法</title>
+</head>
+<body>
+	<h1>阻止a标签默认行为的方法</h1>
+	<p>来源 http://blog.csdn.net/judas_jia/article/details/51166406</p>
+	<a href="http://www.baidu.com" id="test">click me</a>
+	<script type="text/javascript">
+	var test=doucument.getElementById('test');
+		function stopDefault(e){
+			if(e&&e.preventDefault){
+				e.preventDefault();
+			} else window.event.returnValue=false;
+		}
+		test.onclick=function(e){
+			stopDefault(e);
+		}
+	</script>
+</body>
+</html>

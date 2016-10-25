@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TODOList</title>
+</head>
+<style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+		text-align: center;
+		font-family: '微软雅黑';
+	}
+	.demo{
+		margin:0 auto;
+		width:500px;
+		border:1px solid #ddd;
+		text-align: center;
+	}
+	#demo1,#demo2{
+		margin:0 auto;
+		text-align: center;
+		padding:10px;
+		width:500px;
+	}
+	.demo01,.demo02{
+		background-color: white;	
+		width:248px;
+		height: 30px;
+		float:left;
+		border:1px solid #ddd;
+	}
+	.demo01:hover, .demo02:hover{
+		background-color: #ddd;
+	}
+	.demo001,.demo002{
+		display: none;
+	}
+	#demo1 .active{		
+		display: inline-block;		
+	}
+	.demo .active1{
+		background-color: #ddd;
+	}
+	input{
+		margin-top:10px;
+	}
+	li{
+		list-style: none;
+	}
+	.class-a{
+		text-decoration:none;
+		background-color: white;
+	}
+	.class-b{
+		text-decoration:line-through;
+		color: #ddd;
+	}
+	b{
+		display: inline-block;
+		width:12px;
+		height:2px;
+		background-color: #f00;
+		font-size: 0;
+		line-height:0;
+		vertical-align: middle;
+		-webkit-transform:rotate(45deg);
+	} 
+	 b:after{
+		content:'.';
+		display: block;
+		width:12px;
+		height:2px;
+		background-color: #f00;
+		-webkit-transform:rotate(-90deg);
+	} 
+</style>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<body>
+	<h1>TODOList</h1>
+	<p>来源 http://blog.csdn.net/datou0529/article/details/51510459</p>
+	<div class="demo">
+		<div>
+			<div class="demo01 active1">添加</div>
+			<div class="demo02">完成</div>
+		</div>
+		<div id="demo1" >	    
+		    <div class="demo001 active">
+				<input type="text" name="" placeholder="接下来的时间你想怎么过？" v-model="newLabel"><button @click='add(newLabel)'>添加新的事情</button><br>
+				<template v-for="item in remains|filter By newLabel">
+					<label><input type="radio" name="" @click='finish(item)'></label>
+					<!-- <span v-bind:class='[classA]' class="ifContains(item,completed)?'finished':'no'">{{item}}</span> --> 
+					<span v-bind:class='[classA]' class="ifContains(item,completed)?'finished':'no'">{{item}}</span>
+					<b @click='del(item)'></b><br>				
+				</template>
+				<h4>你一共有{{remains.length}}件事。<br> 有{{active.length}} 件事没做。<br> 有{{completed.length}}件事已经做完了。<br> </h4>
+			</div>
+		</div>
+
+		<div id="demo2">			
+			<div class="demo002" id="demo3">
+				<ul>
+					<!-- <li v-for='item in items'>{{item}}</li> -->
+				</ul>
+			</div>			
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$('.demo01').hover(function(){
+		$('.demo001').css('display','inline-block');
+		$('.demo002').css('display','none');
+		$('.demo01').css('background-color','#ddd');
+		$('.demo02').css('background-color','white');
+	});
+	$('.demo02').hover(function(){
+		$('.demo002').css('display','inline-block');
+		$('.demo001').css('display','none');
+		$('.demo02').css('background-color','#ddd');
+		$('.demo01').css('background-color','white');
+	});
+	var v1=new Vue({
+		el:'#demo1',
+		data:{
+			remains:[],
+			completed:[],
+			newLabel:'',
+			active:[],
+			classA:'class-a'
+		},
+		methods:{
+			del:function(item){
+				if(this.ifContains(item,this.completed)){
+					this.completed.$remove(item);
+				}
+				this.remains.$remove(item);
+			},
+			finish:function(item){
+				if(!this.ifContains(item,this.completed)){
+					this.active.$remove(item);
+					this.completed.push(item);
+					this.classA='class-b';
+				}
+			},
+			add:function(item){
+				if(!this.ifContains(item,this.completed)){
+					this.remains.push(item);
+					this.active.push(item);
+					this.newLabel='';
+				}
+			},
+			ifContains:function(item,items){
+				for(var i of items){
+					if(item===i) return true;
+					else return false;
+				}
+			}
+		}
+	});
+	/*var v2=new Vue({
+		el:'#demo3',
+		data:{
+			items:v1.data.completed
+		}
+	});*/
+</script>
+</html>

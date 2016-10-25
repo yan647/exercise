@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选择排序</title>
+</head>
+<script type="text/javascript">
+	var arr=[3,1,2,9,4,7,6,8,5];
+	for(var i=0;i<arr.length;i++){
+		for(j=0;j<arr.length-i;j++){
+			var max=0,t=0;
+			if(arr[j]>max){
+				max=arr[j];
+				t=j;
+			}
+		}
+		var t=arr[arr.length-i];
+		arr[arr.length-i]=arr[j];
+		arr[j]=t;
+	}
+	console.log(arr);
+</script>
+<body>
+	
+</body>
+</html>

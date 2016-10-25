@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body style="background-color:blue;">
+	<h1>用来解决iframe出现空白的问题</h1>
+	<pre>iframe外围四周有讨厌的空白边，需要在包含iframe的<body>标签里加上<body style="margin:0;padding:0;overflow:hidden" scroll="no"> 才可以去掉。注意用css的body选择器设置无效
+
+iframe里面也有讨厌的空白边，需要设置iframe marginwidth="0" marginheight="0",还要注意iframe引入的页面的body 的margin padding也要去掉。
+</pre>
+<p>来源 http://blog.csdn.net/yukon12345/article/details/6831103</p>
+</body>
+</html>

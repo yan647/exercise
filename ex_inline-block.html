@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>如何解决inline-block元素的空白间距</title>
+</head>
+<style type="text/css">
+	body{
+		margin:0;
+		padding:0;		
+	}
+	ul{
+		margin:0 auto;
+		background-color: blue;
+		width:200px;
+
+	}
+	li{
+		background-color: green;
+		display: inline-block;
+	}
+	.content{
+		margin:0 auto;
+		position: relative;
+		text-align: center;
+	}
+	.ul2 li{
+		margin-right: -8px;
+	}
+	.ul3{
+		font-size:0px;
+	}
+	.ul3 li{
+		display:inline-block;
+		font-size: 16px;
+	}
+</style>
+<body>
+	<div class="content">
+		<h1>如何解决inline-block元素的空白间距</h1>
+		<p>来源：  http://www.w3cplus.com/css/fighting-the-space-between-inline-block-elements</p>
+		<h2>方法一：改变HTML结构</h2>
+		<ul>
+			<li>11111</li>
+			<li>11111</li>
+			<li>11111</li>
+		</ul>
+		<ul>
+			<li>
+			22222</li><li>
+			22222</li><li>
+			22222</li>
+		</ul>
+		<ul>
+			<li>33333</li
+			><li>33333</li
+			><li>33333</li>
+		</ul>
+		<ul>
+			<li>44444</li><!-- 
+			 --><li>44444</li><!-- 
+			 --><li>44444</li>
+		</ul>
+		<ul><li>55555</li><li>55555</li><li>55555</li></ul>
+
+		<h2>方法二：负的margin</h2>
+		<ul class="ul2">
+			<li>11111</li>
+			<li>11111</li>
+			<li>11111</li>
+		</ul>
+
+		<h2>方法三：设置父元素字体为0</h2>
+		<ul class="ul3">
+			<li>11111</li>
+			<li>11111</li>
+			<li>11111</li>
+		</ul>
+
+		<h2>方法四：丢失结束标签</h2>
+		<ul>
+			<li>11111
+			<li>11111
+			<li>11111
+		</ul>
+
+		<h2>方法五：jquery方法（没有兼容性问题，推荐使用）</h2>
+		<ul class="ul5">
+			<li>11111</li>
+			<li>2222</li>
+			<li>333</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+	$('.ul5').contents().filter(function(){
+		return this.nodeType===3;
+	}).remove();
+</script>
+</html>

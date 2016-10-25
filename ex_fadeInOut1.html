@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS3淡入淡出</title>
+	<style type="text/css">
+		@-webkit-keyframes fadeIn{
+			0%{
+				opacity:0;
+			}
+			100%{
+				opacity:1;
+			}
+		}
+		@keyframes fadeIn{
+			0%{
+				opacity:0;
+			}
+			100%{
+				opacity:1;
+			}
+		}
+		#box{
+			-webkit-animation-name:fadeIn;
+			-webkit-animation-duration:1s;
+			-webkit-animation-iteration-count:1;
+			-webkit-animation-delay:0s;
+			animation-name:fadeIn;
+			animation-duration:1s;
+			animation-iteration-count:1;
+			animation-delay:0s;
+		}
+		#bg1{
+			background:url(img/a.jpg) no-repeat;
+			/* background-size: cover; */
+		}
+		#bg2{
+			background:url(img/b.jpg) no-repeat;
+			/* background-size: cover; */
+		}
+	</style>
+</head>
+<body>
+	<h1>CSS3淡入淡出</h1>
+	<p>来源 http://www.cnblogs.com/aimyfly/archive/2013/06/14/3135233.html</p>
+	<div id="box">
+		<div id="bg1" class="bg"></div>
+		<div id="bg2" class="bg"></div>
+	</div>
+</body>
+</html>

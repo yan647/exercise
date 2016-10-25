@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图像轮播</title>
+</head>
+<style>
+	h1{
+		text-align:center;
+	}
+	ul,ol{
+		list-style:none;
+	}
+	#box{
+		width:420px;
+		height: 420px;
+		margin:100px auto;
+		position:relative;
+		overflow:hidden;
+	}
+	#box li{
+		height:630px;
+		width:420px;
+	}
+	#box ol{position:absolute;
+		z-index:99;
+		right:10px;
+		bottom:10px;
+	}
+    #box ol li{
+    	width:20px;
+    	height:20px;
+    	border-radius:20px;
+    	background:#ccc;
+    	float:right;
+    	margin-left:15px;
+    	float:left;
+    }
+    #box ol li.current{
+    	background:#ff0;
+    }
+    img{
+    	width:420px;
+		height: 420px;
+    }
+</style>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script>
+	$(function(){
+		var index=0;
+		var timer=setInterval(function(){
+			index=(index==2)?0:index+1;
+			$("#box ul li").hide().eq(index).show();//eq遍历
+			$('#box ol li').eq(index).addClass('current').siblings().removeClass('current');//siblings选取每个匹配元素的所有同辈元素（不包括自己）
+
+		},3000);
+		$("#box ol li").hover(function(){
+			var index=$(this).index();
+			$("#box ul li").eq(index).show().siblings().hide();
+			$(this).addClass('current').siblings().removeClass('current');
+		});
+	})
+</script>
+<body>
+	<h1>图像轮播</h1>
+	<div id="box">
+		<ul>
+			<li>
+				<img src="a.jpg" alt="">
+				<p>111111111111</p>
+			</li>
+			<li>
+				<img src="b.jpg" alt="">
+				<p>111111111111</p>
+			</li>
+			<li>
+				<img src="c.jpg" alt="">
+				<p>111111111111</p>
+			</li>
+		</ul>
+		<ol>
+			<li class="current"></li>
+			<li></li>
+			<li></li>
+		</ol>
+	</div>
+</body>
+
+</html>

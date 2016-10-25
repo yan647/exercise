@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>遮罩</title>
+	<style type="text/css">
+		#newMask{
+			display: block;
+			background-color:#aaa;	
+			height: 100px;
+			position: static;
+			filter:alpha(opacity=20);
+			-moz-opacity:0.2;
+			-webkit-opacity:0.2;
+			opacity:0.2;
+		}
+	</style>
+</head>
+<body>
+	<h1>遮罩</h1>
+	<p>请用原生js实现一个函数,给页面制定的任意一个元素添加一个透明遮罩(透明度可变,默认0.2),使这个区域点击无效,要求兼容IE8+及各主流浏览器,遮罩层效果如下图所示:</p>
+	<div id='ex'>
+		<img src="img/a.jpg">
+		<img src="img/b.jpg">
+		<img src="img/c.jpg">
+	</div>
+</body>
+<script type="text/javascript">
+    var ex=document.getElementById('ex');
+	function masks(element){
+		var mask=document.createElement('div');
+		mask.setAttribute('id','newMask');
+		element.appendChild(mask);
+		var newMask=document.getElementById('newMask');
+		newMask.style.width=element.style.width;
+		/*newMask.style.height=element.style.height;*/
+	}
+	masks(ex);
+</script>
+</html>

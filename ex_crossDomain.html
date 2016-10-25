@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AJAX跨域</title>
+</head>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+//当前网址是localhost:3000
+	$.ajax({
+		type:"get",
+		url:"http://localhost:3000/showAll",
+		dataType:"jsonp",
+		jsonpCallback:"cb",
+		success:function(){
+			.....
+		}
+	});
+
+</script>
+<body>
+<h1>AJAX跨域</h1>
+	<p>来源  http://www.jb51.net/article/77470.htm</p>
+</body>
+</html>

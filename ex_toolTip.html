@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+	.bar{
+		float:left;
+		width: 100px;
+		background-color: blue;
+		border:1px solid white;
+	}
+	span{
+		font-size:15px;
+		color:blue;
+		cursor:pointer;
+
+	}
+	.newDiv{		
+		position: absolute;
+		top:15px;
+		left:314px;
+		width: 230px;		
+	}
+	p{
+		border:1px solid black;
+		height: 20px;
+	}
+	b{
+		display:inline-block;
+		width: 12px;
+		height: 2px;
+		background-color: black;
+		font-size: 0;
+		line-height: 0;
+		vertical-align:middle; 
+		-webkit-transform:rotate(45deg);
+	}
+	b:after{
+		content:' .';
+		display:block;
+		width:12px;
+		height:2px;
+		background-color: black;
+		-webkit-transform:rotate(-90deg);
+	}
+</style>
+<body>
+	<div id="news">
+		<div class="bar">我的速卖通</div>
+		<div class="bar">我的速卖通</div>
+		<div class="bar">我的速卖通</div>
+		<div class="bar" >我的速卖通</div>
+	</div>
+</body>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+	var news=document.getElementById('news'); 
+	var tips=document.createElement('div');
+	tips.setAttribute('class','newDiv');
+	tips.innerHTML='<p>新铺装修新功能上线!<span>我知道了</span><b></b></p>';
+	news.appendChild(tips);
+	var co=document.cookie.split('=')[1];
+	if(co==1){
+		$('p').hide();
+	}
+	$('span').click(function(){
+		$('p').hide();
+		var counter=1;
+		var time=new Date();
+		time.setTime(time.getTime()+(6*24*60*60*1000));
+		var expires='expires='+time.toGMTString();		
+		
+		if(co!=1){
+			document.cookie='count='+counter+";"+expires;
+		}
+	});
+	$('b').click(function(){
+		$('p').hide();
+	});
+</script>
+</html>

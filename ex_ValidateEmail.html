@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>验证邮箱（有问题）</title>
+	
+</head>
+<body>
+	<div id="demo">
+		<label for="email">邮箱</label>
+		<input type="text" name="email" id="email" placeholder="请输入正确的邮箱名">
+		<button @click='validate(item)'>验证</button>
+		<span>{{newItem}}</span>
+	</div>
+</body>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript">
+	var ex=new Vue({
+		el:'#demo',
+		data:{
+			newItem:''
+		},
+		methods:{
+			validate:function(item){
+				//var reg=/^\w{1}@\w{1}\.\w{1}$/;
+				//var reg=/^\w+@[0-9a-z]+\.[a-z]{2,4}$/;
+				var reg=/^\w+@/;
+				alert(reg.test(item));
+				/*if(reg.test(item)){
+					this.newItem=item;
+				} else alert('邮箱格式错误');*/
+			}
+		}
+	});
+</script>
+</html>
