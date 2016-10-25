@@ -1,0 +1,38 @@
+.left{
+	float:left;
+	vertical-align: middle;
+}
+.right{
+	float:left;
+	margin-left: 100px;
+	vertical-align: middle;
+}
+.right_QR{
+	margin:0 auto;
+	width:100px;
+	float:right;
+	text-align: center;
+	vertical-align: middle;
+}
+.clears{
+	clear:both;
+}
+.img_QR{
+	width: 70px;
+	height:70px;
+}
+footer{
+	position: relative;
+	bottom:0;	
+	background: url(foot.jpg);
+}
+.foot{
+	width: 1000px;
+	margin:auto;
+	padding-top:15px;
+	color:white;
+	line-height: 25px; 
+	font-family: '微软雅黑';
+	font-size:13px;
+	vertical-align: middle;
+}
