@@ -8,7 +8,7 @@
 <p>统计用户访问</p>
 	<p>来源：http://www.jb51.net/article/70957.htm</p>
 	<p>来源：https://www.zhihu.com/question/30077173?rf=35143078</p>
-	<button>点我发邮件</button>
+	<button class="btn">点我发邮件</button>
 	<p>来源：http://www.jb51.net/article/73685.htm</p>
 </body>
 <script type="text/javascript">
@@ -82,7 +82,7 @@
 		what=prompt("Enter the subject: ","none");		
 		parent.location.href='mailto:'+who+'?subject='+what+'';
 	};
-	var btn=document.querySelector('button');
+	var btn=document.querySelector('btn');
 	if(btn.addEventListener){
 		btn.addEventListener('click',setEmail());
 	} else if(btn.attachEvent){
