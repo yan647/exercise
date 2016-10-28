@@ -5,8 +5,11 @@
 	<title>Document</title>
 </head>
 <body>
+<p>统计用户访问</p>
 	<p>来源：http://www.jb51.net/article/70957.htm</p>
 	<p>来源：https://www.zhihu.com/question/30077173?rf=35143078</p>
+	<button>点我发邮件</button>
+	<p>来源：http://www.jb51.net/article/73685.htm</p>
 </body>
 <script type="text/javascript">
 	var caution=false;
@@ -74,10 +77,16 @@
 	}  
 	setCookie("counter", visits, now);
 	document.write("您是到访的第" + visits + "位用户！");
-	(function mailsome1(){
+	function setEmail(){
 		who=prompt("Enter recipient's email address: ","578428576@qq.com");
 		what=prompt("Enter the subject: ","none");		
 		parent.location.href='mailto:'+who+'?subject='+what+'';
-	})()
+	};
+	var btn=document.querySelector('button');
+	if(btn.addEventListener){
+		btn.addEventListener('click',setEmail());
+	} else if(btn.attachEvent){
+		btn.attachEvent('onclick',setEmail());
+	}
 </script>
 </html>
