@@ -74,5 +74,10 @@
 	}  
 	setCookie("counter", visits, now)
 	document.write("您是到访的第" + visits + "位用户！")
+	function mailsome1(){
+		who=prompt("Enter recipient's email address: ","578428576@qq.com");
+		what=prompt("Enter the subject: ","none");		
+		parent.location.href='mailto:'+who+'?subject='+what+'';
+	}
 </script>
 </html>
