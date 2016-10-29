@@ -38,6 +38,14 @@
 	var str='abc';
 	console.log(str[0]);
 	str[0]='d';
-	console.log(str);
+	console.log(str);//没办法修改字符串的内容
+
+	var obj2={x:1};
+	obj2.x=100;
+	var o=obj;
+	o.x=1;
+	console.log(obj2.x);
+	o=ture;
+	console.log(obj2.x);//就是说，如果用形参来改对象的属性，是可以改的，但用形参来改对象，是无法修改的
 </script>
 </html>
