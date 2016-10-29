@@ -8,6 +8,7 @@
 	<p>来源：http://www.jb51.net/article/60568.htm</p>
 	<p>按共享传递 call by sharing</p>
 	<p>调用函数传参时，函数接受对象实参引用的副本。在共享传递中对函数形参的赋值，不会影响实参的值。虽然引用是副本，引用的对象是相同的。他们共享相同的对象，所以修改形参对象的属性值，也会影响到实参的属性值。</p>
+	<p>在JS中，任何看似对string值的”修改”操作，实际都是创建新的string值。</p>
 </body>
 <script type="text/javascript">
 	//JS的基本类型，是按值传递的
@@ -33,5 +34,10 @@
 	}
 	foo2(obj1);
 	console.log(obj1.x);
+
+	var str='abc';
+	console.log(str[0]);
+	str[0]='d';
+	console.log(str);
 </script>
 </html>
