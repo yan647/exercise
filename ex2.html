@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript">
+	console.log(parseInt('3.12s'));
+	console.log(typeof(null));
+	console.log(typeof(undefined));
+	function fn(a,b){
+		return console.log(a+b);
+	}
+	
+	function cur(){
+		fn.call(this,arguments[1],arguments[2]);
+	}
+	cur(fn)(1)(2);
+</script>
+</html>
