@@ -10,6 +10,7 @@
 	<p></p>
 	<p>JS中new到底发生了什么</p>
 	<p>来源：http://www.tuicool.com/articles/rEJN7n6</p>
+	<p>__proto__ 是原型,prototype是函数默认的一个属性,它指向一个对象,这个对象的constructor属性指向函数本身.</p>
 </body>
 <script type="text/javascript">
     //克隆一个一模一样的对象
@@ -34,16 +35,19 @@
 	//this.prototype={constructor:this};
 
 	//新的函数对象被赋予一个prototype属性，它的值是一个包含constructor属性且属性值为该新函数的对象（完全不懂这句话是什么意思）。当对一个函数使用new运算符时，函数的prototype的属性的值被作为原型对象来克隆新对象（完全不懂）   new作为一个方法，执行过程如下：
-	Function.prototype.new=function(){//完全不懂这个函数里每句话的意思
+	Function.prototype.new=function(){
 		var that=Object.create(this.prototype);
-		var other=this.apply(that,arguments);
+		var other=this.apply(that,arguments);//不懂什么意思
 		return (other && typeof other==='object'?other:that;)
 	}
 
 
-
-
-
-	
+	//new
+	var o=new Foo();
+	//new的原理
+	var o=new Object();
+	o.[[Prototype]]=Foo.prototype;
+	Foo.call(o);
+	//JS中，绝大多数的函数都是既可以调用也可以实例化的，我们既可以直接执行函数得到函数返回值，也可以通过new操作符得到一个对象
 </script>
 </html>
