@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>转圈圈的等边三角形</title>
+	<style type="text/css">
+	@keyframes one{
+		0%{
+			top:0;
+			left:0;
+			color:red;
+		}
+		25%{
+			-webkit-transform:translate(200px,0);
+			-moz-transform:translate(200px,0);
+			transform:translate(200px,0);
+			color:yellow;
+		}
+		50%{
+			-webkit-transform:translate(200px,200px);
+			-moz-transform:translate(200px,200px);
+			transform:translate(200px,200px);
+			color:blue;
+		}
+		75%{
+			-webkit-transform:translate(0,200px);
+			-moz-transform:translate(0,200px);
+			transform:translate(0,200px);
+			color:green;
+		} 
+		100%{
+			top:0;
+			left:0;
+			color:red;
+		}
+	}
+		div{
+			width:0;
+			height:0;
+			border-bottom:100px solid;
+			border-left:50px solid transparent;
+			border-right:50px solid transparent;
+			-webkit-animation:one 5s ease 0s infinite;
+			-moz-animation:one 5s ease 0s infinite;
+			animation:one 5s ease 0s infinite;		
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+</body>
+</html>
