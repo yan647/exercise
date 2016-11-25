@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3D相册</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			background-color: #000;
+		}
+		h1{
+			color:white;
+		}
+		p{
+			color:white;
+			position:absolute;
+			padding: 5px;
+		}
+		.content{
+			perspective:800px;/* 设置景深为800px */
+		}
+		#photos{
+			width:110px;
+			height:180px;
+			border:1px solid #ccc;
+			margin:160px auto;
+			/* transform:rotateY(0deg); *//* Y轴左右旋转 */
+			transform-style:preserve-3d;/* 设置3D环境 */
+			
+			
+		}
+		/* #photos div{
+			width:1200px;
+			height:1200px;
+			border-radius:50%;
+			position:absolute;
+			top:102%;
+			left:50%;
+			margin:-600px 0 0 -600px;
+			transform: rotateX(90deg);
+			background:-webkit-radial-gradient(center center,600px,600px,rgba(158,158,222,0.5),rgb(0,0,0,0));
+		}  */
+		#photos div{
+			width:1200px;
+			height:1200px;
+			border-radius:50%;
+			position:absolute;
+			top:80%;
+			left:50%;
+			margin-left:-600px;
+			margin-top:-600px;
+			transform:rotateX(90deg);
+			background:-webkit-radial-gradient(center center,600px 600px,rgba(158,158,222,0.5),rgba(0,0,0,0));
+		}
+		#photos img{
+			width:100%;
+			height:100%;
+			position:absolute;
+			box-shadow: 1px -1px 6px #666;
+			border-radius:4px;
+			-webkit-box-reflect:below 3px -webkit-linear-gradient(top,rgba(0,0,0,0) 40%,rgba(0,0,0,0.5));/* 倒影，只有webkit支持 */  
+			cursor:pointer;
+			/* transform:rotateX(-10deg); */
+		}
+	</style>
+</head>
+<body>
+	<h1>来源： http://www.jianshu.com/p/e0b7041f8c42</h1>
+	<div class="content">
+		<div id="photos">
+			<p>这就是个小</p>
+			<img src="img/a.jpg">
+			<img src="img/b.jpg">
+			<img src="img/c.jpg">
+			<img src="img/d.jpg">
+			<img src="img/e.jpg">
+			<img src="img/f.jpg">
+			<div></div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var photoDom=document.getElementById('photos');
+	var images=photoDom.getElementsByTagName('img');
+	var deg=Math.floor(360/images.length);
+	for(var i=0;i<images.length;i++){
+		images[i].style='transform:rotateY('+deg*i+'deg) rotateX(-5deg) translateZ(300px);'+'-webkit-transform:rotateY('+deg*i+'deg) rotateX(-5deg) translateZ(300px);'+'-moz-transform:rotateY('+deg*i+'deg) rotateX(-5deg) translateZ(300px);';	
+		console.log(deg*i);	
+	}
+	var x=0;
+	setInterval(function(){
+		photoDom.style.transform="rotateX(-10deg) rotateY("+(x++)*0.2+"deg)";
+	}, 30);
+</script>
+</html>
