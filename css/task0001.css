@@ -1,0 +1,113 @@
+h1{
+    color:blue;
+
+}
+h2{
+    font-size:14px;
+}
+p{
+    //font-size:12px;
+    //color:yellow;
+    //background-color:black;
+    text-indent:80px;//首行缩进
+}
+.ex1{
+    text-transform:capitalize;//大小写
+}
+.ex2{
+    text-decoration: overline;//文本修饰
+}
+.ex3{
+    text-align:center;
+}
+.ex4{
+    word-spacing:100px;
+}
+.ex5{
+    white-space:pre;
+}
+.ex6{
+    font-weight:bold;
+}
+@font-face{
+    font-family:myfont;
+    src:url("shoujin.ttf") format('truetype');
+}
+
+.ex7{
+    font-family:myfont;
+    font-weight:bold;
+}
+body{
+    //text-align:center;
+}
+.box{
+    background-color:red;
+    width:960px;
+    height:100px;
+    margin:0 auto;
+}
+/*.box1{
+    background-color:gray;
+    height:50px;
+    position:relative;
+    left:50%;
+    margin:-480px;
+}*/
+
+.mid{
+    height:500px;
+    border-left:1px solid hotpink;
+    border-right:1px solid hotpink;
+    border-top:1px solid hotpink;
+    border-bottom:1px solid hotpink;
+}
+.rtop{
+    display:block;
+}
+.rtop div{
+    display:block;
+    height:1px;
+    overflow:hidden;//内容溢出时怎么处理
+}
+.rtop .r1{
+    margin:0 3px;
+}
+.rtop .r2{
+    margin:0 2px;
+    border-left:1px solid hotpink;
+    border-right:1px solid hotpink;
+
+}
+.rtop .r3{
+    margin:0 1px;
+    border-left:1px solid hotpink;
+    border-right:1px solid hotpink;
+}
+.rtop .r4{
+    margin:0 1px;
+    border-left:1px solid hotpink;
+    border-right:1px solid hotpink;
+}
+img{
+    border:2px solid red;
+}
+
+.div-a{
+    background-color:red;
+    float:left;
+    width:200px;
+    height:300px;
+}
+.div-b{
+    background-color:blue;
+    height:300px;
+    width:100%;
+    float:left;
+}
+.div-c{
+    background-color:greenyellow;
+    clear:both;
+    height:300px;
+    width:100%;
+}
