@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>round</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+/*
+ * 参考：https://zhuanlan.zhihu.com/p/25595871
+ * 获取指定个数的随机整数，整数范围[1,31]
+ * @param {number} n 需要的整数的个数
+ * @return {array} 返回包含n个整数的数组，如果n非法，会有错误提示
+**/
+	function fn(n){
+		var min=1,max=31;//整数取值范围
+
+		//判断参数
+		if(!n) return [console.error("n不存在")];
+		if(isNaN(n)) return [console.error("n不是数字")];
+		if(!(n%1===0)) return [console.error("n不是整数")];
+		if(n<min) return [console.error("n小于1了")];
+		if(n>max) return [console.error("n大于31了")];
+
+		var arr=new Array();
+		var t;
+		for(var i=0;i<n;i++){
+			t=parseInt(Math.round(Math.random()*30+2));
+			var flag=1;
+			for(var j=0;j<arr.length;j++){
+				if(t==arr[j]){
+					flag=0;//检查是否重复
+					break;
+				}
+			}
+			if(flag==0) break;
+			else arr[i]=t;
+		}
+		return console.log(arr);
+}
+
+</script>
+</html>
