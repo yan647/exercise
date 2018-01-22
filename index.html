@@ -4,8 +4,7 @@
 	<meta charset="UTF-8">
 	<title>练习</title>
 	<link rel="shortcut icon" href="1.ico">
-	<link rel="icon" 
-	on" href="img/1.ico">	
+	<link rel="icon" href="img/1.ico">
 	<style type="text/css">
 		body{
 			margin:0;
@@ -161,6 +160,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".tit").click(function(){
+	    console.log('111');
 		var i = $('.tit').index(this);
 		$(".dropDownContent").eq(i).slideToggle("fast");
 		for(var j=0;j<$('li').children('.tit').length;j++)
@@ -168,4 +168,5 @@ $(document).ready(function(){
 	});
 });
 </script>
+<script src="bundle.js"></script>
 </html>
