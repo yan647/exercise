@@ -1,0 +1,83 @@
+<style>
+    a{
+        display: inline-block;
+        display:none;
+        width: 16px;
+        height:2px;
+        background: darkgrey;
+        line-height: 0;
+        font-size:0;
+        vertical-align: middle;
+        -webkit-transform: rotate(45deg);
+    }
+    a:after{
+        content:'/';
+        display:block;
+        width: 16px;
+        height:2px;
+        background: darkgrey;
+        -webkit-transform: rotate(-90deg);
+    }
+    .box{
+        height:200px;
+        width:400px;
+        border:1px solid #eee;
+        text-align:center;
+        vertical-align:middle
+    }
+    .box span{
+        margin-top: 90px;
+        display: block;
+    }
+    #file{
+        width:201px;
+        display: inline-block;
+        display:none;
+        margin: 10px;
+        border:0;
+    }
+    #fileName{
+        display:inline-block;
+        margin:0 7px;
+    }
+    form{
+        width:50em;
+    }
+    .img-container{
+        margin:auto;
+        width:400px;
+    }
+    .img-container img{
+        width:400px;
+        border:1px solid #eee;
+    }
+    .line{
+        width: 38em;
+        border-bottom:1px solid darkgrey;
+        display:inline-block;
+        margin-top:10px;
+    }
+    .selectFile{
+        border:1px solid darkgrey;
+        border-radius:4px;
+        padding:1px 5px;
+        margin:10px;
+        display: inline-block;
+    }
+</style>
+<div ng-init="init()">
+    <form enctype="multipart/form-data">
+        <label for="file" class="selectFile">选择文件</label>
+        <input ng-model="model.fileType" onchange="angular.element(this).scope().getFile()" type="file" id="file">
+        <div ng-mouseenter="mouseEnterFun()" ng-mouseleave="mouseLeaveFun()" class="line">
+            <div id="fileName" ng-repeat="filename in filenames">
+                <span>{{filename}}</span>
+                <span>;</span>
+                <a id="close" ng-click="del($index)"></a>
+            </div>
+        </div>
+        <button ng-click="uploadFile()" ng-disabled="(!model.allowClick)">上传文件</button><br>
+        <div class="box"><span>将文件拖拽到此</span></div>
+        <div class="img-container"></div>
+    </form>
+</div>
