@@ -16,7 +16,14 @@ module.exports = {
             {test: /\.html$/, loader: 'raw-loader'},
             {test: /\.css$/, loader: 'style-loader!css-loader'},
             {test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader'},
-            {test: /\.(png|jpg|ttf)$/, loader: 'url?limit=8192'}
+            {test: /\.(png|jpg|ttf)$/, loader: 'url?limit=8192'},
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                //include 表示哪些目录中的 .js 文件需要进行 babel-loader
+                //exclude 表示哪些目录中的 .js 文件不要进行 babel-loader
+                loader: 'babel-loader'
+            }
         ]
     }
 };

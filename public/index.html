@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <title>Angular with Webpack</title>
 </head>
-<body ng-app="app">
+<body ng-app="myApp" ng-controller="touchCtrl" ng-init="init()">
 <div>来源1：https://www.jianshu.com/p/42e11515c10f</div>
 <div>来源2：https://www.cnblogs.com/faithZZZ/p/6961289.html</div>
 <div id='root'>
 </div>
-<h1>Angular + Webpack</h1>
+<p>Angular + Webpack</p>
 <hello-world></hello-world>
+<batch-upload-files></batch-upload-files>
+<div >
+    <button ng-touchstart="touchStart()">touchStart</button>
+    <button ng-touchmove="touchMove()">touchMove</button>
+    <button ng-touchend="touchEnd()">touchEnd</button>
+</div>
 <script src="bundle.js"></script>
 </body>
 </html>

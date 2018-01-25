@@ -1,5 +1,5 @@
-module.exports = function(ngModule) {
-    ngModule.directive('helloWorld', helloWorldFn);
+module.exports = function(app) {
+    app.directive('helloWorld', helloWorldFn);
     require('./hello-world.scss');
     function helloWorldFn() {
         return {
@@ -11,6 +11,8 @@ module.exports = function(ngModule) {
             controller: function () {
                 var vm = this;
                 vm.greeting = '你好，很高兴见到你';
+                //let a='你好，很高兴见到你';
+                //vm.greeting =a;
             }
         }
     }
