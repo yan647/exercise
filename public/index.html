@@ -3,16 +3,30 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Angular with Webpack</title>
+    <script src="../app/directives/angular-sortable-view/angular-sortable-view.js"></script>
 </head>
-<body ng-app="myApp" ng-controller="touchCtrl" ng-init="init()">
+<body ng-app="myApp" ng-controller="indexCtrl" ng-init="init()">
 <div>来源1：https://www.jianshu.com/p/42e11515c10f</div>
 <div>来源2：https://www.cnblogs.com/faithZZZ/p/6961289.html</div>
 <div id='root'>
 </div>
 <p>Angular + Webpack</p>
 <hello-world></hello-world>
+
+<p>文件上传有问题</p>
 <batch-upload-files></batch-upload-files>
+
+
+<p>拖拽排序有问题</p>
+<div class="sortable-container" sv-root sv-part="data.items1">
+    <div ng-repeat="item in sortable" sv-element="opts" class="well">
+        {{item}}
+    </div>
+</div>
+
 <div >
+    <p>移动端touch</p>
+    <p>来源：https://segmentfault.com/a/1190000007524677</p>
     <button ng-touchstart="touchStart()">touchStart</button>
     <button ng-touchmove="touchMove()">touchMove</button>
     <button ng-touchend="touchEnd()">touchEnd</button>
