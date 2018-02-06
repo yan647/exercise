@@ -3,21 +3,13 @@ module.exports = function(app) {
     function mySelectFn() {
         return {
             restrict: 'EA',
-            scope: {},
-            template: '<select  ng-model="b" ng-options="l.field as getDesc(l) for l in t | byOrder "></select>',
-            //controllerAs: 'vm',// <=> $scope.vm = {greeting: '你好，我是卡哥'}
+            scope: {
+                options: '='
+            },
+            template: '<select ng-options="l.value as getDesc(l) for l in options | byOrder " ng-model="model"><option value=\'\'>{{options.placeholder||\'--请选择--\'}}</option></select>',
             controller: ['$scope',function ($scope) {
-                $scope.getDesc1 = function(key, value) {
-                    return (parseInt(key, 10) + 1) + "、" + value.field;
-                };
-
-                $scope.t = [{
-                    "field": "jw_companyTalent"
-                }, {
-                    "field": "jw_reportgroup"
-                }];
                 $scope.getDesc = function(l) {
-                    return l.order + "、" + l.field;
+                    return l.label;
                 };
             }]
         }
@@ -30,4 +22,4 @@ module.exports = function(app) {
             });
         };
     });
-}
+};
