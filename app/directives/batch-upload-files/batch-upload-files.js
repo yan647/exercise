@@ -62,7 +62,7 @@ module.exports = function(app) {
                         dotPosition.push($scope.temp_files[i].name.lastIndexOf('.'));
                         suffix.push($scope.temp_files[i].name.substr(dotPosition[i] + 1).toUpperCase().toLowerCase());
                         switch ($scope.model.fileType) {
-                            case 'img':
+                            case 'changsha':
                                 if (suffix[i] != 'jpg' && suffix[i] != 'png' && suffix[i] != 'jpeg' && suffix[i] != 'gif') {
                                     alert('只能上传.jpg .png .jepg .gif格式的文件');
                                     return;
@@ -73,8 +73,8 @@ module.exports = function(app) {
                                             reader.readAsDataURL($scope.temp_files[i]);
                                         }
                                         reader.onload = function (e) {
-                                            let imgDiv = $('.img-container');
-                                            $("\<img src=" + e.target.result + "\>").appendTo(imgDiv[0]);
+                                            let imgDiv = $('.changsha-container');
+                                            $("\<changsha src=" + e.target.result + "\>").appendTo(imgDiv[0]);
                                         };
                                     }
                                 }
@@ -105,7 +105,7 @@ module.exports = function(app) {
             createBatchUploadFiles: function () {
                 return {
                     options: [],
-                    fileType: '',//all,img,excel
+                    fileType: '',//all,changsha,excel
                     setOption: function (_options) {
                         this.options = {
                             multiple: _options.multiple//0:单选，1:多选
