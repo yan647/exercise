@@ -1,15 +1,24 @@
 module.exports = {
     //“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录。
     devtool: 'eval-source-map',
-    entry:  __dirname + "/app/main.js",//已多次提及的唯一入口文件
+    entry:  __dirname + "/app/main.js",//唯一入口文件
     output: {
         path: __dirname + "/public",//打包后的文件存放的地方
         filename: "bundle.js"//打包后输出文件的文件名
     },
-    devServer: {
-        contentBase: "./public",//本地服务器所加载的页面所在的目录
-        historyApiFallback: true,//不跳转
-        inline: true//实时刷新
+    devServer: {//描述影响 webpack-dev-server(简写为：dev-server) 行为的选项，扮演了一个代理服务器的角色
+        contentBase: "./public",//本地服务器所加载的页面所在的目录，处理静态资源
+        historyApiFallback: true,//不跳转   当404出现的时候，是否重定向
+        inline: true,//实时刷新
+        hot: true, //开启 HMR，由 webpack-dev-server 发送 "webpackHotUpdate" 消息到客户端代码
+        compress: true, //开启资源的 gzip 压缩
+        proxy:[],//启动proxy代理，去把请求代理到一个外部的服务器
+        clientLogLevel: "info",//在 inline 模式下用于控制在浏览器中打印的 log 级别，如`error`, `warning`, `info` or `none`.
+        quiet: false,//不在控制台打印任何 log
+        noInfo: false,//不输出启动 log
+        disableHostCheck: true,//不检查host地址
+        before: function (app) {},//在服务内部的所有其他中间件之前， 提供执行自定义中间件的功能。 这可以用来配置自定义处理程序
+        after:function(app){}//在服务内部的所有其他中间件之后， 提供执行自定义中间件的功能
     },
     module: {
         loaders: [//加载器
