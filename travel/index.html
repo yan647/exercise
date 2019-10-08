@@ -9,7 +9,36 @@
 <body>
 <div id="title"></div>
 <div class="container">
-    <div class="overview_title">概况</div>
+    <div class="overview_title">
+        <div class="title">概况</div>
+        <div class="wather-forecast">
+            <div id="he-plugin-simple"></div>
+            <script>
+                WIDGET = {
+                    CONFIG: {
+                        "modules": "01234",
+                        "background": 1,
+                        "tmpColor": "FFFFFF",
+                        "tmpSize": 16,
+                        "cityColor": "FFFFFF",
+                        "citySize": 16,
+                        "aqiSize": 16,
+                        "weatherIconSize": 24,
+                        "alertIconSize": 18,
+                        "padding": "10px 10px 10px 10px",
+                        "shadow": "1",
+                        "language": "auto",
+                        "borderRadius": 5,
+                        "fixed": "false",
+                        "vertical": "middle",
+                        "horizontal": "center",
+                        "key": "fe7e59f1df75480f9d3b6908b4603f1a"
+                    }
+                }
+            </script>
+            <script src="https://widget.heweather.net/simple/static/js/he-simple-common.js?v=1.1"></script>
+        </div>
+    </div>
     <div class="overview">
         <div class="overview_item">
             <label>时间：</label>

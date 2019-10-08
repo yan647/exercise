@@ -15,7 +15,10 @@ body{
     display: flex;
     flex-wrap:wrap;
 }
-.overview_title,.journey_title{
+.overview_title{
+    display: flex;
+}
+.title,.journey_title{
     margin:10px;
     font-size:18px;
 }
