@@ -1,6 +1,11 @@
-# 前端学习，练手的地方
+# 练习原生JS
 
 ## todoList
+- angular最新版学习
+- postcss
+- load、onload、onunload、onreadystatechange、ready区别 https://blog.csdn.net/Alex_717/article/details/83028725   https://www.cnblogs.com/cblx/p/9032075.html
+window.onload jquery.ready
+
 - 天气 https://dev.heweather.com/docs/api/weather
 - angular 跨域 https://blog.csdn.net/white_idiot/article/details/80657651
 - request抽成组件
