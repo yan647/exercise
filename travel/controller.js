@@ -3,12 +3,17 @@
  */
 
 'use strict';
-
+import("../common/controller.js");
+// getJson();//todo
 let getUrl = function () {
-    let params = window.location.search.split("?")[1].split("&");
-    let type = params.filter((item) => {
-        return item.includes("type")
-    })[0].split("=")[1];
+    let type="";
+    let search = window.location.search;
+    if(search.length) {
+        let params = search.split("?")[1].split("&");
+        type = params.filter((item) => {
+            return item.includes("type")
+        })[0].split("=")[1];
+    } else type="changsha";//默认长沙
     return "./" + type + ".json";
 };
 
