@@ -1,50 +1,64 @@
-body{
+body {
     background: #fafafa;
 }
-.container{
-    margin:0 200px;
-    box-shadow: 0 0 1px rgba(0,0,0,.07);
-    -webkit-box-shadow: 0 0 1px rgba(0,0,0,.07);
+
+.container {
+    margin: 0 200px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .07);
+    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .07);
     background: white;
-    padding:10px;
+    padding: 10px;
 }
-.overview{
-    margin:10px;
-    border:1px solid #eee;
+
+.overview {
+    margin: 10px;
+    border-bottom: 1px solid #eee;
     padding: 10px;
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
 }
-.overview_title{
+
+.overview_title {
     display: flex;
+    margin: 10px;
+    align-items: center;
+    justify-content: space-between;
 }
-.title,.journey_title{
-    margin:10px;
-    font-size:18px;
+
+.title {
+    font-size: 18px;
 }
-.overview_item{
-    width:50%;
+
+.journey_title {
+    margin: 10px;
+    font-size: 18px;
 }
-#go,#back{
-    border:1px solid #eee;
+
+.overview_item {
+    width: 50%;
+}
+
+#go, #back {
+    border-bottom: 1px solid #eee;
     padding: 10px;
-    margin:10px;
+    margin: 10px;
 }
-#title{
-    font-size:24px;
+
+#title {
+    font-size: 24px;
     text-align: center;
     margin: 10px;
 }
 
-.journey_item{
-    margin:10px;
-    border:1px solid #eee;
+.journey_item {
+    margin: 10px;
+    border: unset;
     padding: 10px;
     display: flex;
-    flex-direction:row-reverse;
+    flex-direction: row-reverse;
 }
 
-.journey_item_content,.image{
+.journey_item_content, .image {
     display: inline-block;
-    width:50%;
+    width: 50%;
 }
