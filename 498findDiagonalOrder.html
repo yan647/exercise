@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * @param {number[][]} matrix
+     * @return {number[]}
+     */
+    var findDiagonalOrder = function (matrix) {
+        if (matrix.length === 0) {//空数组
+            return [];
+        }
+        let xLen = matrix.length,//行
+            yLen = matrix[0].length;//列
+        let result = [];//结果
+        for (let a = 0; a < xLen + yLen; a++) {
+            let xMax = (a % 2 === 0) ? yLen : xLen;//当前为偶数
+            let yMax = (a % 2 === 0) ? xLen : yLen;
+            for (let b = 0; b < a; b++) {
+
+            }
+        }
+        return result;
+    };
+    // console.log(findDiagonalOrder([[2, 5], [8, 4], [0, -1]]));
+
+
+    // var far = function (num) {
+    //     // if(num<0) return 0;
+    //     // if(num===0){
+    //     //     return 0;
+    //     // } else if(num===1){
+    //     //     return 1;
+    //     // } else {
+    //     //     return far(num-1)+far(num-2);
+    //     // }
+    //     for (var i = 0, data = []; i <= num; i++) {
+    //         i < 2 ? data.push(i) : data.push(data[i - 1] + data[i - 2])
+    //     }
+    //     return data[num];
+    // };
+    // console.log(far(100));
+</script>
+</body>
+</html>

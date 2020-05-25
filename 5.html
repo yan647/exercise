@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * @param {string} s
+     * @return {string}
+     */
+    var longestPalindrome = function(s) {
+        let result="";
+        let dp=new Array(s.length).fill([]);
+        dp=dp.map(()=>{
+            return new Array(s.length);
+        });
+        for(let dis=0;dis<s.length;dis++){
+            for(let a=0;a<s.length;a++){
+                let b=a+dis;
+                if(b>=s.length){
+                    break;
+                }
+                if(dis===0){
+                    dp[a][b]=true;
+                } else if(dis===1){
+                    dp[a][b]=(s.charAt(a)===s.charAt(b));
+                } else dp[a][b]= dp[a+1][b-1] && (s.charAt(a)===s.charAt(b));
+                if(dp[a][b]){
+                    result = (dis+1>result.length)? s.substr(a,b-a+1): result;
+                }
+            }
+        }
+        return result;
+    };
+    // console.log(longestPalindrome("babad"));
+    // console.log(longestPalindrome("bb"));
+    // console.log(longestPalindrome("b"));
+    console.log(longestPalindrome("cbbd"));
+</script>
+</body>
+</html>
