@@ -49,7 +49,9 @@
     request.send(null);
     request.onload = function () {
         if (request.status === 200) {
-            getProvinceList(JSON.parse(request.responseText)["province_list"]);
+            document.getElementById("province_list").innerText = getProvinceList(JSON.parse(request.responseText)["province_list"]);
+            // todo
+
         }
     };
 </script>

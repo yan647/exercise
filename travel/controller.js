@@ -59,6 +59,17 @@ let createJourney=function(infos){
     });
 };
 
+let getMapSearchResult = function(begin,end) {
+    // 百度地图，查询两点公交换乘路线
+    var map = new BMap.Map("l-map");
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 12);
+
+    var transit = new BMap.TransitRoute(map, {
+        renderOptions: {map: map, panel: "r-result"}
+    });
+    transit.search(begin || "王府井", end ||"西单");
+}
+
 let windowOnloadFunc = function () {
     let json_url = getUrl();
     let info = {};

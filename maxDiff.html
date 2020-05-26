@@ -2,9 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    /**
+     * @param {number} num
+     * @return {number}
+     */
+
+    var maxDiff = function(num) {
+        let arr=num.toString().split("");
+        arr=arr.map((data)=>{
+            return Number(data);
+        });
+        if(num/10<1){
+            return 8;
+        } else {
+            let a=JSON.parse(JSON.stringify(arr));
+            if(a[0]==9){
+                let x=1;
+                for(x;x<a.length;x++){
+                    if(a[x]!=a[x-1]){
+                        break;
+                    }
+                }
+                a=a.map((data)=>{
+                    return data==a[x]?9 :data;
+                });
+            } else {
+                a=a.map((data)=>{
+                    return data==a[0]? 9: data;
+                });
+            }
+            a=Number(a.join(""));
+
+            let b=JSON.parse(JSON.stringify(arr));
+            if(b[0]==1){
+                let x=1;
+                for(x;x<b.length;x++){
+                    if(b[x]!=1 && b[x]!=0){
+                        break;
+                    }
+                }
+                b=b.map((data)=>{
+                    return data==b[x]?0 :data;
+                });
+            } else{
+                b=b.map((data) => {
+                    return data == b[0] ? 1 : data;
+                });
+            }
+            b=Number(b.join(""));
+            return Math.abs(a-b);
+        }
+    };console.log(maxDiff(123456));
+</script>
 </body>
 </html>

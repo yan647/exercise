@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    /**
+     * @param {number[]} arr
+     * @return {number}
+     */
+    var countTriplets = function (arr) {
+        function sum(arr) {
+            return arr.reduce(function(prev, curr, idx, arr){
+                return prev ^ curr;
+            });
+        }
+        let result = 0;
+        for (let i = 0; i < arr.length - 1; i++) {
+            for (let j = i + 1; j < arr.length && i<j; j++) {
+                for (let k = j; k < arr.length && j<=k; k++) {
+                    let temp = JSON.parse(JSON.stringify(arr));
+                    if (sum(temp.splice(i, j - i)) === sum(temp.splice(i, k - j + 1))) {
+                        result++;
+                    }
+                }
+            }
+        }
+        return result;
+    };
+    // console.log(countTriplets([218,218]));
+    console.log(countTriplets([2,3,1,6,7]));
+</script>
 </body>
 </html>

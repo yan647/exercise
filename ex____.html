@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    /**
+     * @param {string[][]} orders
+     * @return {string[][]}
+     */
+    var displayTable = function(orders) {
+        let result=[["Table"]];
+        let addTable=function(result_food_list,food,table){
+            let temp1=new Array(result_food_list.length).fill(0);
+            if(result_food_list.indexOf(food)>=0){
+                temp1[result_food_list.indexOf(food)]++
+            }
+            temp1.unshift(table);
+            result.push(temp1);
+        };
+        let addFood=function(result_table_list,food,table){
+            result[0].push(food);
+            for(let i=1;i<result.length;i++){
+                if(i===result_table_list.indexOf(table)+1){
+                    result[i].push(1);
+                } else result[i].push(0);
+            }
+        };
+        for(let a=0;a<orders.length;a++){
+            let food=orders[a][2],table=orders[a][1];
+            if(a==0){
+                result[0].push(food);
+                result.push([table,1]);
+            } else {
+                let result_food_list=JSON.parse(JSON.stringify(result[0]));
+                result_food_list.splice(0,1);
+                let result_table_list=[];
+                result.map((data,index)=>{
+                    if(index){
+                        result_table_list.push(data[0]);
+                    }
+                });
+
+                let find_food_index=0,find_table_index=0;
+                let find_food=result[0].find((data,index)=>{
+                    if(data===food){
+                        find_food_index=index;
+                        return data===food
+                    }
+                });
+                let find_table=result_table_list.find((data,index)=>{
+                    if(data===table){
+                        find_table_index=index;
+                        return data===table;
+                    }
+                });
+
+                if(find_food && find_table){
+                    result[find_table_index+1][find_food_index]++;
+                } else if(find_food && !find_table){
+                    addTable(result_food_list,food,table);
+                } else if(!find_food && find_table){
+                    addFood(result_table_list,food,table);
+                } else if(!find_food && !find_table){
+                    addFood(result_table_list,food,table);
+                    result_food_list=JSON.parse(JSON.stringify(result[0]));
+                    result_food_list.splice(0,1);
+                    addTable(result_food_list,food,table);
+                }
+            }
+        }
+        let first_result=result.shift();
+        result.sort((a,b)=>{return a[0]-b[0]}).unshift(first_result);
+
+        let first_item=result[0].shift();
+        for(let a=0;a<result[0].length;a++){
+            for(let b=a+1;b<result[0].length-1;b++){
+                if(result[0][a][0]>=result[0][b][0]){
+                    let temp=result[0][b][0];
+                    result[0][b][0]=result[0][a][0];
+                    result[0][a][0]=result[0][b][0];
+                }
+            }
+        }
+        console.log(result);
+        return result;
+    };
+    displayTable([["David","3","Ceviche"],["Corina","10","Beef Burrito"],["David","3","Fried Chicken"],["Carla","5","Water"],["Carla","5","Ceviche"],["Rous","3","Ceviche"]])
+</script>
+<body>
+
+</body>
+</html>

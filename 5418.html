@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    /**
+     * Definition for a binary tree node.
+     * function TreeNode(val, left, right) {
+     *     this.val = (val===undefined ? 0 : val)
+     *     this.left = (left===undefined ? null : left)
+     *     this.right = (right===undefined ? null : right)
+     * }
+     */
+    /**
+     * @param {TreeNode} root
+     * @return {number}
+     */
+    var pseudoPalindromicPaths  = function(root) {
+        let roadArr=[];
+        if(root===null){
+            return 0;
+        } else if(root.val!==undefined && !root.left && !root.right){
+            return 1;
+        } else {
+            roadArr[0].push(root.val);
+            if(root.left && root.left.val){
+                roadArr[0].push(root.left.val);
+            }
+        }
+    };
+</script>
 </body>
 </html>

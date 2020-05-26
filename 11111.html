@@ -2,9 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    // arr = readline().split(",");
+    arr=[3, 3, 5, 3, 5];
+    if (!arr.length) {
+        print(0);
+    } else {
+        let temp1 = JSON.parse(JSON.stringify(arr));
+        let temp2 = temp1.sort((a, b) => {
+            return b - a;
+        });
+        let result = [];
+        for (let a = 0; a < arr.length; a++) {
+            if(arr.indexOf(arr[a]>=a)) {
+                let t = temp2.indexOf(arr[a]);
+                let b = a;
+                if (a === 0) {
+                    result.push(t);
+                    while (temp2[a + 1] && temp2[a] === temp2[a + 1]) {
+                        result.push(++t);
+                        a++;
+                    }
+                } else while (temp2[a] === temp2[a - 1]) {
+                    result.push(++t);
+                    a++;
+                }
+                a = b;
+            }
+        }
+        // print(result.join(", "));
+        console.log(result);
+    }
+
+
+</script>
 </body>
 </html>

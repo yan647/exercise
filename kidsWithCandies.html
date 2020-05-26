@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    /**
+     * @param {number[]} candies
+     * @param {number} extraCandies
+     * @return {boolean[]}
+     */
+    var kidsWithCandies = function(candies, extraCandies) {
+        let temp=JSON.parse(JSON.stringify(candies));
+        temp.sort((a,b)=>{
+            return a-b;
+        });
+        let max=temp[temp.length-1],max_index=candies.indexOf(max), mix=temp[0],min_index=candies.indexOf(mix);
+        let result=new Array(candies.length);
+        for(let a=0;a<candies.length;a++){
+            if(candies[a]===max){
+                result[a]=true;
+            } else if(candies[a]+extraCandies>=max){
+                result[a]=true;
+            } else result[a]=false;
+        }
+        return result;
+    };
+    console.log(kidsWithCandies())
+</script>
 </body>
 </html>

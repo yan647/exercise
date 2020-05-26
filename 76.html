@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    /**
+     * @param {string} s
+     * @param {string} t
+     * @return {string}
+     */
+    var minWindow = function (s, t) {
+        let map = new Map();
+        let missingType = 0;
+        for (let a = 0; a < t.length; a++) {
+            if (map[t.charAt(a)]) {
+                map[t.charAt(a)]++
+            } else {
+                map[t.charAt(a)] = 1;
+                missingType++;
+            }
+        }
+        let minLen = Infinity;
+        let resultLeft;
+        let left = 0, right = 0;
+        for (; right < s.length; right++) {
+            if (map[s.charAt(right)] !==undefined) {
+                map[s.charAt(right)]--;
+            }
+            if (map[s.charAt(right)] === 0) {
+                missingType--;
+            }
+            while (missingType === 0) {
+                if (minLen > right - left + 1) {
+                    minLen = right - left + 1;
+                    resultLeft = left;
+                }
+                if (map[s.charAt(left)] !== undefined) {
+                    map[s.charAt(left)]++;
+                }
+                if (map[s.charAt(left)] > 0) {
+                    missingType++;
+                }
+                left++;
+            }
+        }
+        return s.substring(resultLeft, resultLeft+minLen);
+    };
+    // console.log(minWindow("ADOBECODEBANC", "ABC"));
+    console.log(minWindow("a", "aa"));
+</script>
 </body>
 </html>

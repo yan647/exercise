@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
+<div id="result"></div>
 <body>
-$END$
+<script>
+    var lengthOfLongestSubstring = function (s) {
+        let arr = s.split("");
+        let sum = arr.length ? 1 : 0;
+        for (let a = 0; a < arr.length; a++) {
+            let sets = new Set();
+            sets.add(arr[a]);
+            let b;
+            for (b = a + 1; b < arr.length && !sets.has(arr[b]); b++) {
+                sets.add(arr[b]);
+            }
+            sum = (sets.size > sum) ? sets.size : sum;
+        }
+        return sum;
+    };
+    let result = lengthOfLongestSubstring("aab");
+    document.getElementById("result").text = result;
+</script>
 </body>
 </html>

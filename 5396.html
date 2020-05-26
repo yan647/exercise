@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    /**
+     * @param {string} s
+     * @return {number}
+     */
+    var maxPower = function(s) {
+        let result=new Array(s.length).fill(1);
+        for(let a=0;a<s.length;a++){
+            for(let b=a+1;b<s.length;b++){
+                if(s.charAt(a)===s.charAt(b)){
+                    result[a]++;
+                } else break;
+            }
+        }
+        return Math.max.apply(this,result);
+    };
+    console.log(maxPower("cc"))
+</script>
 </body>
 </html>

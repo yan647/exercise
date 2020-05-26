@@ -2,9 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>计算字符个数</title>
 </head>
 <body>
-$END$
+<script>
+    let len=parseInt(readline());
+    let arr=new Array();
+    for(let a=0;a<len;a++){
+        arr.push(parseInt(readline()));
+    }
+    let result=new Set(Array.from(arr.sort((a,b)=>{return a-b;})));
+    result=[...result];
+    //console.log(result);
+    result.forEach((data)=>{
+        console.log(data+"\n");
+    });
+</script>
 </body>
 </html>

@@ -2,9 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>字符串分割</title>
 </head>
 <body>
-$END$
+<script>
+    let str = "urivthvtlqqerctlxmjvkgvfclaaduwmaadedpadanl".split("");
+    let str2 = "batkqdhjnrwtsmzidswdnenqpsblsszldyttytrgenaizwehntqiaaufble".split("");
+    let result = [];
+    let getEight = function (str, str2, result) {
+        if (str.length < 8 && str.length>0) {
+            result.push(str.concat(new Array(8 - str.length).fill(0)).join(""));
+            str=[];
+        } else if(str.length>=8){
+            result.push(str.splice(0, 8).join(""));
+            return getEight(str, str2, result);
+        }
+        if (str2.length < 8) {
+            result.push(str2.concat(new Array(8 - str2.length).fill(0)).join(""));
+        } else {
+            result.push(str2.splice(0, 8).join(""));
+            return getEight(str, str2, result);
+        }
+        return result;
+    };
+    let t = getEight(str, str2, result);
+    t.forEach((data) => {
+        console.log(data + "\n");
+    });
+
+</script>
 </body>
 </html>
