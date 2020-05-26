@@ -1,11 +1,7 @@
 node_modules*
 .DS_Store
 .idea
-/static/
+/public/
 /dist
-npm-debug.log
 package-lock.json
-yarn-error.log
-test.json
-.vscode
-report.*
+test.html
