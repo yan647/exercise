@@ -9,3 +9,7 @@ window.onload jquery.ready
 - angular 跨域 https://blog.csdn.net/white_idiot/article/details/80657651
 - request抽成公共函数
 - 下拉框写成组件
+- AST虚拟语法树
+- ESLint练习
+- TypeScript练习
+- Webpack练习
