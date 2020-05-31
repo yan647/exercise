@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * @param {number} n
+     * @param {number[][]} prerequisites
+     * @param {number[][]} queries
+     * @return {boolean[]}
+     * Floyd-Warshall算法
+     * 计算有向图的最短路径
+     * 《算法导论》第25章
+     */
+    var checkIfPrerequisite = function (n, prerequisites, queries) {
+        let map = [];
+        for (let a = 0; a < n; a++) {
+            map[a] = new Array(n).fill(false);
+        }
+        prerequisites.forEach(([a, b]) => {
+            map[a][b] = true;
+        });
+        for (let a = 0; a < n; a++) {
+            for (b = 0; b < n; b++) {
+                for (let c = 0; c < n; c++) {
+                    map[b][c] = map[b][c] || map[b][a] && map[a][c];
+                }
+            }
+        }
+        return queries.map(([a, b]) => map[a][b]);
+    };
+    // console.log(checkIfPrerequisite(2,
+    //     [[1,0]],
+    //     [[0,1],[1,0]]));//[false,true]
+    // console.log(checkIfPrerequisite(2, [], [[1,0],[0,1]]));//[false,false]
+    // console.log(checkIfPrerequisite(3, [[1,2],[1,0],[2,0]], [[1,0],[1,2]]));//[true,true]
+    // console.log(checkIfPrerequisite(n = 3, prerequisites = [[1,0],[2,0]], queries = [[0,1],[2,0]]));//[false,true]
+    console.log(checkIfPrerequisite(n = 5, prerequisites = [[0, 1], [1, 2], [2, 3], [3, 4]], queries = [[0, 4], [4, 0], [1, 3], [3, 0]]));//[true,false,true,false]
+</script>
+</body>
+</html>
