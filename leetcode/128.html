@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    var longestConsecutive1 = function (nums) {
+        if (nums.length === 0) {
+            return 0;
+        }
+        nums.sort((a, b) => {
+            return a - b;
+        });
+        let result = 1, temp = 1;
+        for (let a = 0; a < nums.length - 1; a++) {
+            if (nums[a + 1] - nums[a] === 1) {
+                temp++;
+            } else if (nums[a + 1] !== nums[a]) {
+                result = Math.max(result, temp);
+                temp = 1;
+            }
+        }
+        result = Math.max(result, temp);
+        return result;
+    };
+    // console.log(longestConsecutive1([0, -1]));
+    // console.log(longestConsecutive1([1, 2, 0, 1,2,3,3,4]));
+
+    var longestConsecutive2=function(nums){
+        if (nums.length === 0) {
+            return 0;
+        }
+        nums.sort((a, b) => {
+            return a - b;
+        });
+        let set=new Set(Array.from(nums));
+        let arr=[...set];
+        let result = 1, temp = 1;
+        for (let a = 0; a < arr.length - 1; a++) {
+            if (arr[a + 1] - arr[a] === 1) {
+                temp++;
+            } else{
+                result = Math.max(result, temp);
+                temp = 1;
+            }
+        }
+        result = Math.max(result, temp);
+        return result;
+    };
+    // console.log(longestConsecutive2([1, 2, 0, 1,2,3,3,4]));
+
+    var longestConsecutive3=function(nums){
+        if (nums.length === 0) {
+            return 0;
+        }
+        let set=new Set(nums);
+        let result=1,temp=1;
+        for(let a of set){
+            if(!set.has(a-1)){
+                let n=1;
+                while(set.has(a+n)){
+                    temp++;
+                    n++;
+                }
+                result=Math.max(result,temp);
+                temp=1;
+            }
+        }
+        return result;
+    };
+    console.log(longestConsecutive3([1, 2, 0, 1,2,3,3,4]));
+</script>
+</body>
+</html>
