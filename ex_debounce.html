@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #notDebounce, #debounce, #this, #onmousemoveDebounce {
+            width: 1000px;
+            height: 50px;
+            background: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div>来源：https://mp.weixin.qq.com/s/Os3sqPiFvjycCYxfdnfaJA</div>
+<label>鼠标悬浮（未使用防抖）:this指向div</label>
+<div id="notDebounce"></div>
+<br>
+
+<label>直接在html上加鼠标事件：this指向window</label>
+<div onmousemove="addCount1()" id="this"></div>
+<br>
+
+<label>onmousemove（使用防抖）</label>
+<div onmousemove="debounce1(addCount2,1000)" id="onmousemoveDebounce"></div>
+<br>
+
+<label>鼠标悬浮（使用防抖）</label>
+<div id="debounce"></div>
+
+<script>
+    //通过js加鼠标事件
+    let debounce = function (func, gap) {
+        let timeOut;
+        return function () {
+            clearTimeout(timeOut);
+            timeOut = setTimeout(func, gap);
+        };
+    };
+    let addCount0 = function () {
+        let item = document.getElementById("notDebounce");
+        if (item.innerHTML !== "") {
+            item.innerHTML++;
+        } else item.innerHTML = 1;
+        console.log("0", this);//div
+    };
+    let addCount = function () {
+        let item = document.getElementById("debounce");
+        if (item.innerHTML !== "") {
+            item.innerHTML++;
+        } else item.innerHTML = 1;
+        console.log("00", this);//window
+    };
+    document.getElementById("notDebounce").onmousemove = addCount0;
+    document.getElementById("debounce").onmousemove = debounce(addCount, 1000);
+
+    //直接在html上加鼠标事件：this指向window
+    let addCount1 = function () {
+        console.log("1", this);//window
+    };
+
+    //直接在html上加鼠标事件
+    let debounce1 = function (func, gap) {
+        let timeOut;
+        return function () {//没有执行这个闭包，为什么？？？？？？？？？？？？？？？？？？
+            clearTimeout(timeOut);
+            timeOut = setTimeout(func, gap);
+        };
+    };
+    let addCount2 = function () {
+        let item = document.getElementById("onmousemoveDebounce");
+        if (item.innerHTML !== "") {
+            item.innerHTML++;
+        } else item.innerHTML = 1;
+        console.log("0", this);//div
+    };
+</script>
+</body>
+</html>
