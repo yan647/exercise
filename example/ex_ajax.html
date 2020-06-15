@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax</title>
+</head>
+
+<body>
+	<h1>终止正在发送的AJAX请求</h1>
+	<button id="song">abort</button>
+	<p>来源：http://www.cnblogs.com/siqi/archive/2012/12/02/2798093.html</p>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+    //jquery的ajax方法有自己的超时时间设置参数
+	/*$.ajax({
+		type:'POST',
+		url:'ex_ajax1.html',
+		data:'',
+		timeout:5000,
+		success:function(){}
+	});*/
+
+    //XMLHttpRequest对象有abort()方法， 自己手动去调用abort方法
+	/*var xhr=$.ajax({
+		type:'POST',
+		url:'ex_ajax1.html',
+		data:'',
+		success:function(){
+			alert('ok');
+		}
+	});
+	alert(xhr);
+	console.log(xhr);
+
+	$(function(){
+		$("#song").click(function(){
+			alert('click');
+			xhr.abort();
+		});
+	})*/
+
+	//原生的
+	var xmlHttp=new XMLHttpRequest();
+	theUrl="ex_ajax1.html";
+	xmlHttp.open("POST","theUrl",true);
+	xmlHttp.onreadystatechange=function(){};
+	xmlHttp.send();
+	setTimeout("CheckRequest()","8000");
+	function CheckRequest(){
+		if(xmlHttp.readyState!=4){
+			alert('响应超时');
+			xmlHttp.close();
+		}
+	}
+
+</script>
+</html>

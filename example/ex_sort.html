@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>sort例子</title>
+</head>
+<body>
+<h1>sort()排序详解</h1>
+<p>来源：http://www.cnblogs.com/longze/archive/2012/11/27/2791230.html</p>
+<p>sort()对数组排序，不开辟新的内存，对原有数组元素进行调换</p>
+</body>
+<script type="text/javascript">
+	//简单数组简单排序
+	/*var arrSimple=new Array(1,8,2,5,3);
+	arrSimple.sort();
+	console.log(arrSimple.join());*/
+
+	//简单数组自定义排序
+	//a,b表示数组中任意两个元素，若return>0,b前a后
+	var arr2=new Array(1,8,2,5,3);
+	arr2.sort(function(a,b){
+		return b-a;
+	});
+	console.log(arr2);
+
+	//简单对象List自定义属性排序
+	var objectList=new Array();
+	function Persion(name,age){
+		this.name=name;
+		this.age=age;
+	}
+	objectList.push(new Persion('jack',20));
+	objectList.push(new Persion('jack1',24));
+	objectList.push(new Persion('jack2',27));
+	objectList.push(new Persion('jack3',21));
+	objectList.sort(function(a,b){return a.age-b.age});
+	
+	//简单对象List对可编辑属性的排序
+	var obj2=new Array();
+	function WorkMate(name,age){
+		this.name=name;
+		var _age=age;
+		this.age=function(){//age 可编辑属性
+			if(!arguments){
+				_age=arguments[0];
+			} else {
+				return _age;
+			}
+		}		
+	}
+	obj2.push(new WorkMate('jack',20));
+	obj2.push(new WorkMate('jack1',24));
+	obj2.push(new WorkMate('jack2',27));
+	obj2.push(new WorkMate('jack3',21));
+	obj2.sort(function(a,b){
+		return a.age()-b.age();//不懂为啥要加括号
+	});
+</script>
+
+</html>

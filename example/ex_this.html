@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this和作用域</title>
+</head>
+<body>
+	<p>在 JavaScript 中,上下文对象就是 this 指针,即<b>被调用函数</b>所处的环境。</p>
+</body>
+<script type="text/javascript">
+//http://www.cnblogs.com/bennman/archive/2013/09/08/3309024.html
+	/*var someuser={
+		name:'byvoid',
+		func:function(){
+			console.log(this.name);
+		}
+	}
+	var foo={
+		name:'foobar'
+	}
+	someuser.func();//
+	foo.func=someuser.func;
+	foo.func();//
+	name='global';
+	func=someuser.func;
+	func();//*/
+
+	/*var scope='top';
+	var f1=function(){
+		console.log(scope);
+	}
+	f1();//
+	var f2=function(){
+		var scope='f2';
+		f1();
+	}
+	f2();//*/
+
+	
+//http://www.tuicool.com/articles/QnMnEba
+	/*var foo='window';
+	var obj={
+		foo:'obj',
+		getFoo:function(){
+			return function(){
+				return this.foo;
+			};
+		}
+	};
+	var f=obj.getFoo();
+	f();//*/
+
+	/*var foo='window';
+	var obj={
+		foo:'obj',
+		getFoo:function(){
+			var that=this;
+			return function(){
+				return that.foo;
+			};
+		}
+	};
+	var f=obj.getFoo();
+	f();//*/
+
+
+</script>
+</html>

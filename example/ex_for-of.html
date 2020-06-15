@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>for-of循环</title>
+</head>
+<body>
+	<p>来源： http://www.infoq.com/cn/es6-in-depth/</p>
+</body>
+<script type="text/javascript">
+	for(var i=0;i<arr.length;i++){
+		console.log(arr[i]);
+	}
+
+    //ES5
+	arr.forEach(function(e){
+	//不能用break中断循环
+	//不能使用return 返回到外层函数
+		console.log(e);
+	});
+
+	for(var i in arr){
+	//1、除了遍历数组元素外，还会遍历自定义属性
+	//2、遍历时是按随机顺序遍历的  
+	//3、适用于遍历字符串类型，不适合遍历数组
+		console.log(arr[i]);
+	}
+
+	for(var value of arr){
+		//避开for-in循环的所有缺陷
+		//可以正确响应break,continue和return语句
+		//for-in用来遍历对象属性，而for-of遍历数据-如数组中的值
+		//for-of也可以遍历其他的集合，比如DOM NodeList对象。也支持字符串遍历，它将字符串当做一系列Unicode字符进行遍历
+		//支持Map和Set对象遍历
+		//不支持普通对象
+		console.log(value);
+	}
+
+	for(var char of ''){
+		console.log(char);
+	}
+
+	var uniqueWords=new Set(words);//Set对象可以自动排除重复项
+
+	for(var word of uniqueWords){
+		console.log(word);
+	}
+
+	//Map内含的数据由键值对组成，需要使用解构（destructuring）来将键值对拆解成两个独立的变量
+	for(var [key,value] of phoneBookMap){
+		console.log(key+"'s phone number is:"+value);
+	}
+
+	for(var key of Object.keys(someObject)){
+		console.log(key+';'+someObject[key]);
+	}
+</script>
+</html>

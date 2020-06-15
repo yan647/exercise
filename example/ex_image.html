@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.bg1{background: url(a.jpg);}
+		.bg2{background: url(c.jpg);}
+	</style>
+</head>
+<body>
+<p>五张图片网页加载的请求顺序是怎么样的</p>
+<p>在chrome中查看，打开审查元素-Network-image</p>
+<p>方法来源：  http://www.phpvar.com/archives/2887.html </p>
+<div class="bg1"></div>
+<img src="b.jpg" alt="">
+<div class="bg2"></div>
+<img src="d.jpg" alt="">
+<img src="e.jpg" alt="">
+</body>
+</html>

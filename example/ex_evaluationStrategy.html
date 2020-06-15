@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS是按值传递还是按引用传递？</title>
+</head>
+<body>
+	<p>来源：http://www.jb51.net/article/60568.htm</p>
+	<p>按共享传递 call by sharing</p>
+	<p>调用函数传参时，函数接受对象实参引用的副本。在共享传递中对函数形参的赋值，不会影响实参的值。虽然引用是副本，引用的对象是相同的。他们共享相同的对象，所以修改形参对象的属性值，也会影响到实参的属性值。</p>
+	<p>在JS中，任何看似对string值的”修改”操作，实际都是创建新的string值。</p>
+</body>
+<script type="text/javascript">
+	//JS的基本类型，是按值传递的
+	var a=1;
+	function foo(x){
+		x=2;
+	}
+	foo(a);
+	console.log(a);
+
+	//说明对象不是按值传递
+	var obj={x:1};
+	function foo1(o){
+		o.x=3;
+	}
+	foo1(obj);
+	console.log(obj.x);
+
+	//对象是按共享传递的
+	var obj1={x:1};
+	function foo2(o){
+		o=100;
+	}
+	foo2(obj1);
+	console.log(obj1.x);
+
+	var str='abc';
+	console.log(str[0]);
+	str[0]='d';
+	console.log(str);//没办法修改字符串的内容
+
+	var obj2={x:1};
+	obj2.x=100;
+	var o=obj2;
+	o.x=1;
+	console.log(obj2.x);
+	o='aaa';
+	console.log(obj2.x);//就是说，如果用形参来改对象的属性，是可以改的，但用形参来改对象，是无法修改的
+</script>
+</html>

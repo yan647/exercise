@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js实现继承的5种方法</title>
+</head>
+<body>
+	<h1>js实现继承的5种方法</h1>
+	<p>来源： http://javapolo.iteye.com/blog/1996871</p>
+</body>
+<script type="text/javascript">
+    //方法一
+	function Parent(firstname){
+		this.fname=firstname;
+		this.age=40;
+		this.sayAge=function(){
+			console.log(this.age);
+		}
+	}
+	function child(firstname){
+		this.parent=Parent;
+		this.parent(firstname);
+		delete this.parent;
+		this.saySomeThing=function(){
+			console.log(this.fname);
+			this.sayAge();
+		}
+	}
+	var mychild=new child('李');
+	mychild.saySomeThing();
+
+	//方法二
+	function Parent(firstname){
+		this.fname=firstname;
+		this.age=40;
+		this.sayAge=function(){
+			console.log(this.age);
+		}
+	}
+	function Child(firstname){
+		this.saySomeThing=function(){
+			console.log(this.fname);
+			this.sayAge();
+		}
+		this.getName=function(){
+			return firstname;
+		}
+	}
+	var child=new Child('刘');
+	Parent.call(child,child.getName());//没看懂
+	child.saySomeThing();
+</script>
+</html>

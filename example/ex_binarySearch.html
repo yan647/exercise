@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>二分法</title>
+</head>
+<body>
+	<h1>二分法</h1>
+	<p>来源 http://www.jb51.net/article/23181.htm</p>
+</body>
+<script type="text/javascript">
+	function binarySearch(obj){
+		var value=0;
+		var left=0;
+		var right=this.length;
+		while(left<=right){
+			var center=Math.floor((left+right)/2);
+			if(this[center]==obj){
+				value=center;
+			} else if(obj<this[center]){
+				right=center-1;
+			} else {
+				left=center+1;
+			}
+		}
+		alert(value);
+	}
+</script>
+</html>

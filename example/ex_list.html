@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>列表</title>
+</head>
+<body>
+	《数据结构与算法JavaScript描述》--列表
+</body>
+<script type="text/javascript">
+	function List(){
+		this.dataStore=[];//初始化
+		this.listSize=0;
+		this.pos=0;//当前指向的位置
+
+		//
+		//基本操作
+		//
+		this.append=function(element){//添加
+			return this.dataStore[this.listSize++]=element;
+		};
+		this.find=function(element){//查找
+			for(var i=0;i<this.listSize;i++){
+				if(this.dataStore[i]==element){
+					return i;
+				}
+			}
+			return -1;
+		};
+		//this.length=this.listSize;
+		//获取的是List函数中的listSize,所以结果是0
+
+		this.length=function(){
+			return this.listSize;//用到闭包，结果就是List的长度，为什么？
+		}
+
+		//this.toString=this.dataStore;
+		//为什么这个可以这样写能返回它的值，上面那个不可以
+		//如果这样写，清空不了这个list了
+
+		this.toString=function(){
+			return this.dataStore;
+		}
+		this.insert=function(element,after){
+			var insertPos=this.find(after);
+			if(insertPos>-1){
+				this.dataStore.splice(insertPos+1,0,element);
+				++this.listSize;
+				return true;
+			}
+			return false;
+		}
+		this.contains=function(element){
+			//for(var i=0;i<this.listSize;i++){
+			for(var i=0;i<this.dataStore.length;++i){
+				if(this.dataStore[i]==element){
+					return true;
+				}
+				return false;
+			}
+		}
+		this.clear=function(){
+			delete this.dataStore;
+			this.dataStore=[];
+			this.listSize=this.pos=0;
+		}
+		//
+		//基本操作
+		//
+
+
+		//
+		//迭代器
+		//
+		this.front=function(){
+			this.pos=0;
+		}
+		this.end=function(){
+			this.pos=this.listSize-1;
+		}
+		this.prev=function(){
+			if(this.pos>0){
+				--this.pos;
+			}
+		}
+		this.next=function(){
+			if(this.pos<this.listSize-1){
+				this.pos++;
+			}
+		}
+		this.currPos=function(){
+			return this.pos;
+		}
+		this.moveTo=function(position){
+			this.pos=position;
+		}
+		this.getElement=function(){
+			return this.dataStore[this.pos];
+		}
+		//
+		//迭代器
+		//
+
+	}
+	//验证
+	var list=new List();
+	list.append('a');
+	list.append('b');
+	list.append('c');
+	console.log(list);
+	console.log(list.length());
+	console.log(list.find('b'));
+	console.log(list.toString());
+	list.insert('1','b');
+	console.log(list.toString()); 
+	console.log(list.contains('1'));//结果是false，为什么？应该如何改进？
+	list.clear();
+	console.log(list.toString());
+	list.append('a');
+	list.append('b');
+	list.append('c');
+	for(list.front();list.currPos()<list.length();list.next()){
+		console.log(list.getElement());
+	}
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>reduce的用法</title>
+</head>
+<script type="text/javascript">
+    //方法一
+	/*var arr = ["apple","orange","apple","orange","pear","orange"]; 
+	function getWordCnt(){   
+		var obj = {};       
+		for(var i= 0, l = arr.length; i< l; i++){     
+			var item = arr[i];  console.log(obj[item]);   
+			obj[item] = (obj[item] +1 ) || 1;   
+		}       
+			return obj; 
+	}   
+	console.log(getWordCnt());*/
+
+    //方法二 reduce用法
+	var arr = ["apple","orange","apple","orange","pear","orange"]; 
+	function getWordCnt(){   
+		return arr.reduce(function(prev,next){     
+			prev[next] = (prev[next] + 1) || 1;     
+			return prev;   
+		}); 
+	}   
+	console.log(getWordCnt());
+</script>
+<body>
+	<h1>reduce的用法</h1>
+</body>
+</html>
