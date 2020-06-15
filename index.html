@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>练习</title>
-    <link rel="shortcut icon" href="1.ico">
+    <link rel="shortcut icon" href="img/1.ico">
     <link rel="icon" href="img/1.ico">
     <style type="text/css">
         body {
@@ -20,7 +20,7 @@
         }
 
         li, .dropDownContent, span {
-            font-family: '微软雅黑';
+            font-family: '微软雅黑', serif;
             font-size: 20px;
         }
 
@@ -61,10 +61,10 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, .07);
         }
 
-        .dropDown {
-            position: relative;
-            display: inline-block;
-        }
+        /*.dropDown {*/
+        /*    position: relative;*/
+        /*    display: inline-block;*/
+        /*}*/
 
         .tit {
             padding-left: 10px;
@@ -91,7 +91,7 @@
             <dl class="dropDownContent">
                 <dd><a href="ex_ajax.html" target="_blank"><p>终止正在发送的AJAX请求</p></a></dd>
                 <dd><a href="ex_crossDomain.html" target="_blank"><p>AJAX跨域</p></a></dd>
-                <dd><a href="javascript:;" target="_blank"><p>敬请期待</p></a></dd>
+                <dd><a href="javascript:" target="_blank"><p>敬请期待</p></a></dd>
             </dl>
         </li>
         <li>
@@ -128,7 +128,7 @@
             <div class="tit">设计模式</div>
             <dl class="dropDownContent">
                 <dd><a href="ex_singleton.html" target="_blank"><p>单例模式</p></a></dd>
-                <dd><a href="javascript:;" target="_blank"><p>工厂模式（没写）</p></a></dd>
+                <dd><a href="javascript:" target="_blank"><p>工厂模式（没写）</p></a></dd>
             </dl>
         </li>
         <li>
@@ -206,13 +206,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".tit").click(function () {
-            console.log('111');
-            var i = $('.tit').index(this);
+            let i = $('.tit').index(this);
             $(".dropDownContent").eq(i).slideToggle("fast");
-            for (var j = 0; j < $('li').children('.tit').length; j++)
-                if (j != i) $(".dropDownContent").eq(j).css('display', 'none');
+            for (let j = 0; j < $('li').children('.tit').length; j++) {
+                if (j !== i) {
+                    $(".dropDownContent").eq(j).css('display', 'none');
+                }
+            }
         });
     });
 </script>
-<script src="bundle.js"></script>
 </html>
