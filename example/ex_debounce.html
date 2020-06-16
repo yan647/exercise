@@ -29,15 +29,28 @@
 <label>鼠标悬浮（使用防抖）</label>
 <div id="debounce"></div>
 
+<br>
+<div>来源：https://juejin.im/post/5c87b54ce51d455f7943dddb</div>
+<button id="debounce2">点击按钮防抖</button>
+<div id="debounce2_content"></div>
+
+<br>
+<div>来源：https://juejin.im/post/5b9382e3e51d450e9942e0ee</div>
+<input id="debounce3" placeholder="输入一定内容过一段事件后执行后续操作">
+<div id="debounce3_content"></div>
+
 <script>
-    //通过js加鼠标事件
+    /***
+     * 鼠标事件防抖
+     */
+        //通过js加鼠标事件
     let debounce = function (func, gap) {
-        let timeOut;
-        return function () {
-            clearTimeout(timeOut);
-            timeOut = setTimeout(func, gap);
+            let timeOut;
+            return function () {
+                clearTimeout(timeOut);
+                timeOut = setTimeout(func, gap);
+            };
         };
-    };
     let addCount0 = function () {
         let item = document.getElementById("notDebounce");
         if (item.innerHTML !== "") {
@@ -75,6 +88,51 @@
         } else item.innerHTML = 1;
         console.log("0", this);//div
     };
+
+    /***
+     * 点击提交按钮防抖
+     */
+    let debounce2 = function (timer) {
+        document.getElementById("debounce2").addEventListener("click", debounce2Operate(timer))
+    };
+    let debounce2Operate = function (timer) {
+        let timeOut = null;
+
+        return function () {
+            clearTimeout(timeOut);
+
+            timeOut = setTimeout(function () {
+                let elem = document.getElementById("debounce2_content");
+                if (elem.innerHTML) {
+                    elem.innerHTML++;
+                } else elem.innerHTML = 1;
+            }, timer);
+        };
+    };
+
+    window.onload = function () {
+        debounce2(1000);
+        debounce3(1000);
+    };
+
+
+    /***
+     * 输入框自动搜索的防抖
+     */
+    let debounce3 = function () {
+        document.getElementById("debounce3").addEventListener("input", debounce3Operate(debounce3timeOutOperator, 1000));
+    };
+    let debounce3Operate = function (timeOutOperator, timer) {
+        let timeOut = null;
+        return function () {
+            clearTimeout(timeOut);
+            timeOut = setTimeout(timeOutOperator, timer);
+        };
+    };
+    let debounce3timeOutOperator = function () {
+        document.getElementById("debounce3_content").innerHTML = document.getElementsByTagName("input")[0].value;
+    }
+
 </script>
 </body>
 </html>
