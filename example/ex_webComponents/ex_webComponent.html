@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>来源： http://www.ruanyifeng.com/blog/2019/08/web_components.html</div>
+<user-card image="../../img/1.jpg" content="测试"></user-card>
+
+<template id="userCardTemplate">
+    <style>
+        /*<template>样式里面的:host伪类，指代自定义元素本身*/
+        :host{
+
+        }
+        .image{
+            width:100px;
+            height: 100px;
+        }
+    </style>
+    <img class="image">
+    <div class="content"></div>
+</template>
+
+</body>
+<script src="user_card.component.js"></script>
+</html>
