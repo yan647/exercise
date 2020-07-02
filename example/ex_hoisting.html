@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>来源：https://juejin.im/post/5afcf1b96fb9a07abd0ddc43</div>
+<div>来源：https://mp.weixin.qq.com/s/O7vKVN8KWlksEhnRPVsinQ</div>
+<div>来源：https://mp.weixin.qq.com/s/ti4W4GRFgyD1MRhQ8QEl5w（没看完）</div>
+
+<article>
+    变量提升
+    变量提升只提升声明，不提升赋值
+    只有var命令定义的变量才存在变量提升
+    js 并不是在我们定义一个变量的时候，声明完成之后立即赋值，而是把所有用到的变量全部声明之后，再到变量的定义的地方进行赋值，变量的声明的过程就是变量的提升
+
+    函数提升
+    函数提升提升声明、赋值
+    函数提升优先变量提升
+    函数的提升只对声明式函数有效，对字面量函数无效
+</article>
+
+<script>
+    //例1
+    console.log(a);
+    var a = 'hello JS';
+    //undefined
+
+
+    //例2
+    num = 6;
+    num++;
+    var num;
+    console.log(num) ;
+    //7
+
+
+    //例3
+    function hoistFunction() {
+        foo();
+        function foo() {
+            console.log('running...')
+        }
+    }
+    hoistFunction();
+    //running...
+
+
+    //例4
+    alert(a);
+    a();
+    var a = 3;
+    function a() {
+        alert(10)
+    };
+    alert(a);
+    a = 6;
+    a();
+    // function a() {
+    //     alert(10)
+    // };
+    //10
+    //3
+    //error
+
+
+    //例5
+    var a = 10;
+    function f1(){
+        console.log(a);
+        var a = 20;
+        console.log(a);
+    }
+    f1()
+    //undefined
+    // 20
+
+    //例5解析
+    var a; //变量提升
+    a = 10; //赋值处赋值
+    function f1(){
+        var a; //变量提升
+        console.log(a) //undefined
+        a = 20; //赋值处赋值
+        console.log(a) //上面已赋值，所以结果是20
+    }
+    f1();
+    //为什么全局作用域那里已经定了啊了,并且也赋值了，而在函数f1里面打印的还是undefined，这是因为函数形成的函数作用域，已经是一个封闭性的作用域，只要它里面存在此变量，将不会去访问外层作用域的相同变量了
+
+    //例6
+    //示例一
+    console.log(f1()) // 10;
+    function f1(){
+        return 10;
+    }
+    console.log(f1()) // 10;
+
+    //示例二
+    console.log(f2()) // 报错:f2 is not a function
+    var f2 = function (){
+        return 20;
+    }
+    console.log(f2()) // 20;
+
+    //例6解析
+    //示例一
+    function f1(){return 10};
+    //函数提升是将整个函数提升到最顶部;
+    console.log(f1())
+    //10 执行到这里，函数已经存在，所以打印出来是10
+    console.log(f1())
+    //10 同样函数已经存在，能打印出正确结果 10
+
+    //示例二
+    var f2;
+    //是的，这里是个变量，所以要遵循变量提升
+    console.log(f2())
+    // 没错，在这里f2是个变量，还不是函数
+    //所以把他当做函数使用，当然会报错说他不是一个函数
+    f2 = function (){return 20}
+    //在这里将匿名函数赋给f2
+    console.log(f2())
+    //在此之前已经将匿名函数赋值给f2了,所以f2代表的就是这个函数
+    //所以自然就可以将f2作为函数来调用了
+
+    //例7
+    console.log(a)//function (){return 10}
+    var a = 10;
+    function a(){
+        return 10;
+    }
+    console.log(a); // 10;
+
+    //例7解析
+    function a(){return 10}
+    //首先函数被提升到最顶部
+    var a
+    //变量名与函数名一致，但是并不会将函数a覆盖
+    //相反的此时的变量a将会被忽略；因为在内存中其实存的仅仅是函数名
+    //不是整个函数，将函数当做变量a去存储，所以当碰到一样的变量名a的时候
+    //将会被忽略；
+    console.log(a)
+    //因为变量a被忽略，所以这里不会打印出来undefined，而是会打印a函数;
+    a = 10;
+    //给a赋值，将会覆盖之前的a函数，之前说过，函数a仅仅是存储为函数名a，
+    //将函数名a当成一个变量去存储,其实就相当于使用function定义了一个变量a
+    //和var 定义变量是一个概念;
+    console.log(a)
+    //这个时候a的值是10,所以打印的结果是10；
+
+
+</script>
+</body>
+</html>
