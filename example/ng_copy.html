@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>学习angularjs里的深拷贝</div>
+<script>
+    /**
+     * @ngdoc function
+     * @name angular.copy
+     * @module ng
+     * @kind function
+     *
+     * @description
+     * Creates a deep copy of `source`, which should be an object or an array. This functions is used
+     * internally, mostly in the change-detection code. It is not intended as an all-purpose copy
+     * function, and has several limitations (see below).
+     * 实现了一个给对象或数组使用的深拷贝，这个函数经常被用在变化检测代码中，它不能完全替代通用的拷贝函数，而且有很多限制
+     *
+     * * If no destination is supplied, a copy of the object or array is created.
+     * * If a destination is provided, all of its elements (for arrays) or properties (for objects)
+     *   are deleted and then all elements/properties from the source are copied to it.
+     * * If `source` is not an object or array (inc. `null` and `undefined`), `source` is returned.
+     * * If `source` is identical to `destination` an exception will be thrown.
+     * 如果没有提供目标，则创建一个对象或数组的副本
+     * 如果提供了目标，会把数组的所有元素（或对象的所有属性）删除，会把source所有的属性、元素拷贝过来
+     * 如果source不是对象、数组（如null undefined），直接返回source
+     * 如果source和destination相同，会抛出个异常
+     *
+     * <br />
+     *
+     * <div class="alert alert-warning">
+     *   Only enumerable properties are taken into account. Non-enumerable properties (both on `source`
+     *   and on `destination`) will be ignored.
+     * </div>
+     * 只考虑可枚举的属性，不可枚举的属性会被忽略掉
+     *
+     * <div class="alert alert-warning">
+     *   `angular.copy` does not check if destination and source are of the same type. It's the
+     *   developer's responsibility to make sure they are compatible.
+     * </div>
+     * angular.copy不去检查目标和源是否是相同的类型，这应该由开发者去确认他们的兼容性
+     *
+     * @knownIssue
+     * This is a non-exhaustive list of object types / features that are not handled correctly by
+     * `angular.copy`. Note that since this functions is used by the change detection code, this
+     * means binding or watching objects of these types (or that include these types) might not work
+     * correctly.
+     * - [`File`](https://developer.mozilla.org/docs/Web/API/File)
+     * - [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)
+     * - [`ImageData`](https://developer.mozilla.org/docs/Web/API/ImageData)
+     * - [`MediaStream`](https://developer.mozilla.org/docs/Web/API/MediaStream)
+     * - [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)
+     * - [`WeakMap`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
+     * - ['getter'](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get)/
+     *   [`setter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set)`
+     *  这里列出了angular.copy不处理的对象的特性，但不是很全。
+     *  注意当由于这个函数是用在检测变更代码时候用的，这意味着绑定或监听这些类型的对象可能无法正常工作
+     *
+     * @param {*} source The source that will be used to make a copy. Can be any type, including
+     *     primitives, `null`, and `undefined`.
+     * @param {(Object|Array)=} destination Destination into which the source is copied. If provided,
+     *     must be of the same type as `source`.
+     * @returns {*} The copy or updated `destination`, if `destination` was specified.
+     *
+     */
+    function copy(source, destination, maxDepth) {
+        var stackSource = [];
+        var stackDest = [];
+        maxDepth = isValidObjectMaxDepth(maxDepth) ? maxDepth : NaN;
+
+        if (destination) {//有目标值
+
+            // ArrayBuffer对象：代表原始的二进制数据，前端的一个通用的二进制缓冲区，类似数组，但在API和特性上却有诸多不同
+            // TypedArray视图：用来读写简单类型的二进制数据
+            // DataView视图：用来读写复杂类型的二进制数据
+            if (isTypedArray(destination) || isArrayBuffer(destination)) {
+                throw ngMinErr('cpta', 'Can\'t copy! TypedArray destination cannot be mutated.');
+            }
+
+            if (source === destination) {
+                throw ngMinErr('cpi', 'Can\'t copy! Source and destination are identical.');
+            }
+
+            // Empty the destination object
+            if (isArray(destination)) {
+                destination.length = 0;
+            } else {
+                forEach(destination, function(value, key) {
+                    if (key !== '$$hashKey') {
+                        delete destination[key];
+                    }
+                });
+            }
+
+            stackSource.push(source);
+            stackDest.push(destination);
+            return copyRecurse(source, destination, maxDepth);
+        }
+
+        return copyElement(source, maxDepth);
+
+        function copyRecurse(source, destination, maxDepth) {//todo
+            maxDepth--;
+            if (maxDepth < 0) {
+                return '...';
+            }
+            var h = destination.$$hashKey;
+            var key;
+            if (isArray(source)) {
+                for (var i = 0, ii = source.length; i < ii; i++) {
+                    destination.push(copyElement(source[i], maxDepth));
+                }
+            } else if (isBlankObject(source)) {
+                // createMap() fast path --- Safe to avoid hasOwnProperty check because prototype chain is empty
+                for (key in source) {
+                    destination[key] = copyElement(source[key], maxDepth);
+                }
+            } else if (source && typeof source.hasOwnProperty === 'function') {
+                // Slow path, which must rely on hasOwnProperty
+                for (key in source) {
+                    if (source.hasOwnProperty(key)) {
+                        destination[key] = copyElement(source[key], maxDepth);
+                    }
+                }
+            } else {
+                // Slowest path --- hasOwnProperty can't be called as a method
+                for (key in source) {
+                    if (hasOwnProperty.call(source, key)) {
+                        destination[key] = copyElement(source[key], maxDepth);
+                    }
+                }
+            }
+            setHashKey(destination, h);
+            return destination;
+        }
+
+        function copyElement(source, maxDepth) {
+            // Simple values
+            if (!isObject(source)) {
+                return source;
+            }
+
+            // Already copied values
+            var index = stackSource.indexOf(source);
+            if (index !== -1) {
+                return stackDest[index];
+            }
+
+            if (isWindow(source) || isScope(source)) {
+                throw ngMinErr('cpws',
+                    'Can\'t copy! Making copies of Window or Scope instances is not supported.');
+            }
+
+            var needsRecurse = false;
+            var destination = copyType(source);
+
+            if (destination === undefined) {
+                destination = isArray(source) ? [] : Object.create(getPrototypeOf(source));
+                needsRecurse = true;
+            }
+
+            stackSource.push(source);
+            stackDest.push(destination);
+
+            return needsRecurse
+                ? copyRecurse(source, destination, maxDepth)
+                : destination;
+        }
+
+        function copyType(source) {
+            switch (toString.call(source)) {
+                case '[object Int8Array]':
+                case '[object Int16Array]':
+                case '[object Int32Array]':
+                case '[object Float32Array]':
+                case '[object Float64Array]':
+                case '[object Uint8Array]':
+                case '[object Uint8ClampedArray]':
+                case '[object Uint16Array]':
+                case '[object Uint32Array]':
+                    return new source.constructor(copyElement(source.buffer), source.byteOffset, source.length);
+
+                case '[object ArrayBuffer]':
+                    // Support: IE10
+                    if (!source.slice) {
+                        // If we're in this case we know the environment supports ArrayBuffer
+                        /* eslint-disable no-undef */
+                        var copied = new ArrayBuffer(source.byteLength);
+                        new Uint8Array(copied).set(new Uint8Array(source));
+                        /* eslint-enable */
+                        return copied;
+                    }
+                    return source.slice(0);
+
+                case '[object Boolean]':
+                case '[object Number]':
+                case '[object String]':
+                case '[object Date]':
+                    return new source.constructor(source.valueOf());
+
+                case '[object RegExp]':
+                    var re = new RegExp(source.source, source.toString().match(/[^/]*$/)[0]);
+                    re.lastIndex = source.lastIndex;
+                    return re;
+
+                case '[object Blob]':
+                    return new source.constructor([source], {type: source.type});
+            }
+
+            if (isFunction(source.cloneNode)) {
+                return source.cloneNode(true);
+            }
+        }
+    }
+
+    /**
+     * @private
+     * @param {Number} maxDepth
+     * @return {boolean}
+     */
+    function isValidObjectMaxDepth(maxDepth) {
+        return isNumber(maxDepth) && maxDepth > 0;
+    }
+
+    /**
+     * @ngdoc function
+     * @name angular.isNumber
+     * @module ng
+     * @kind function
+     *
+     * @description
+     * Determines if a reference is a `Number`.
+     *
+     * This includes the "special" numbers `NaN`, `+Infinity` and `-Infinity`.
+     *
+     * If you wish to exclude these then you can use the native
+     * [`isFinite'](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isFinite)
+     * method.
+     *
+     * @param {*} value Reference to check.
+     * @returns {boolean} True if `value` is a `Number`.
+     */
+    function isNumber(value) {return typeof value === 'number';}
+
+    var TYPED_ARRAY_REGEXP = /^\[object (?:Uint8|Uint8Clamped|Uint16|Uint32|Int8|Int16|Int32|Float32|Float64)Array]$/;
+    function isTypedArray(value) {
+        return value && isNumber(value.length) && TYPED_ARRAY_REGEXP.test(toString.call(value));
+    }
+
+    function isArrayBuffer(obj) {
+        return toString.call(obj) === '[object ArrayBuffer]';
+    }
+
+    /**
+     * @description
+     *
+     * This object provides a utility for producing rich Error messages within
+     * AngularJS. It can be called as follows:
+     *
+     * var exampleMinErr = minErr('example');
+     * throw exampleMinErr('one', 'This {0} is {1}', foo, bar);
+     *
+     * The above creates an instance of minErr in the example namespace. The
+     * resulting error will have a namespaced error code of example.one.  The
+     * resulting error will replace {0} with the value of foo, and {1} with the
+     * value of bar. The object is not restricted in the number of arguments it can
+     * take.
+     *
+     * If fewer arguments are specified than necessary for interpolation, the extra
+     * interpolation markers will be preserved in the final string.
+     *
+     * Since data will be parsed statically during a build step, some restrictions
+     * are applied with respect to how minErr instances are created and called.
+     * Instances should have names of the form namespaceMinErr for a minErr created
+     * using minErr('namespace') . Error codes, namespaces and template strings
+     * should all be static strings, not variables or general expressions.
+     *
+     * @param {string} module The namespace to use for the new minErr instance.
+     * @param {function} ErrorConstructor Custom error constructor to be instantiated when returning
+     *   error from returned function, for cases when a particular type of error is useful.
+     * @returns {function(code:string, template:string, ...templateArgs): Error} minErr instance
+     */
+    //todo
+    var ngMinErr          = minErr('ng')
+    function minErr(module, ErrorConstructor) {
+        ErrorConstructor = ErrorConstructor || Error;
+
+        var url = 'https://errors.angularjs.org/1.7.9/';
+        var regex = url.replace('.', '\\.') + '[\\s\\S]*';
+        var errRegExp = new RegExp(regex, 'g');
+
+        return function() {
+            var code = arguments[0],
+                template = arguments[1],
+                message = '[' + (module ? module + ':' : '') + code + '] ',
+                templateArgs = sliceArgs(arguments, 2).map(function(arg) {
+                    return toDebugString(arg, minErrConfig.objectMaxDepth);
+                }),
+                paramPrefix, i;
+
+            // A minErr message has two parts: the message itself and the url that contains the
+            // encoded message.
+            // The message's parameters can contain other error messages which also include error urls.
+            // To prevent the messages from getting too long, we strip the error urls from the parameters.
+
+            message += template.replace(/\{\d+\}/g, function(match) {
+                var index = +match.slice(1, -1);
+
+                if (index < templateArgs.length) {
+                    return templateArgs[index].replace(errRegExp, '');
+                }
+
+                return match;
+            });
+
+            message += '\n' + url + (module ? module + '/' : '') + code;
+
+            if (minErrConfig.urlErrorParamsEnabled) {
+                for (i = 0, paramPrefix = '?'; i < templateArgs.length; i++, paramPrefix = '&') {
+                    message += paramPrefix + 'p' + i + '=' + encodeURIComponent(templateArgs[i]);
+                }
+            }
+
+            return new ErrorConstructor(message);
+        };
+    }
+
+    /**
+     * @ngdoc function
+     * @name angular.isArray
+     * @module ng
+     * @kind function
+     *
+     * @description
+     * Determines if a reference is an `Array`.
+     *
+     * @param {*} value Reference to check.
+     * @returns {boolean} True if `value` is an `Array`.
+     */
+    function isArray(arr) {
+        return Array.isArray(arr) || arr instanceof Array;
+    }
+
+
+
+
+
+
+    /**
+     * Creates a shallow copy of an object, an array or a primitive.
+     *
+     * Assumes that there are no proto properties for objects.
+     */
+    function shallowCopy(src, dst) {
+        if (isArray(src)) {
+            dst = dst || [];
+
+            for (var i = 0, ii = src.length; i < ii; i++) {
+                dst[i] = src[i];
+            }
+        } else if (isObject(src)) {
+            dst = dst || {};
+
+            for (var key in src) {
+                if (!(key.charAt(0) === '$' && key.charAt(1) === '$')) {
+                    dst[key] = src[key];
+                }
+            }
+        }
+
+        return dst || src;
+    }
+</script>
+</body>
+</html>
