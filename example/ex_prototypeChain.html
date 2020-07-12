@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>来源：</div>
+<div>https://juejin.im/post/58f94c9bb123db411953691b#heading-5</div>
+<div>https://juejin.im/post/5d6bede851882564c31263de#heading-2</div>
+<script>
+    function FoodMaterial(){
+        this.ifPoisonous=false;
+    }
+
+    FoodMaterial.prototype.getPoisonousness=function(){
+        return this.ifPoisonous;
+    };
+
+    function Food(){
+        this.canEat=true;
+    }
+
+    /*  Food的原型指向FoodMaterial的实例，不是指向FoodMaterial
+        指向FoodMaterial的实例，FoodMaterial的实例有指向FoodMaterial原型的指针
+        new FoodMaterial是FoodMaterial的实例
+    */
+    Food.prototype=new FoodMaterial();
+
+    Food.prototype.getCanEat=function () {
+        return this.canEat;
+    };
+
+    let BuddhaJumpsOverTheWall=new Food;
+
+    /*  原型链的作用
+        BuddhaJumpsOverTheWall上本没有getPoisonousness，但BuddhaJumpsOverTheWall的构造函数（Food）的原型（Food.prototype）
+        指向了FoodMaterial的实例，FoodMaterial的实例又有指针指向FoodMaterial的构造函数。
+        当代码取BuddhaJumpsOverTheWall上的getPoisonousness时，先在BuddhaJumpsOverTheWall的原型（__proto__===constructor.prototype）
+        上查找有没有getPoisonousness，发现没有，则去BuddhaJumpsOverTheWall的原型的原型
+        （BuddhaJumpsOverTheWall.constructor.prototype.constructor.prototype===BuddhaJumpsOverTheWall.__proto__.__proto__）
+        上去找，直到找到为止
+    */
+    console.log(BuddhaJumpsOverTheWall.getPoisonousness());
+
+
+    //https://juejin.im/post/5d6bede851882564c31263de#heading-2
+
+    /***
+     * 一、原型链继承
+     * 缺点
+     * 在创建子类时不能向超类中传递参数
+     * 原型中包含引用类型值会被所有实例共享
+     * 无法实现多继承
+     ***/
+    function SuperType1(){
+        this.name="SuperType";
+        this.color=["red","green","blue"];
+    }
+    SuperType1.prototype.sayName=function(){
+        return this.name;
+    };
+
+    function SubType1(){
+        this.subName="SubType";
+    }
+    SubType1.prototype=new SuperType1();
+    SubType1.prototype.saySubName=function(){
+        return this.subName;
+    };
+    SubType1.other="aaa";
+    let instance = new SubType1();
+    instance.color.push("black");
+    console.log(instance.color);
+    let instance1=new SubType1();
+    console.log(instance1.color);
+    console.log(instance1.color===instance.color);//true
+    console.log(instance.name);
+    console.log(instance.subName);
+    console.log(instance.sayName());
+    console.log(instance.saySubName());
+    console.log(instance.other);//other是SubType1的属性
+    console.log(SubType1.other);
+
+
+    //二、构造继承
+    /***
+     * 二、构造继承
+     * 优点
+     * 支持向父类传递参数
+     * 解决来共享父类引用对象的问题
+     * 可以实现多继承
+     *
+     * 缺点
+     * 只能继承父类的实例方法和属性，不能继承父类原型上的方法属性
+     * 无法实现函数复用，方法都在构造函数中定义
+     ***/
+    function SuperType(name){
+        this.name=name;
+        this.colors=["red","green","blue"];
+    }
+    SuperType.prototype.sayName=function(){//在超类原型中定义的方法，实例用不了
+        return this.name;
+    };
+
+    function SubType(name,subName){
+        /*--------与原型链继承的不同：解决实现多继承；可以向超类传递参数-------------*/
+        SuperType.call(this,name);
+
+
+        this.name=subName;//防止父类重写子类的属性，需要在调用父类构造函数后，定义子类的属性方法
+    }
+    //instance.__proto__=instance.constructor.prototype=SubType.prototype
+    //instance.constructor=SubType
+    instance=new SubType("a","a_sub");
+    instance.sayName();//报错，只能继承父类的实例属性和方法，不能继承父类原型上的属性方法
+
+
+
+    /***
+    三、组合继承
+    最常用的继承方式
+     原理：
+    将原型链和借用构造函数组合用
+    1、使用原型链实现对原型属性和方法的继承
+    2、通过借用构造函数实现对实例属性的继承
+
+     优点：
+     可以继承实例的方法属性，也可以继承原型的方法属性
+     不存在引用属性共享的问题
+     可传参、可复用
+
+     缺点
+     调用了两次父类构造函数，生成了两份实例
+    ***/
+    function SuperType(name){
+        this.name=name;
+        this.colors=["red","green","blue"];
+    }
+
+    SuperType.prototype.sayName=function(){
+        return this.name;
+    };
+
+    function SubType(name,subName){
+        /*--------------借用构造函数继承：为了实现继承父类原型上的属性方法-------------------------*/
+        SuperType.call(this,name);//this指向SuperType构造函数
+
+
+        this.subName=subName;
+    }
+
+    /*---------原型链继承------------------*/
+    SubType.prototype=new SuperType();//SubType的原型指向SuperType的原型
+    SubType.prototype.constructor=SubType;//SubType的原型的构造函数重新指回SubType
+    SubType.prototype.saySubName=function(){
+        return this.subName;
+    };
+
+    //instance.constructor=SubType
+    //instance.constructor.prototype=SuperType.prototype
+    instance=new SubType("a","sub_a");
+    instance.colors.push("black");
+    console.log(instance.colors);
+    console.log(instance.sayName());//a
+    console.log(instance.saySubName());//sub_a
+    instance1=new SubType("b","sub_b");
+    console.log(instance1.colors);
+    console.log(instance1.sayName());//b
+    console.log(instance1.saySubName());//sub_b
+
+    /***
+     * 四、原型式继承
+     * 原理：将父类的原型赋值给子类的原型
+     */
+    function SuperType(name){
+        this.name=name;
+        this.colors=["red","green","blue"];
+    }
+
+    function SubType(name,subName){
+        SuperType.call(this,name);
+        this.subName=subName;
+    }
+
+    SubType.prototype=Object.create(SuperType,{
+        constructor:{
+            value:SubType,
+            enumerable:false,
+            writable:true,
+            configurable:true
+        },
+        run:{
+            value:function(){
+                SuperType.prototype.run.apply(this,arguments);
+            },
+            enumerable:true,
+            writable:true,
+            configurable:true
+        }
+    });
+
+
+    //五、寄生式（parasitic）继承 --高级程序设计
+    //原理：创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再真的像是它做来所有工作一样返回对象
+    //
+    //缺点
+    // 做不到函数复用而降低效率
+    function createAnother(original){
+        let clone=Object.create(original.prototype);
+        clone.sayHi=function(){
+            console.log("hi");
+        };
+        return clone;
+    }
+
+    let Person={
+        name:"111",
+        friends:["张三","李四"]
+    };
+
+    let newPerson=createAnother(Person);
+    newPerson.sayHi();
+
+
+    //六、寄生组合继承
+    //普遍被任务是引用类型最理想的继承范式
+    function SuperType(name){
+        this.name=name;
+        this.colors=["red","green","blue"];
+    }
+    SuperType.prototype.sayName=function(){
+        return this.name;
+    };
+
+    function SubType(name,subName){
+        SuperType.call(this,name);
+        this.subName=subName;
+    }
+
+    SubType.prototype=Object.create(SuperType.prototype);
+    SubType.prototype.constructor=SubType;
+
+    //高级程序设计上是这样写的
+    // function inheritPrototype(SubType,SuperType){
+    //     let prototype=angular.copy(SuperType.prototype);
+    //     prototype.constructor=SubType;
+    //     SubType.prototype=prototype;
+    // }
+    // inheritPrototype(SubType,SuperType);
+
+
+    SubType.prototype.saySubName=function(){
+        return this.subName;
+    };
+
+    instance=new SubType("a","a_sub");
+    instance.colors.push("black");
+    console.log(instance.colors);
+    console.log(instance.sayName());
+    console.log(instance.saySubName());
+
+
+    /***
+     * 多继承
+     * 混入方式
+     */
+    function SuperType(){}
+    function AnotherSuperType(){}
+    function SubType(){
+        SuperType.call(this);
+        AnotherSuperType.call(this);
+    }
+    SubType.prototype=Object.new(SuperType.prototype);
+    Object.assign(SubType.prototype,AnotherSuperType.prototype);
+    SubType.prototype.constructor=SubType;
+
+    /***
+     * 手写extends
+     */
+    function __extends(subType,superType){
+        subType.prototype=Object.create(superType && superType.prototype,{
+            constructor:{
+                value:subType,
+                enumerable:false,
+                writable:true,
+                configurable:true
+            }
+        });
+        superType && Object.setPrototypeOf(subType,superType);
+    }
+</script>
+</body>
+</html>
