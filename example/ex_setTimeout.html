@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div>来源：https://juejin.im/post/6844903773622501383</div>
+<script>
+  /***
+   * 修正setTimeout的时间偏差
+   * @param name
+   * @param gapTime 执行间隔时间
+   * @param callbackFunc 定时执行的函数，返回callback(name,runtime)，
+   *        runtime是当前运行的时间
+   * @param maxTime 定时器重复执行的最大时长
+   * @param afterTimeUp 定时器超时之后的回调函数，返回afterTimeUp(id,usedTime,countTimes)
+   *        usedTime是定时器执行的总时间
+   *        countTimes是当前定时器运行的回调次数
+   */
+  function runTimer(name, gapTime, callbackFunc, maxTime, afterTimeUp) {
+    let startTime = 0;//记录开始时间
+
+    //获取当前时间
+    let getCurrentTime = function () {
+      return new Date().getTime();
+    };
+
+    /***
+     * 定时器本体
+     * @param diffTime 需要扣除的时间
+     */
+    function timeout(diffTime) {
+      let runtime = gapTime - diffTime;//计算下一次的执行间隔
+
+      //超时清除定时器
+      if (getTime() - usedTime >= maxTime) {
+        clearTimer();
+        return
+      }
+
+      timer = setTimeout(() => {
+        if (getTime() - usedTime >= maxTime) {
+          clearTimer();
+          return
+        }
+
+        //计算需扣除的时间
+        let temp = startTime;
+        callbackFunc(runtime);//todo
+        startTime = getCurrentTime();
+        diffTime = (startTime - temp) - gapTime;
+
+        //执行下一次的调用
+        timeout(diffTime);
+      }, runtime);
+
+      function clearTimer() {//清除定时器
+        clearTimeout(timer);
+      }
+
+      function startTimer() {
+        timeout(0)//因为刚开始执行的时候没有时间差，所以是0
+      }
+
+      return {clearTimer, startTimer}
+    }
+  }
+
+  //使用1 根据次数停止
+  let timer;
+
+  function callback(id, runtime, counts) {
+    if (counts === 2) {//如果已经执行两次了，则停止继续执行
+      timer.clearTimer()
+    }
+  }
+
+  function afterTimeUp(id, usedTime, counts) {
+  }
+
+  timer = runTimer("a", 100, callback, 1000, afterTimeUp);
+  timer.startTimer();
+
+  //使用2：监控是否要停止
+  let timer2;
+  let stop = false;
+  setTimeout(() => {
+    stop = true
+  }, 200);
+
+  function callback2(id, runtime, counts) {
+    if (stop) {
+      timer2.clearTimer();
+    }
+  }
+
+  timer2 = runTimer("a", 100, callback2, 1000, afterTimeUp);
+  timer2.startTimer();
+
+
+</script>
+</body>
+</html>
