@@ -1,63 +1,64 @@
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
 ol {
-    margin: 0 20px;
+  margin: 0 20px;
 }
 
 li, .dropDownContent, span {
-    font-family: '微软雅黑', serif;
-    font-size: 20px;
+  font-family: '微软雅黑', serif;
+  font-size: 20px;
 }
 
 li {
-    list-style: upper-roman;
+  list-style: upper-roman;
 }
 
 a {
-    text-decoration: none; /*去掉下划线*/
-    color: black;
+  text-decoration: none; /*去掉下划线*/
+  color: black;
 }
 
-.tit:hover, p:hover, span:hover, a:hover {
-    background-color: #58B2DC;
-    color: white;
-    cursor: pointer;
+.label:hover, p:hover, span:hover, a:hover {
+  background-color: #03a9f4;
+  color: white;
+  cursor: pointer;
 }
 
 p, .dropDownContent {
-    margin: 0;
+  margin: 0;
 }
 
 dd, .content {
-    line-height: 40px;
+  line-height: 40px;
 }
 
 .content {
-    margin: 10px auto;
-    padding: 0 25px 25px 25px;
-    border: 1px solid #eee;
-    border-radius: 5px;
-    width: 450px;
-    position: relative;
-    transition: all 279ms ease-out;
+  margin: 10px auto;
+  padding: 0 25px 25px 25px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  width: 450px;
+  position: relative;
+  transition: all 279ms ease-out;
 }
 
 .content:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, .07);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .07);
 }
 
-.tit {
-    padding-left: 10px;
+.label {
+  cursor: pointer;
+  padding-left: 10px;
 }
 
 .dropDownContent {
-    display: none;
-    min-width: 200px;
+  display: none;
+  min-width: 200px;
 }
