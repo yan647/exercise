@@ -12,7 +12,7 @@ module.exports = {
         inline: true,//实时刷新
         hot: true, //开启 HMR，由 webpack-dev-server 发送 "webpackHotUpdate" 消息到客户端代码
         compress: true, //开启资源的 gzip 压缩
-        proxy:[],//启动proxy代理，去把请求代理到一个外部的服务器
+        //proxy:[],//启动proxy代理，去把请求代理到一个外部的服务器
         clientLogLevel: "info",//在 inline 模式下用于控制在浏览器中打印的 log 级别，如`error`, `warning`, `info` or `none`.
         quiet: false,//不在控制台打印任何 log
         noInfo: false,//不输出启动 log
@@ -21,11 +21,11 @@ module.exports = {
         after:function(app){}//在服务内部的所有其他中间件之后， 提供执行自定义中间件的功能
     },
     module: {
-        loaders: [//加载器
+        rules: [//加载器
             {test: /\.html$/, loader: 'raw-loader'},
             {test: /\.css$/, loader: 'style-loader!css-loader'},
             {test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader'},
-            {test: /\.(png|jpg|ttf)$/, loader: 'url?limit=8192'},
+            {test: /\.(png|jpg|ico)$/, loader: 'url?limit=8192'},
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -34,5 +34,15 @@ module.exports = {
                 loader: 'babel-loader'
             }
         ]
-    }
+    },
+  optimization:{
+      splitChunks:{
+        chunks:"async",
+        minSize:30000,
+        minChunks: 1,
+        maxAsyncRequests: 5,
+        automaticNameDelimiter: "-",
+        name:"eee"
+      }
+  }
 };
