@@ -346,7 +346,7 @@
         },
         {
           "key": "ex_twoWayBinding",
-          "label": "模拟双向绑定(没开始)",
+          "label": "模拟双向绑定",
           "url": "ex_twoWayBinding.html"
         }
       ]

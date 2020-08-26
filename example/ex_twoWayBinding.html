@@ -6,7 +6,16 @@
 </head>
 <body>
 <div>来源：https://juejin.im/post/590fce6b61ff4b0062534407</div>
+
+<div id="app">
+  <h1>{{song}}</h1>
+  <p>《{{album.name}}》是{{singer}}2005年11月发行的专辑</p>
+  <p>主打歌为{{album.theme}}</p>
+  <p>作词人为{{singer}}等人。</p>
+  为你弹奏肖邦的{{album.theme}}
+</div>
 </body>
+<script src="./ex_twoWayBinding.js"></script>
 <script>
     var DBind1 = new DBind( 1 );
     var DBind2 = new DBind( 2 );//前面是变量，括号里面的是html那里填的数字
@@ -99,5 +108,18 @@
 
         return user;
     }
+
+    let mvvm=new Mvvm({
+      el:"#app",
+      data:{
+        song: '发如雪',
+        album: {
+          name: '十一月的萧邦',
+          theme: '夜曲'
+        },
+        singer: '周杰伦'
+      }
+    });
+
 </script>
 </html>
