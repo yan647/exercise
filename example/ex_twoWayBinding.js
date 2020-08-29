@@ -5,6 +5,7 @@
 'use strict';
 
 /***
+ * 参考https://juejin.im/post/6844903586103558158#heading-8
  * MVVM
  * 1、数据劫持 Object.defineProperty
  * 2、数据代理 Object.defineProperty
@@ -50,7 +51,7 @@ function observe(data) {
   if (!data || typeof data !== 'object') {
     return;
   } else {
-    let dep=new Dep();
+    let dep = new Dep();
     for (let key in data) {
       let value = data[key];
       observe(value);
@@ -94,7 +95,7 @@ function Compile(el, mvvm) {
       let text = _node.textContent;
       let reg = /\{\{(.*?)\}\}/g;
 
-      if (_node.nodeType === 3 && reg.test(text)) {//是文本节点，有{{}}
+      if (_node.nodeType === 3 && reg.test(text)) {//是文本节点，有{{}}   eg:<p>{{album.name}}</p>
         let arr = RegExp.$1.split(".");//a.b
         let value = mvvm;
         arr.forEach(key => {
@@ -103,8 +104,25 @@ function Compile(el, mvvm) {
         _node.textContent = text.replace(reg, value).trim();
 
         //监听数据变化
-        new Watcher(mvvm,RegExp.$1,newVal=>{
-          _node.textContent=text.replace(reg,newVal).trim();
+        new Watcher(mvvm, RegExp.$1, newVal => {
+          _node.textContent = text.replace(reg, newVal).trim();
+        });
+      } else if (_node.nodeType === 1) {//是元素节点   eg:<input v-model='c' type='text'>
+        let att_list = _node.attributes;
+        Array.from(att_list).map((_att) => {
+          let _name = _att.name,
+            _value = _att.value;
+          if (_name.includes("v-")) {
+            _node.value = mvvm[_value];
+          }
+
+          new Watcher(mvvm, _value, _newVal => {
+            _node.value = _newVal;
+          });
+
+          node.addEventListener("input", e => {
+            mvvm[_value] = e.target.value;
+          })
         });
       }
 
@@ -134,28 +152,27 @@ Dep.prototype = {
 /***
  * 监听函数
  * @param mvvm
- * @param exp
- * @param fn
+ * @param exp:标识，eg this.a.b
+ * @param fn:值发生变化后做的处理
  * @constructor
  */
-function Watcher(mvvm,exp,fn) {
+function Watcher(mvvm, exp, fn) {
   this.fn = fn;
-  this.mvvm=mvvm;
-  this.exp=exp;
-  Dep.target=this;
-  this.arr=exp.split(".");//a.b
-  let val=mvvm;
-  arr.map(key=>{
-    val=val[key];//获取this.a.b，调用get，则用到了Dep.target
+  this.mvvm = mvvm;
+  Dep.target = this;
+  this.arr = exp.split(".");//a.b
+  let val = mvvm;
+  this.arr.map(key => {
+    val = val[key];//获取this.a.b，调用get，则用到了Dep.target
   });
-  Dep.target=null;//用完后清空
+  Dep.target = null;//用完后清空
 }
 
 //值发生变化，调用observe中的set，调用notify,调用update
 Watcher.prototype.update = function () {
-  let val=this.mvvm;
-  this.arr.map(key=>{
-    val=val[key];//通过get取到新的值
+  let val = this.mvvm;
+  this.arr.map(key => {
+    val = val[key];//通过get取到新的值
   });
   this.fn(val);//???
 };
