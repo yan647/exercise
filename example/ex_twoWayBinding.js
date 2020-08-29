@@ -37,8 +37,25 @@ function Mvvm(options = {}) {
     })
   }
 
+  //初始化computed，计算属性，this指向实例
+  initComputed.call(this);
+
   //编译
   new Compile(options.el, this);
+
+  options.mounted.call(this);//钩子函数
+}
+
+function initComputed() {
+  let mvvm = this;
+  let computed = this.$options.computed;
+  Object.keys(computed).map(_key => {
+    Object.defineProperty(mvvm, _key, {
+      get: typeof computed[_key] === "function" ? computed[_key] : computed[_key].get,
+      set() {
+      }
+    })
+  });
 }
 
 /***
@@ -177,9 +194,9 @@ Watcher.prototype.update = function () {
   this.fn(val);//???
 };
 
-let watcher1 = new Watcher(() => console.log("watcher1"));
-let watcher2 = new Watcher(() => console.log("watcher2"));
-let dep = new Dep();
-dep.addSub(watcher1);
-dep.addSub(watcher2);
-dep.notify();
+// let watcher1 = new Watcher(() => console.log("watcher1"));
+// let watcher2 = new Watcher(() => console.log("watcher2"));
+// let dep = new Dep();
+// dep.addSub(watcher1);
+// dep.addSub(watcher2);
+// dep.notify();
