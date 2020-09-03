@@ -42,7 +42,7 @@ module.exports = {
         minChunks: 1,
         maxAsyncRequests: 5,
         automaticNameDelimiter: "-",
-        name:"eee"
+        name:"example"
       }
   }
 };
