@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * @param {string[]} equations
+     * @return {boolean}
+     */
+    var equationsPossible = function (equations) {
+        let equ=[],notEqu=[];
+        equations.map((data)=>{
+            let temp=data.split("==");
+            if(data.includes("==")){
+                !equ.includes(temp[0]) && !equ.includes(temp[1]);
+                if(!equ.length){
+                    equ[0]=new Map();
+                    equ[0].set(temp[0],1);
+                    equ[0].set(temp[1],1);
+                } else {
+                    let flag=false;
+                    for(let a=0;a<equ.length;a++){
+                        if(equ[a].has(temp[0]) && !equ[a].has(temp[1])) {
+                            equ[a].set(temp[1],1);
+                            flag=true;
+                            break;
+                        } else if(!equ[a].has(temp[0]) && equ[a].has(temp[1])) {
+                            equ[a].set(temp[0],1);
+                            flag=true;
+                            break;
+                        } else if(equ[a].has(temp[0]) && equ[a].has(temp[1])){
+                            flag=true;
+                            break;
+                        }
+                    }
+                    if(!flag){
+                        equ.push(new Map());
+                        equ[equ.length-1].set(temp[0],1);
+                        equ[equ.length-1].set(temp[1],1);
+                    }
+                }
+            } else {
+                notEqu.push(temp);
+            }
+        });
+        return true;
+    };
+    // console.log(equationsPossible(["a==b", "b!=c", "c==a"]));//false
+    // console.log(equationsPossible(["a==b","b!=a"]));//false
+    // console.log(equationsPossible(["a==b","b==a"]));//true
+    // console.log(equationsPossible(["a==b","b==c","a==c"]));//true
+    // console.log(equationsPossible(["c==c","b==d","x!=z"]));//true
+    // console.log(equationsPossible(["b==b","b==e","e==c","d!=e"]));//true
+    console.log(equationsPossible(["c==c","f!=a","f==b","b==c"]));//true
+</script>
+</body>
+</html>
