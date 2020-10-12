@@ -59,15 +59,29 @@
   }
 
   function addClickEvent(){
-    $(".label").click(function () {
-      let i = $('.label').index(this);
-      $(".dropDownContent").eq(i).slideToggle("fast");
+    let content=document.getElementById("content");
+    let label=document.getElementsByClassName("label");
+    content.addEventListener("click",function () {
+      let i = label.index(this);
+      debugger
+      let dropEle=document.getElementsByClassName("dropDownContent");
+      dropEle[i].slideToggle("fast");
       for (let j = 0; j < $('li').children('.tit').length; j++) {
         if (j !== i) {
-          $(".dropDownContent").eq(j).css('display', 'none');
+          dropEle[j].css('display', 'none');
         }
       }
     });
+
+    // $(".label").click(function () {
+    //   let i = $('.label').index(this);
+    //   $(".dropDownContent").eq(i).slideToggle("fast");
+    //   for (let j = 0; j < $('li').children('.tit').length; j++) {
+    //     if (j !== i) {
+    //       $(".dropDownContent").eq(j).css('display', 'none');
+    //     }
+    //   }
+    // });
   }
 
   createContent();
