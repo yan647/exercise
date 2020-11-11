@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!-- 生产环境版本，优化了尺寸和速度 -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<body>
+<div id="app">
+  {{message}}
+</div>
+
+<div id="app-2">
+  <span v-bind:title="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </span>
+</div>
+
+<div id="app-3">
+  <span v-if="message">
+    你看到我了
+  </span>
+</div>
+
+<div id="app-4">
+  <span v-for="item in list"> {{item.label}}</span>
+</div>
+
+<div id="app-5">
+  <span>{{message}}</span>
+  <span v-on:click="reverseMessage">反转消息</span>
+</div>
+
+<div id="app-6">
+  <span>{{message}}</span>
+  <input v-model="message">
+  <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.key"></todo-item>
+</div>
+
+<script src="./ex.js"></script>
+</body>
+</html>
