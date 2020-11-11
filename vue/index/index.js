@@ -3,6 +3,9 @@
  */
 
 'use strict';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import app from "../public/index";
 import TodoList from "../todo_list/todo_list";
 import Finished from "../finished/finished";
 
@@ -21,11 +24,11 @@ const router=new VueRouter({
 });
 
 let vm=new Vue({
-  el:'#vm',
   data:{
     userName:"liu",
     type:["待办事项","已完成事项"],
     currentType:0
   },
+  render:h=>h(app),
   router
-});
+}).$mount("#app");

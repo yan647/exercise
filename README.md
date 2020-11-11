@@ -1,5 +1,8 @@
-# 练习原生JS
-启动：yarn run start
+# 项目启动入口
+yarn run server 打开angular练习
+yarn run server --env.app=vue 打开vue练习
+yarn run server --env.app=react 打开react练习 todo
+
 ## todoList
 - postcss
 - load、onload、onunload、onreadystatechange、ready区别 https://blog.csdn.net/Alex_717/article/details/83028725   https://www.cnblogs.com/cblx/p/9032075.html

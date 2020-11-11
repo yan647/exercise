@@ -82,6 +82,7 @@
     "typescript": "^3.8.3",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.5",
+    "vue-router": "^3.4.9",
     "vue-template-compiler": "^2.6.12",
     "webpack-cli": "^3.3.12",
     "zone.js": "~0.10.2"

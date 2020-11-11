@@ -9,7 +9,6 @@ Vue.component("todo-item",{
 });
 
 let vm=new Vue({
-  el:'#vm',
   data:{
     todoList:[{
       key:1,
@@ -25,4 +24,4 @@ let vm=new Vue({
 
     }
   }
-});
+}).$mount("#vm");

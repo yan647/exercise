@@ -1,13 +1,10 @@
 module.exports = function (env, argv) {
   env = env || {};
   let app_name = env.app || "main";
-  console.log(env.app);
-  console.log(app_name);
   const app_url = {
-    main: {entry:"/app/main.js",output:"/app/public"},
-    vue: {entry:"/vue/index/index.js",output:"/vue/public"}
+    main: {entry: "/app/main.js", output: "/app/public"},
+    vue: {entry: "/vue/index/index.js", output: "/vue/public"}
   };
-  console.log(app_url[app_name]);
   return {
     //“__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录。
     devtool: 'eval-source-map',
@@ -46,6 +43,10 @@ module.exports = function (env, argv) {
           //include 表示哪些目录中的 .js 文件需要进行 babel-loader
           //exclude 表示哪些目录中的 .js 文件不要进行 babel-loader
           loader: 'babel-loader'
+        }, {
+          test: /\.vue$/,
+          exclude: /node_modules/,
+          loader: "vue-loader"
         }
       ]
     },
@@ -57,6 +58,11 @@ module.exports = function (env, argv) {
         maxAsyncRequests: 5,
         automaticNameDelimiter: "-",
         name: "example"
+      }
+    },
+    resolve:{
+      alias:{
+        "vue$":"vue/dist/vue.esm.js"
       }
     }
   };
