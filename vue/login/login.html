@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<!-- 生产环境版本，优化了尺寸和速度 -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<body>
+<div id="vm">
+  <img>
+  <div>欢迎登录</div>
+  <input type="text" placeholder="请输入用户名">
+  <input type="text" placeholder="请输入密码">
+  <input type="submit" v-on:click="login">
+  <todo-item v-for="item in todoList" v-bind:todo="item" v-bind:key="item.key"></todo-item>
+</div>
+</body>
+<script src="./login.js"></script>
+</html>
