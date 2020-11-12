@@ -1,5 +1,6 @@
 /**
  * Created by lsq on 2020/9/12.
+ * 斐波那契数列
  * https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/
  */
 
@@ -46,3 +47,17 @@ let fib3 = function (n) {
   return i;
 };
 console.log(fib3(100));
+
+//JavaScript高级程序设计（第4版） P309 尾调用优化
+
+let fib4=function(n){
+  return fibImp1(0,1,n);
+};
+function fibImp1(a,b,n){
+  if(n===0){
+    return a;
+  }
+  return fibImp1(b,a+b,n-1);
+}
+
+console.log(fib4(100));
