@@ -108,6 +108,31 @@
   //2 降序
   numberArray.sort((a, b) => b - a);
 
+
+  //----------------------------------------------------------------------------------------------
+  //桶排序
+  //https://mp.weixin.qq.com/s/qrboxA5SwN7AbAcpZ_dpNQ
+  function bucketSort(arr) {
+    let bucket_list = new Array(arr.length);
+    let max = Math.max(...arr), min = Math.min(...arr);
+    let interval = (max - min) / (arr.length - 1);
+    arr.map((data) => {
+      let index = parseInt((data - min) / interval);
+      if (bucket_list[index]) {
+        bucket_list[index].push(data);
+      } else bucket_list[index] = [data];
+    });
+    let result=[];
+    bucket_list.map((data)=>{
+      if(data) {
+        data=data.sort((a, b) => a - b);
+        result=result.concat(data);
+      }
+    });
+    return result;
+  }
+
+  console.log(bucketSort([4.5, 0.84, 3.25, 2.18, 0.5]));
 </script>
 
 </html>
