@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>双栏布局</title>
+	<style type="text/css">
+		.left{
+			width:200px;
+			height: 200px;
+			float:left;
+			background-color: blue;
+		}
+		.right{
+			height: 200px;
+			background-color: red;
+      margin-left: 200px;/*重点*/
+		}
+
+
+		.main{
+			display: flex;
+			flex-direction: row;
+		}
+		.left1{
+			width: 200px;
+			height: 200px;
+			background-color: yellow;
+		}
+		.right1{
+			flex:1;
+			height: 200px;
+			background-color: black;
+		}
+	</style>
+</head>
+<body>
+  <h2>左固定右自适应布局</h2>
+	<p> 使用float margin-left</p>
+	<div class="left"></div>
+	<div class="right"><div>内容内容</div></div>
+
+	<p>flex</p>
+	<div class="main">
+		<div class="left1"></div>
+		<div class="right1"></div>
+	</div>
+</body>
+</html>
