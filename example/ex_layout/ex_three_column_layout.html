@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>三栏布局</title>
+</head>
+<style>
+  * {
+    margin: 0;
+  }
+
+  .container1 {
+    display: flex;
+  }
+
+  .left {
+    width: 200px;
+    background-color: red;
+    height: 200px;
+  }
+
+  main {
+    background-color: blue;
+    height: 200px;
+    flex: 1; /*等分剩余空间，如果是0.5，只占剩余空间的一半*/
+  }
+
+  .right {
+    width: 200px;
+    background-color: gray;
+    height: 200px;
+  }
+
+  .container2 {
+
+  }
+
+  .left2 {
+    width: 200px;
+    background-color: red;
+    height: 200px;
+    float: left;
+  }
+
+  .center2 {
+    background-color: blue;
+    height: 200px;
+  }
+
+  .right2 {
+    width: 200px;
+    background-color: gray;
+    height: 200px;
+    float: right;
+  }
+
+  .container3 {
+
+  }
+
+  .left3, .center3, .right3 {
+    position: absolute;
+  }
+
+  .left3 {
+    width: 200px;
+    background-color: red;
+    height: 200px;
+    left: 0;
+  }
+
+  .center3 {
+    background-color: blue;
+    height: 200px;
+    left: 200px;
+    right: 200px;
+  }
+
+  .right3 {
+    width: 200px;
+    background-color: gray;
+    height: 200px;
+    right: 0;
+  }
+
+  .container4 {
+    display: table;
+    height: 200px;
+    width: 100%;
+  }
+
+  .left4, .center4, .right4 {
+    display: table-cell;
+  }
+
+  .left4 {
+    width: 200px;
+    background-color: red;
+    height: 200px;
+  }
+
+  .center4 {
+    background-color: blue;
+    height: 200px;
+  }
+
+  .right4 {
+    width: 200px;
+    background-color: gray;
+    height: 200px;
+  }
+
+  .container5 {
+    display: grid;
+    grid-template-columns: 200px auto 200px;
+    grid-template-rows: 200px;
+  }
+
+  .left5 {
+    background-color: red;
+  }
+
+  .center5 {
+    background-color: blue;
+  }
+
+  .right5 {
+    background-color: gray;
+  }
+</style>
+<body>
+<p>来源：https://blog.csdn.net/kaixinyitian77/article/details/92010198</p>
+<h2>flex</h2>
+<div class="container1">
+  <aside class="left"></aside>
+  <main></main>
+  <aside class="right"></aside>
+</div>
+
+<h2>float</h2>
+<div class="container2">
+  <div class="left2"></div>
+  <div class="right2"></div> <!--  右栏部分放前边，否则右栏部分会换行-->
+  <div class="center2"></div>
+</div>
+
+<h2>table</h2>
+<div class="container4">
+  <div class="left4"></div>
+  <div class="center4"></div>
+  <div class="right4"></div>
+</div>
+
+<h2>grid</h2>
+<div class="container5">
+  <div class="left5"></div>
+  <div class="center5"></div>
+  <div class="right5"></div>
+</div>
+
+<h2>absolute</h2>
+<div class="container3">
+  <div class="left3"></div>
+  <div class="center3"></div>
+  <div class="right3"></div>
+</div>
+</body>
+</html>
