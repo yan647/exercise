@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!-- 生产环境版本，优化了尺寸和速度 -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<body>
+<div id="app">
+  <div class="static"
+       v-bind:class="{active:isActive,'text-danger':hasError}"></div>
+  <div v-bind:class="classObject"></div>
+  <div v-bind:class="computedClassObject"></div>
+  <div v-bind:class="[activeClass,errorClass]"></div>
+</div>
+
+<script src="./ex.js"></script>
+</body>
+</html>
