@@ -71,3 +71,12 @@ let app6=new Vue({
     }]
   }
 });
+
+
+//https://cn.vuejs.org/v2/guide/computed.html
+let app7=new Vue({
+  el:"#app-7",
+  data:{
+    message:"world"
+  }
+});

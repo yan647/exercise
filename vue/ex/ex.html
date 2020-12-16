@@ -6,6 +6,7 @@
 </head>
 <!-- 生产环境版本，优化了尺寸和速度 -->
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
 <body>
 <div id="app">
   {{message}}
@@ -36,6 +37,10 @@
   <span>{{message}}</span>
   <input v-model="message">
   <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.key"></todo-item>
+</div>
+
+<div id="app-7">
+  {{message.split('').reverse().join('')}}
 </div>
 
 <script src="./ex.js"></script>
