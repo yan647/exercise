@@ -49,7 +49,6 @@ let fib3 = function (n) {
 console.log(fib3(100));
 
 //JavaScript高级程序设计（第4版） P309 尾调用优化
-
 let fib4=function(n){
   return fibImp1(0,1,n);
 };
@@ -61,3 +60,18 @@ function fibImp1(a,b,n){
 }
 
 console.log(fib4(100));
+
+
+//JavaScript高级程序设计（第4版） P799 web worker
+function fib5(n) {
+  return n < 1 ? 0 : (n <= 2 ? 1 : (fib5(n - 1) + fib5(n - 2)));
+}
+
+const workerScript = `
+    self.postMessage(
+      (${fib5.toString()})(9)
+    );
+`;
+
+const worker=new Worker(URL.createObjectURL(new Blob([workerScript])));
+worker.onmessage=({data})=>console.log(data);
