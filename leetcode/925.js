@@ -9,6 +9,7 @@
  * @param {string} typed
  * @return {boolean}
  */
+//双指针
 var isLongPressedName = function (name, typed) {
   let a = 0, b = 0, n = name.length;
   while (b < typed.length) {

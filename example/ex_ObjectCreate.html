@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>来源：https://juejin.im/post/5acd8ced6fb9a028d444ee4e</div>
+<script>
+    //Object.create的用法
+    const Food = {
+        ifDelicious:false,
+        productionProcess:function(){
+            console.log("Hi, this is a ${this.name}. Do you want buy one? ${this.ifDelicious}");
+
+        }
+    };
+    const BuddhaJumpsOverTheWall=Object.create(Food,{
+        ingredient:{
+            writable:true,
+            configurable:true,
+            value:"seafood"
+        }
+    });
+    BuddhaJumpsOverTheWall.name="佛跳墙";//BuddhaJumpsOverTheWall专有属性，Food里没有
+    BuddhaJumpsOverTheWall.ifDelicious=true;//继承属性被复写
+    BuddhaJumpsOverTheWall.productionProcess();
+
+    let a={};//{} a有__proto__，指向Object
+    let b=Object.create(Object);//Function{} b有__proto__，指向Object,b为Function
+    let c=Object.create(null);//{} c没有__proto__
+    let d=Object.create({});//{} d有__proto__，d的__proto__里还有__proto__，指向Object，但d不是Function，d里多了一层__proto__嵌套
+    let e=Object.create(Object.prototype);//{} e有__proto__，指向Object
+
+    Object;//Object(){}
+    Object.prototype.constructor;//Object(){}
+    Object.constructor;//Function(){}
+    Object.constructor===Function;//true
+    Object.constructor.prototype;//function(){}
+    Function.constructor;//Function(){}
+    Function.prototype===Function.__proto__;//true
+
+
+</script>
+</body>
+</html>

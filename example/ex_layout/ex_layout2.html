@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>自适应布局</title>
+  <style type="text/css">
+    header {
+      width: 100%;
+      height: 100px;
+      border: 1px solid black;
+    }
+
+    .container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .left {
+      background: red;
+      width: 30%;
+      height: 300px;
+    }
+
+    .right {
+      background: deeppink;
+      width: 30%;
+      height: 400px;
+    }
+
+    .body{
+      display: flex;
+      flex-direction: column;
+      width:60%;
+    }
+
+    .top {
+      background: darkgreen;
+      width: 100%;
+      height: 300px;
+    }
+
+    .bottom {
+      background: blueviolet;
+      width: 100%;
+      height: 300px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .left, .right {
+        width: 100%;
+      }
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      height: 100px;
+      width: 100%;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+<h2>自适应布局</h2>
+<p>来源：https://juejin.im/post/6844903518956961805</p>
+<div>
+  <header>Header</header>
+  <div class="container">
+    <div class="left">Left</div>
+    <div class="body">
+      <div class="top">Top</div>
+      <div class="bottom">Bottom</div>
+    </div>
+    <div class="right">Right</div>
+  </div>
+  <footer>Footer</footer>
+</div>
+</body>
+</html>
