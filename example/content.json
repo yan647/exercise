@@ -224,6 +224,10 @@
           "key": "ex_grail",
           "label": "用flex实现圣杯布局（还没开始做）",
           "url": "ex_grail.html"
+        },{
+          "key": "ex_layout",
+          "label": "页面布局",
+          "url": "ex_layout.html"
         }
       ]
     },

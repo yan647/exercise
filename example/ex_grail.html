@@ -1,10 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>用flex实现圣杯布局</title>
+  <meta charset="UTF-8">
+  <title>用flex实现圣杯布局</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      height: 100px;
+      width: 100%;
+      background: gray;
+    }
+
+    .container {
+      width: 100%;
+      height: calc(100vh - 200px);
+      display: flex;
+      flex: 1 1 0;
+    }
+
+    .left {
+      width: 200px;
+      height: 100%;
+      background: purple;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    .right {
+      width: 200px;
+      height: 100%;
+      background: cadetblue;
+    }
+
+    footer {
+      height: 100px;
+      width: 100%;
+      background: gray;
+    }
+  </style>
 </head>
 <body>
-	<p>http://blog.csdn.net/javaloveiphone/article/details/51098427</p>
+<header></header>
+<div class="container">
+  <div class="left"></div>
+  <div class="content"></div>
+  <div class="right"></div>
+</div>
+<footer></footer>
 </body>
 </html>

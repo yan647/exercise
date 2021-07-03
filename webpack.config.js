@@ -1,3 +1,5 @@
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 module.exports = function (env, argv) {
   env = env || {};
   let app_name = env.app || "main";
@@ -34,7 +36,10 @@ module.exports = function (env, argv) {
     module: {
       rules: [//加载器
         {test: /\.html$/, loader: 'raw-loader'},
-        {test: /\.css$/, loader: 'style-loader!css-loader'},
+        {
+          test: /\.css$/,
+          use: ['vue-style-loader', 'style-loader', 'css-loader']
+        },
         {test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader'},
         {test: /\.(png|jpg|ico)$/, loader: 'url?limit=8192'},
         {
@@ -60,9 +65,13 @@ module.exports = function (env, argv) {
         name: "example"
       }
     },
-    resolve:{
-      alias:{
-        "vue$":"vue/dist/vue.esm.js"
+    plugins: [
+      // 请确保引入这个插件！
+      new VueLoaderPlugin()
+    ],
+    resolve: {
+      alias: {
+        "vue$": "vue/dist/vue.esm.js"
       }
     }
   };
