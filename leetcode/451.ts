@@ -30,3 +30,33 @@ function frequencySort(s: string): string {
 console.log(frequencySort('tree'));
 console.log(frequencySort('cccaaa'));
 console.log(frequencySort("Aabb"));
+
+
+//桶排序
+function frequencySort1(s: string): string {
+  let map = new Map();
+  let strList = s.split('');
+  let maxFreq = 0;
+  for (let a = 0; a < strList.length; a++) {
+    let freq = (map.get(strList[a]) || 0) + 1;
+    map.set(strList[a], freq);
+    maxFreq = Math.max(maxFreq, freq);
+  }
+  let bucket = new Array(maxFreq + 1).fill(0).map((_item) => []);
+  for (const [key, num] of map.entries()) {
+    bucket[num].push(key);
+  }
+  let result = '';
+  for (let a = maxFreq; a > 0; a--) {
+    for (let ch of bucket[a]) {
+      for (let b = 0; b < a; b++) {
+        result += ch;
+      }
+    }
+  }
+  return result;
+}
+
+console.log(frequencySort1('tree'));
+console.log(frequencySort1('cccaaa'));
+console.log(frequencySort1("Aabb"));
