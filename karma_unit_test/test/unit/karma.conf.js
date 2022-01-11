@@ -18,14 +18,14 @@ module.exports = function karmaConfig (config) {
       }
     },
     frameworks: ['mocha', 'sinon-chai'],//可用的框架
-    reporters: ['spec', 'coverage'],//测试结果
+    reporters: ['spec','progress', 'coverage'],//测试结果
     files: ['./index.js'],//需要加载到浏览器的文件列表
     webpack: webpackConfig,
     webpackMiddleware: {
       noInfo: true
     },
     preprocessors: {//可用的预处理器
-      './index.js': ['webpack', 'sourcemap']
+      './index.js': ['webpack', 'sourcemap','coverage',]
     },
     coverageReporter: {
       dir: './coverage',
