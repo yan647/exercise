@@ -6,4 +6,5 @@ node_modules*
 package-lock.json
 test.html
 yarn.lock
-/karma_unit_test/test/unit/coverage/
+coverage
+lib
