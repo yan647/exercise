@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npx -y only-allow pnpm"
   },
   "repository": {
     "type": "git",
@@ -12,9 +13,6 @@
   "author": "yan647",
   "license": "ISC",
   "devDependencies": {
-
-  },
-  "dependencies": {
-
+    "webpack": "^5.76.3"
   }
 }

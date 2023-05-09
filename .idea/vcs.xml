@@ -2,7 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/devServer" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/proxy/devServer" vcs="Git" />
   </component>
 </project>
