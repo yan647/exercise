@@ -1,3 +1,6 @@
+很久之前的代码了，后续抽空梳理一下，准备实验pnpm的workspace功能，这里先暂存一下
+
+
 # 项目启动入口
 yarn run server 打开angular练习
 yarn run server --env.app=vue 打开vue练习
