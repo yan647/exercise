@@ -1,9 +1,11 @@
 'use strict';
 const path = require('path');
-const {VueLoaderPlugin} = require('vue-loader');
+// const {VueLoaderPlugin} = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
+  mode:'development',
   entry: path.join(__dirname, './index.js'),//'./index.js',
   // context: path.join(__dirname, './index.js'),
   output: {
@@ -18,38 +20,38 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        loader: ['style-loader', 'css-loader']
+        use:[
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          }
+        ]
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        // options: vueLoaderConfig,
-        exclude: /\/node_modules\//
+        use: 'vue-loader',
+        // exclude: /\/node_modules\//
       },
-      {
-        test: /\.js$/,
-        use: {
-          loader: 'babel-loader',
-          // options: {
-          //   presets: ['@babel/preset-env']
-          // },
-        },
-        exclude: /\/node_modules\//
-      }
+      // {
+      //   test: /\.js$/,
+      //   use: 'babel-loader',
+      //   // exclude: /\/node_modules\//
+      // }
     ]
   },
-  // externals: {
-  //   vue: 'vue'
-  // },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './index.html'),
-      chunksSortMode: 'dependency',
+      // chunksSortMode: 'dependency',
       inject: true,
       minify: {
         collapseWhitespace: true
       }
     }),
+    new VueLoaderPlugin()
   ],
   devServer: {
     historyApiFallback: {

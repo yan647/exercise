@@ -11,3 +11,21 @@ proxy: {
 ```
 
 
+页面http://localhost:9000/api 跳转到baidu
+```
+proxy: 
+{
+  '/api': {
+    target: 'https://www.baidu.com',
+    changeOrigin: true,
+    pathRewrite: { '^/api': '' },
+  }
+}
+```
+
+```
+'/': {
+        target: 'http://localhost:8081',
+        changeOrigin: true,
+      }
+```

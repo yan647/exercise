@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<div id="app">
+  <div id="nav">
+    Link to <router-link to="/syncComponent">/Sync Component</router-link><br/>
+    Link to <router-link to="/asyncComponent1">/Async Component1</router-link><br/>
+  </div>
+  <hr/>
+  <router-view></router-view>
+  <script>
+    var syncComponent = { template: '<div>Sync Component</div>' }
+
+    var asyncComponent = function () {
+      return new Promise(function (resolve) {
+        setTimeout(function() {
+          resolve({ template: '<div>Async Component</div>',created(){
+              console.log('asyncComponent');
+            } })
+        }, 1000)
+      })
+    }
+
+    var LoadingComponent = { template: '<h3>Loading...</h3>',created(){
+      console.log('loading');
+      } }
+
+    var AsyncLoad = function(asyncComponent) {
+      return new Promise(function (resolve) {
+        resolve({
+          name: 'AsyncLoad',
+          render: function(h) {
+            return h('loading');
+          },
+          components: {
+            loading: function() {
+              return {
+                component: asyncComponent,
+                loading: LoadingComponent
+              };
+            }
+          }
+        });
+      });
+    };
+
+    var router = new VueRouter({
+      routes: [
+        { path: '/', redirect: '/syncComponent' },
+        { path: '/syncComponent', component: syncComponent },
+        { path: '/asyncComponent1', component: function () {
+            return AsyncLoad(asyncComponent())
+          }}
+      ]
+    });
+
+    new Vue({
+      el: "#app",
+      router: router
+    });
+  </script>
+</div>
+</body>
+</html>
