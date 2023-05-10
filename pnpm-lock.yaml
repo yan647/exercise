@@ -4,6 +4,12 @@ importers:
 
   .:
     devDependencies:
+      '@types/estree':
+        specifier: ^1.0.1
+        version: 1.0.1
+      '@types/json-schema':
+        specifier: ^7.0.11
+        version: 7.0.11
       webpack:
         specifier: ^5.76.3
         version: 5.76.3(webpack-cli@5.0.1)
@@ -1407,12 +1413,12 @@ packages:
     resolution: {integrity: sha1-N/wSI/B4bDlicGihLpTW5vxh3hY=, tarball: http://r.npm.sankuai.com/@types/eslint-scope/download/@types/eslint-scope-3.7.4.tgz}
     dependencies:
       '@types/eslint': 8.37.0
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.1
 
   /@types/eslint@8.37.0:
     resolution: {integrity: sha1-Kc68bCo6x/6nETIHv1qCj99NfvE=, tarball: http://r.npm.sankuai.com/@types/eslint/download/@types/eslint-8.37.0.tgz}
     dependencies:
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.1
       '@types/json-schema': 7.0.11
 
   /@types/estree@0.0.39:
@@ -1421,6 +1427,9 @@ packages:
 
   /@types/estree@0.0.51:
     resolution: {integrity: sha1-z9cJJKJaP9MrIY5eQg5ol+GsT0A=, tarball: http://r.npm.sankuai.com/@types/estree/download/@types/estree-0.0.51.tgz}
+
+  /@types/estree@1.0.1:
+    resolution: {integrity: sha1-qiJ1CWLzvw5511PTzAZ/AQyV8ZQ=, tarball: http://r.npm.sankuai.com/@types/estree/download/@types/estree-1.0.1.tgz}
 
   /@types/express-serve-static-core@4.17.33:
     resolution: {integrity: sha1-3jXTCp1jfcFFCtGN1YPXXVcz1UM=, tarball: http://r.npm.sankuai.com/@types/express-serve-static-core/download/@types/express-serve-static-core-4.17.33.tgz}

@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
+    "lib": ["ES2015","dom"],
     "module": "es6",
     "target": "es5",
     "allowJs": true,
