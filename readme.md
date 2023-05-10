@@ -10,9 +10,10 @@
 
 
 ### doing
-- 迁移eg_react项目到本仓库
+- 
 
 
 ### done
 - pnpm workspace配置：packages下的子目录作为子工作区 参考 https://juejin.cn/post/7163202341758304270
+- 迁移eg_react项目到本仓库
 
