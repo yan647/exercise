@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var spiralOrder = function (matrix) {
+        if (matrix.length === 0) {
+            return [];
+        }
+        let result = [];
+        let a = 0, b = 0, time = 0;
+        let min_len = Math.min(matrix.length, matrix[0].length);
+        while (a <= parseInt(min_len / 2) && b <= parseInt(min_len / 2)) {
+            for (b; b < matrix[a].length - time - 1; b++) {
+                result.push(matrix[a][b]);
+            }
+            for (a; a < matrix.length - time - 1; a++) {
+                result.push(matrix[a][b]);
+            }
+            for (b; b >= time + 1; b--) {
+                result.push(matrix[a][b]);
+            }
+            for (a; a >= time + 1; a--) {
+                result.push(matrix[a][b]);
+            }
+            a++;
+            b++;
+            time++;
+        }
+        result.length <= matrix.length * matrix[0].length && result.push(matrix[a - 1][b - 1]);
+        return result;
+    };
+    // console.log(spiralOrder([[1,2,3],[4,5,6],[7,8,9]]));
+    // console.log(spiralOrder(([[1,2,3,4],[5,6,7,8],[9,10,11,12]])));
+    // console.log(spiralOrder([[1,2],[3,4]]));
+    // console.log(spiralOrder([]));
+    console.log(spiralOrder([[6, 9, 7]]));
+</script>
+</body>
+</html>

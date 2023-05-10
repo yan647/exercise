@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let getNum=function(numArr){
+        if(numArr.length>2){
+            if(numArr.slice(0,2).join("")>=10 && numArr.slice(0,2).join("")<=25){
+                return getNum(numArr.slice(1))+getNum(numArr.slice(2));
+            } else return getNum(numArr.slice(1));
+        } else {
+            let num=numArr.join("");
+            if(num<10 || (num>25 && num<100)){
+                return 1;
+            } else return 2;
+        }
+    };
+    var translateNum = function(num) {
+        let numArr=num.toString().split("");
+        return getNum(numArr);
+    };
+    console.log(translateNum(12258));//5
+    console.log(translateNum(29));//1
+    console.log(translateNum(100));//2
+    console.log(translateNum(1));//1
+    console.log(translateNum(98765432));//1
+</script>
+</body>
+</html>

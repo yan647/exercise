@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    var maxProduct = function(nums) {
+        let result=-Infinity;
+        for(let a=0;a<nums.length;a++){
+            let temp=[];
+            temp.push(nums[a]);
+            result=Math.max(result,temp[0]);
+            for(let b=a+1;b<nums.length;b++){
+                temp.push(nums[b]);
+                let temp_mul=temp.reduce((p,n)=>{
+                    return p*n;
+                });
+                result=Math.max(result,temp_mul);
+            }
+        }
+        return result;
+    };
+    // console.log(maxProduct([2,3,-2,4]))//6
+    // console.log(maxProduct([-2,0,-1]))//0
+    console.log(maxProduct([0,2]))
+    console.log(maxProduct([-2]))
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * Definition for a binary tree node.
+     * function TreeNode(val) {
+     *     this.val = val;
+     *     this.left = this.right = null;
+     * }
+     */
+    /**
+     * @param {TreeNode} root
+     * @return {boolean}
+     */
+    var isSymmetric = function(root) {
+        let fun=function(left,right){
+            if(left.val===right.val){
+                if(!left.left && !right.right){
+                    if(!left.right && !right.left){
+                        return true;
+                    } else if(!(left.right && right.left)){
+                        return false;
+                    } else return fun(left.right,right.left);
+                }  else if(!left.right && !right.left){
+                    if(!left.left && !right.right){
+                        return true;
+                    } else if(!(left.left && right.right)){
+                        return false;
+                    } else return fun(left.left,right.right);
+                } else if(!(left.right && right.left) || !(left.left && right.right)){
+                    return false;
+                } else if(left.right.val===right.left.val && left.left.val===right.right.val){
+                    return fun(left.right,right.left) && fun(left.left,right.right);
+                } else return false;
+            } else return false;
+        };
+        if(root===null || (!root.left && !root.right)){
+            return true;
+        } else if(!(root.left && root.right)){
+            return false;
+        } else return fun(root.left,root.right);
+    };
+</script>
+</body>
+</html>
