@@ -5,11 +5,11 @@
 - [从vue转到React遇到的疑惑或问题](./doc/index.md)
 
 ## 开始
-- yarn start
+- pnpm start
 
 ## 搭建react webpack的步骤
-- yarn init
-- yarn add react react-dom webpack webpack-cli
+- pnpm init
+- pnpm add react react-dom webpack webpack-cli
 - npx webpack init
 - 
 
