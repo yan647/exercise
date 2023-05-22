@@ -1,0 +1,13 @@
+{
+  "name": "learn-refactoring",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/yan647/learnRefactoring.git",
+  "author": "<yan647@aliyun.com>",
+  "license": "MIT",
+  "scripts": {
+  },
+  "devDependencies": {
+    "node": "^19.8.1"
+  }
+}
