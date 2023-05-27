@@ -267,7 +267,9 @@ export default function CountLabel({ count }) {
 最终，你的`set`调用仍然会更新`state`而不发生异变--这并不意味着你可以打破纯函数的其他规则。
 
 这个模式很难理解，而且最好避免掉。但是，它比在effect中更新`state`要好。当你在渲染过程中调用`set`函数，你的组件用一个`return`语句退出时，在渲染子组件之前，React会立即重新渲染组件。
-这样，子组件就不需要渲染两次了。组件的剩余函数仍将执行（结果将被丢弃）。如果你的条件低于所有`Hook`调用，你可以添加一个早点的`return`来尽早重新启动渲染。（**没看懂这部分**）
+这样，子组件就不需要渲染两次了。组件的剩余函数仍将执行（结果将被丢弃）。如果你的条件检查放置在`Hook`调用下面，你可以添加一个`early return`来尽早重新启动渲染。
+（译注：在 React 组件的渲染过程中，当满足一些条件时，我们可能想要避免渲染某些组件的子组件。在这种情况下，可以使用`early return`这个技巧来中止渲染过程，在避免子组件重复渲染的同时，提高渲染效率。
+具体来说，`early return` 是指在组件渲染过程中，当满足某个条件时，不再继续往下执行渲染，直接返回`null`等空值，从而停止渲染过程。这个技巧适用于需要在组件渲染前检查条件的场合，以避免不必要的计算和渲染。）
 
 ## 疑难解答
 ### 我已经更新了`state`，但是日志给我的是旧值
@@ -410,7 +412,7 @@ function handleClick() {
 - 初始化函数在开发环境下会调用两次，但在生产环境只调用一次，这是正常的。目的是辅助判断初始化函数是否为纯函数。
 - 初始化函数必须是纯函数，而且不接受参数，返回一个新的`state`值。更新函数必须是纯函数，只接受待处理的`state`作为它唯一的参数，没有返回值。
 - React会通过Object.is来比较新旧值是否相同，意味着如果`state`是对象或数组，只做浅比较。
-- React更新`state`时是批量更新的。[如何做批量更新的](https://overreacted.io/react-as-a-ui-runtime/#batching)。（[这篇文档的全部翻译](https://thoamsy.github.io/blogs/react-as-a-runtime/)）
+- React更新`state`时是批量更新的。[如何做批量更新的](https://overreacted.io/react-as-a-ui-runtime/#batching)。（[这篇文档的全部翻译](https://thoamsy.github.io/blogs/react-as-a-runtime/)）(TODO 还没看完)
 - `set`函数是异步的，如果在`set`后立即读取`state`值，不能保证能够获取到最新的`state`。如果需要在更新后立即访问`state`，可以使用`useEffect`钩子函数来实现。
 - 如果你传一个函数给`useState`,React只会在初始化期间调用它
 - 
