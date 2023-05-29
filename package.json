@@ -14,5 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "webpack": "^5.76.3"
+  },
+  "dependencies": {
+    "@types/estree": "^1.0.1",
+    "@types/json-schema": "^7.0.11"
   }
 }

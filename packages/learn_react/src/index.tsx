@@ -13,8 +13,11 @@ const targetDom = document.getElementById('root');
 const root = ReactDOMClient.createRoot(targetDom);
 root.render(
   <>
-    <div>Tic-Tac-Toe</div>
+    <div>1、Tic-Tac-Toe</div>
     <Game></Game>
+    <br/>
+    <div>2.固定高度无限滚动列表</div>
+    <InfiniteScrollSample></InfiniteScrollSample>
   </>
 );
 
