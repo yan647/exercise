@@ -1,6 +1,9 @@
 
 - 练习各种前端技术的地方
-- 使用pnpm workspace管理
+- 使用pnpm workspace管理 
+- 全局安装pnpm:npm install pnpm -g 
+- 安装npm使用pnpm install
+- 
 
 ### todo
 - eslint stylelint prettier 
