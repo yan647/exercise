@@ -5,4 +5,6 @@ https://github.com/ruanyf/webpack-demos
 
 webpack.config.js 用的CommonJS
 
+使用的webpack版本太久了，但还是有可以参考的地方
+
 
