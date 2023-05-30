@@ -35,7 +35,7 @@ module.exports = {
 
 
 <br/>
-本项目中用的awesome-typescript-loader，`TODO`
+本项目中用的 [awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader)，`TODO`
 
 
 ### 对于函数组件，React的每次重渲染，函数组件的整个函数体都会被重新执行。
