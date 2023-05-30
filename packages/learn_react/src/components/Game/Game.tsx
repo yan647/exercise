@@ -34,7 +34,7 @@ export default function Game() {
 
 
   return (
-    <div>
+    <div style={{display: 'flex',height:'260px'}}>
       <div>
         <Board squares={currentSquares} xIsNext={xIsNext} handlePlay={handlePlay}/>
       </div>

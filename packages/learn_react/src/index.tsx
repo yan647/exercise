@@ -1,7 +1,8 @@
 import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import './style.scss';
-import Game from './components/Game';
+import Game from './components/Game/Game';
+import InfiniteScrollSample from './components/InfiniteScrollSample';
 
 const targetDom = document.getElementById('root');
 
