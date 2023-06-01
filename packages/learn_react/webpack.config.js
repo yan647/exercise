@@ -36,31 +36,46 @@ const config = {
     rules: [
       {
         test: /\.(ts|tsx)$/i,
-        loader: "awesome-typescript-loader",
+        loader: "ts-loader",
         exclude: ["/node_modules/"],
       },
       {
         test: /\.css$/i,
-        use: [stylesHandler, "css-loader"],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              esModule: false,
+            },
+          }, {
+            loader: "css-loader",
+            options: {
+              modules: true,
+            }
+          }
+        ],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [stylesHandler, "css-loader", "sass-loader"],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              esModule: false,
+            },
+          },
+          "css-loader",
+          "sass-loader"
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: "asset",
       },
-
-      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-      // { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js", ".scss"],
   },
   // When importing a module whose path matches one of the following, just
   // assume a corresponding global variable exists and use that instead.
