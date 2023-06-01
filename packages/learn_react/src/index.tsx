@@ -3,6 +3,7 @@ import * as ReactDOMClient from 'react-dom/client';
 import './style.scss';
 import Game from './components/Game/Game';
 import InfiniteScrollSample from './components/InfiniteScrollSample';
+import EgRcSelect from './components/EgRcSelect'
 
 const targetDom = document.getElementById('root');
 
@@ -14,11 +15,14 @@ const targetDom = document.getElementById('root');
 const root = ReactDOMClient.createRoot(targetDom);
 root.render(
   <>
-    <div>1、Tic-Tac-Toe</div>
-    <Game></Game>
-    <br/>
-    <div>2.固定高度无限滚动列表</div>
-    <InfiniteScrollSample></InfiniteScrollSample>
+      <div>rc-select</div>
+        <EgRcSelect></EgRcSelect>
+      <br/>
+      <div>固定高度无限滚动列表</div>
+      <InfiniteScrollSample></InfiniteScrollSample>
+      <br/>
+      <div>Tic-Tac-Toe</div>
+      <Game></Game>
   </>
 );
 
