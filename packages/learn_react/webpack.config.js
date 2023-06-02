@@ -7,7 +7,7 @@ const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV === "production";
 
-const stylesHandler = MiniCssExtractPlugin.loader;
+const { resolve } = path
 
 const config = {
   entry: "./src/index.tsx",
@@ -40,22 +40,6 @@ const config = {
         exclude: ["/node_modules/"],
       },
       {
-        test: /\.css$/i,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              esModule: false,
-            },
-          }, {
-            loader: "css-loader",
-            options: {
-              modules: true,
-            }
-          }
-        ],
-      },
-      {
         test: /\.s[ac]ss$/i,
         use: [
           {
@@ -64,7 +48,15 @@ const config = {
               esModule: false,
             },
           },
-          "css-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[name]__[local]___[hash:base64:5]", // 生成样式的命名规则
+                localIdentContext: resolve(__dirname, 'src')
+              },
+            }
+          },
           "sass-loader"
         ],
       },
