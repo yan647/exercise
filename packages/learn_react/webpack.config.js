@@ -42,12 +42,7 @@ const config = {
       {
         test: /\.(sa|sc|c)ss$/i,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              esModule: false,
-            },
-          },
+          MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
             options: {

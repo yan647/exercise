@@ -46,3 +46,9 @@ declare module '*.scss'{
 }
 ```
 
+https://webpack.docschina.org/plugins/mini-css-extract-plugin/
+
+mini-css-extract-plugin中的esModule默认为true，表示：将会生成使用 ES 模块语法的 JS 模块
+后续发现不需要设置esModule为true也没问题了，但因为没法重现当时的问题，没法找解决方案了
+
+
