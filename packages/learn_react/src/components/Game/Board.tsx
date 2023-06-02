@@ -1,4 +1,5 @@
 import Square from "./Square";
+import Styles from './border.scss'
 
 function calculateWinner(squares: string[]): string | null {
   const rightLines = [
@@ -51,7 +52,7 @@ export default function Board({
       <div>{status}</div>
       {
         columns.map((column, colIndex) => {
-          return (<div className="board-row" key={colIndex}>
+          return (<div className={Styles['board-row']} key={colIndex}>
             {column.map((row, rowIndex) => {
               let index = colIndex * 3 + rowIndex;
               return (<Square value={squares[index]} onSquareClick={() => handleSquareClick(index)}/>)
