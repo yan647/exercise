@@ -1,13 +1,17 @@
+import React,{useState} from "react";
 import Select,{Option} from 'rc-select'
 import Styles from './styles.scss'
 export default function EgRcSelect({}) {
-  const value='3'
+  const [value,setValue] =useState('3')
+  const onChange=(val:string)=>{
+    setValue(val)
+  }
   return <>
     <Select
-      // onChange={this.onChange}
+      onChange={onChange}
       dropdownMatchSelectWidth={500}
       value={value}
-      dropdownClassName={Styles.dropdown}
+      className={Styles.egRcSelect}
     >
       <Option value="1">
         Jack Jack Jack Jack Jack Jack Jack Jack Jack Jack Jack

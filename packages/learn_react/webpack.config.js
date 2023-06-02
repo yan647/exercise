@@ -40,7 +40,7 @@ const config = {
         exclude: ["/node_modules/"],
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.(sa|sc|c)ss$/i,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -59,6 +59,24 @@ const config = {
           },
           "sass-loader"
         ],
+        exclude: [
+          path.resolve('node_modules'),
+          path.resolve('styles/global.css'),
+          path.resolve('styles/global.scss')
+        ]
+      },
+      {
+        test: /\.(sa|sc|c)ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader"
+        ],
+        include: [
+          path.resolve('node_modules'),
+          path.resolve('styles/global.css'),
+          path.resolve('styles/global.scss')
+        ]
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
