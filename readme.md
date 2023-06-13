@@ -3,7 +3,9 @@
 - 使用pnpm workspace管理 
 - 全局安装pnpm:npm install pnpm -g 
 - 安装npm使用pnpm install
-- 
+- 给特定子集安装依赖包：pnpm install commander -D --filter eslint-cli
+其中eslint-cli是对应包中package.json中的name，不是文件路径，也不一定是文件名
+- 给全部项目安装依赖包：pnpm install eslint -w
 
 ### todo
 - eslint stylelint prettier 
@@ -23,3 +25,5 @@
 - 迁移learn_typescript项目到本仓库
 - 迁移learn_refactoring项目到本仓库
 
+### 参考
+[pnpm官方文档](https://pnpm.io/zh/motivation)
