@@ -1,0 +1,16 @@
+{
+  "name": "eslint-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yan647/exercise.git"
+  },
+  "author": "yan647",
+  "license": "ISC",
+  "devDependencies": {
+    "commander": "^10.0.1"
+  }
+}
