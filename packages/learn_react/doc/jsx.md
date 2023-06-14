@@ -34,10 +34,6 @@ module.exports = {
 这样，Webpack就能够正确识别JSX语法并将其转为浏览器可读取的JavaScript代码。
 
 
-<br/>
-本项目中用的 [awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader)，`TODO`
-
-
 ### 对于函数组件，React的每次重渲染，函数组件的整个函数体都会被重新执行。
 在函数组件被调用时，React会执行函数体并生成Virtual DOM树，然后将Virtual DOM树更新到真正的DOM树上。每次更新时，React都会重新执行函数体，并通过对比新旧Virtual DOM树找出差异，更新相应的DOM。由于函数组件没有生命周期函数，因此会被完全重新执行。
 
