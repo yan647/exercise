@@ -3,7 +3,7 @@
 - 参考 https://github.com/danvk/effective-typescript
 
 ## 目录
-- translation 重要章节翻译 
+- translation 重要章节翻译（由于已经有中文书出版了，翻译就终止了） 
 - Chapter1 了解TypeScript
   - item3✅
   - Item4对勾
