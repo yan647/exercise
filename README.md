@@ -24,6 +24,7 @@
 - 迁移learn_leetcode项目到本仓库
 - 迁移learn_typescript项目到本仓库
 - 迁移learn_refactoring项目到本仓库
+- 迁移learnVue项目到本仓库
 
 ### 参考
 [pnpm官方文档](https://pnpm.io/zh/motivation)
