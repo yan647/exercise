@@ -1,0 +1,21 @@
+{
+  "include": ["./**/*.ts","*.ts","*.vue"],
+  "exclude": ["./dist","./node_modules","./pages"],
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "module": "es2020",
+    "target": "es5",
+    "jsx": "preserve",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "lib": ["es2015", "es2016", "dom", "es2018.promise"],
+  }
+}
