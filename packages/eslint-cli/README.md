@@ -8,7 +8,7 @@
 - [x] 做计划
 - [x] 调研目前这些配置工具业界比较好的默认配置
 - [ ] 定一份我自己常用的eslint配置
-- [ ] 学习commander
+- [ ] 学习commander，参考eslint --init来写交互对话
 - [ ] 假设用户使用vue ts scss，需要配置的工具包括：eslint prettier stylelint commitlint
 - [ ] 让用户选择支持哪种开发语言：vue react ts scss
 - [ ] 安装需要的npm包
