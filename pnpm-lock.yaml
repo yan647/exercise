@@ -29,6 +29,9 @@ importers:
       eslint-plugin-vue:
         specifier: ^9.14.1
         version: 9.14.1(eslint@8.42.0)
+      ts-loader:
+        specifier: ^9.4.2
+        version: 9.4.2(typescript@5.0.2)(webpack@5.76.3)
       webpack:
         specifier: ^5.76.3
         version: 5.76.3(webpack-cli@5.0.1)
@@ -73,9 +76,6 @@ importers:
       '@webpack-cli/generators':
         specifier: ^2.4.1
         version: 2.4.1(prettier@2.8.6)(webpack-dev-server@4.13.1)(webpack@5.76.3)
-      awesome-typescript-loader:
-        specifier: ^5.2.1
-        version: 5.2.1(typescript@5.0.2)
       css-loader:
         specifier: ^6.7.3
         version: 6.7.3(webpack@5.76.3)
@@ -101,7 +101,7 @@ importers:
         specifier: ^3.3.2
         version: 3.3.2(webpack@5.76.3)
       ts-loader:
-        specifier: ^9.4.2
+        specifier: '*'
         version: 9.4.2(typescript@5.0.2)(webpack@5.76.3)
       typescript:
         specifier: ^5.0.2
@@ -2274,24 +2274,6 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /awesome-typescript-loader@5.2.1(typescript@5.0.2):
-    resolution: {integrity: sha1-pB2veEdRX0klzbqjB11h8onpE/w=, tarball: http://r.npm.sankuai.com/awesome-typescript-loader/download/awesome-typescript-loader-5.2.1.tgz}
-    peerDependencies:
-      typescript: ^2.7 || ^3
-    dependencies:
-      chalk: 2.4.2
-      enhanced-resolve: 4.5.0
-      loader-utils: 1.4.2
-      lodash: 4.17.21
-      micromatch: 3.1.10
-      mkdirp: 0.5.6
-      source-map-support: 0.5.21
-      typescript: 5.0.2
-      webpack-log: 1.2.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /axios@0.21.4(debug@3.2.7):
     resolution: {integrity: sha1-xnuQ3AVo5cHPKwuFjEO6KOLtpXU=, tarball: http://r.npm.sankuai.com/axios/download/axios-0.21.4.tgz}
     dependencies:
@@ -2352,10 +2334,6 @@ packages:
 
   /batch@0.6.1:
     resolution: {integrity: sha1-3DQxT05nkxgJP8dgJyUl+UvyXBY=, tarball: http://r.npm.sankuai.com/batch/download/batch-0.6.1.tgz}
-
-  /big.js@5.2.2:
-    resolution: {integrity: sha1-ZfCvOC9Xi83HQr2cKB6cstd2gyg=, tarball: http://r.npm.sankuai.com/big.js/download/big.js-5.2.2.tgz}
-    dev: true
 
   /binary-extensions@2.2.0:
     resolution: {integrity: sha1-dfUC7q+f/eQvyYgpZFvk6na9ni0=, tarball: http://r.npm.sankuai.com/binary-extensions/download/binary-extensions-2.2.0.tgz}
@@ -2795,13 +2773,6 @@ packages:
     hasBin: true
     dev: true
 
-  /d@1.0.1:
-    resolution: {integrity: sha1-hpgJU3LVjb7jRv/Qxwk/mfj561o=, tarball: http://r.npm.sankuai.com/d/download/d-1.0.1.tgz}
-    dependencies:
-      es5-ext: 0.10.62
-      type: 1.2.0
-    dev: true
-
   /dargs@6.1.0:
     resolution: {integrity: sha1-HzubVjk+z4yqfL/WwxSW/8+5snI=, tarball: http://r.npm.sankuai.com/dargs/download/dargs-6.1.0.tgz}
     engines: {node: '>=6'}
@@ -3043,11 +3014,6 @@ packages:
   /emoji-regex@8.0.0:
     resolution: {integrity: sha1-6Bj9ac5cz8tARZT4QpY79TFkzDc=, tarball: http://r.npm.sankuai.com/emoji-regex/download/emoji-regex-8.0.0.tgz}
 
-  /emojis-list@3.0.0:
-    resolution: {integrity: sha1-VXBmIEatKeLpFucariYKvf9Pang=, tarball: http://r.npm.sankuai.com/emojis-list/download/emojis-list-3.0.0.tgz}
-    engines: {node: '>= 4'}
-    dev: true
-
   /encodeurl@1.0.2:
     resolution: {integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=, tarball: http://r.npm.sankuai.com/encodeurl/download/encodeurl-1.0.2.tgz}
     engines: {node: '>= 0.8'}
@@ -3056,15 +3022,6 @@ packages:
     resolution: {integrity: sha1-WuZKX0UFe682JuwU2gyl5LJDHrA=, tarball: http://r.npm.sankuai.com/end-of-stream/download/end-of-stream-1.4.4.tgz}
     dependencies:
       once: 1.4.0
-
-  /enhanced-resolve@4.5.0:
-    resolution: {integrity: sha1-Lzz9hNvjtIfxjy2y7x4GSlccpew=, tarball: http://r.npm.sankuai.com/enhanced-resolve/download/enhanced-resolve-4.5.0.tgz}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      graceful-fs: 4.2.11
-      memory-fs: 0.5.0
-      tapable: 1.1.3
-    dev: true
 
   /enhanced-resolve@5.13.0:
     resolution: {integrity: sha1-JtHsxEjALemXEzIXtcEFPzSgonU=, tarball: http://r.npm.sankuai.com/enhanced-resolve/download/enhanced-resolve-5.13.0.tgz}
@@ -3085,13 +3042,6 @@ packages:
   /errlop@2.2.0:
     resolution: {integrity: sha1-H/OD+PkXrjKL67gC1sppZmpC0hs=, tarball: http://r.npm.sankuai.com/errlop/download/errlop-2.2.0.tgz}
     engines: {node: '>=0.8'}
-
-  /errno@0.1.8:
-    resolution: {integrity: sha1-i7Ppx9Rjvkl2/4iPdrSAnrwugR8=, tarball: http://r.npm.sankuai.com/errno/download/errno-0.1.8.tgz}
-    hasBin: true
-    dependencies:
-      prr: 1.0.1
-    dev: true
 
   /error-ex@1.3.2:
     resolution: {integrity: sha1-tKxAZIEH/c3PriQvQovqihTU8b8=, tarball: http://r.npm.sankuai.com/error-ex/download/error-ex-1.3.2.tgz}
@@ -3168,31 +3118,6 @@ packages:
       is-callable: 1.2.7
       is-date-object: 1.0.5
       is-symbol: 1.0.4
-    dev: true
-
-  /es5-ext@0.10.62:
-    resolution: {integrity: sha1-XmrcGabaUkvz0eArvIlg5etJqaU=, tarball: http://r.npm.sankuai.com/es5-ext/download/es5-ext-0.10.62.tgz}
-    engines: {node: '>=0.10'}
-    requiresBuild: true
-    dependencies:
-      es6-iterator: 2.0.3
-      es6-symbol: 3.1.3
-      next-tick: 1.1.0
-    dev: true
-
-  /es6-iterator@2.0.3:
-    resolution: {integrity: sha1-p96IkUGgWpSwhUQDstCg+/qY87c=, tarball: http://r.npm.sankuai.com/es6-iterator/download/es6-iterator-2.0.3.tgz}
-    dependencies:
-      d: 1.0.1
-      es5-ext: 0.10.62
-      es6-symbol: 3.1.3
-    dev: true
-
-  /es6-symbol@3.1.3:
-    resolution: {integrity: sha1-utXTwbzawoJp9MszHkMceKxwXRg=, tarball: http://r.npm.sankuai.com/es6-symbol/download/es6-symbol-3.1.3.tgz}
-    dependencies:
-      d: 1.0.1
-      ext: 1.7.0
     dev: true
 
   /escalade@3.1.1:
@@ -3513,12 +3438,6 @@ packages:
       vary: 1.1.2
     transitivePeerDependencies:
       - supports-color
-
-  /ext@1.7.0:
-    resolution: {integrity: sha1-DqQ4PAED1g5wvpnpp/EQJ6M8T18=, tarball: http://r.npm.sankuai.com/ext/download/ext-1.7.0.tgz}
-    dependencies:
-      type: 2.7.2
-    dev: true
 
   /extend-shallow@2.0.1:
     resolution: {integrity: sha1-Ua99YUrZqfYQ6huvu5idaxxWiQ8=, tarball: http://r.npm.sankuai.com/extend-shallow/download/extend-shallow-2.0.1.tgz}
@@ -4700,15 +4619,6 @@ packages:
     resolution: {integrity: sha1-wbShY7mfYUgwNTsWdV5xSawjFOE=, tarball: http://r.npm.sankuai.com/loader-runner/download/loader-runner-4.3.0.tgz}
     engines: {node: '>=6.11.5'}
 
-  /loader-utils@1.4.2:
-    resolution: {integrity: sha1-KalX86Y5c4g+toTxD/09FR/sAaM=, tarball: http://r.npm.sankuai.com/loader-utils/download/loader-utils-1.4.2.tgz}
-    engines: {node: '>=4.0.0'}
-    dependencies:
-      big.js: 5.2.2
-      emojis-list: 3.0.0
-      json5: 1.0.2
-    dev: true
-
   /locate-path@3.0.0:
     resolution: {integrity: sha1-2+w7OrdZdYBxtY/ln8QYca8hQA4=, tarball: http://r.npm.sankuai.com/locate-path/download/locate-path-3.0.0.tgz}
     engines: {node: '>=6'}
@@ -4749,14 +4659,6 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       chalk: 2.4.2
-
-  /loglevelnext@1.0.5:
-    resolution: {integrity: sha1-NvxPWZbWZA9Tn/IDuoGWQWgNdaI=, tarball: http://r.npm.sankuai.com/loglevelnext/download/loglevelnext-1.0.5.tgz}
-    engines: {node: '>= 6'}
-    dependencies:
-      es6-symbol: 3.1.3
-      object.assign: 4.1.4
-    dev: true
 
   /loose-envify@1.4.0:
     resolution: {integrity: sha1-ce5R+nvkyuwaY4OffmgtgTLTDK8=, tarball: http://r.npm.sankuai.com/loose-envify/download/loose-envify-1.4.0.tgz}
@@ -4864,14 +4766,6 @@ packages:
     engines: {node: '>= 4.0.0'}
     dependencies:
       fs-monkey: 1.0.3
-
-  /memory-fs@0.5.0:
-    resolution: {integrity: sha1-MkwBKIuIZSlm0WHbd4OHIIRajjw=, tarball: http://r.npm.sankuai.com/memory-fs/download/memory-fs-0.5.0.tgz}
-    engines: {node: '>=4.3.0 <5.0.0 || >=5.10'}
-    dependencies:
-      errno: 0.1.8
-      readable-stream: 2.3.8
-    dev: true
 
   /merge-descriptors@1.0.1:
     resolution: {integrity: sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E=, tarball: http://r.npm.sankuai.com/merge-descriptors/download/merge-descriptors-1.0.1.tgz}
@@ -5048,10 +4942,6 @@ packages:
 
   /neo-async@2.6.2:
     resolution: {integrity: sha1-tKr7k+OustgXTKU88WOrfXMIMF8=, tarball: http://r.npm.sankuai.com/neo-async/download/neo-async-2.6.2.tgz}
-
-  /next-tick@1.1.0:
-    resolution: {integrity: sha1-GDbuMK1W1n7ygbIr0Zn3CUSbNes=, tarball: http://r.npm.sankuai.com/next-tick/download/next-tick-1.1.0.tgz}
-    dev: true
 
   /nice-try@1.0.5:
     resolution: {integrity: sha1-ozeKdpbOfSI+iPybdkvX7xCJ42Y=, tarball: http://r.npm.sankuai.com/nice-try/download/nice-try-1.0.5.tgz}
@@ -5506,10 +5396,6 @@ packages:
     dependencies:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
-
-  /prr@1.0.1:
-    resolution: {integrity: sha1-0/wRS6BplaRexok/SEzrHXj19HY=, tarball: http://r.npm.sankuai.com/prr/download/prr-1.0.1.tgz}
-    dev: true
 
   /pump@3.0.0:
     resolution: {integrity: sha1-tKIRaBW94vTh6mAjVOjHVWUQemQ=, tarball: http://r.npm.sankuai.com/pump/download/pump-3.0.0.tgz}
@@ -6471,11 +6357,6 @@ packages:
     resolution: {integrity: sha1-btpL00SjyUrqN21MwxvHcxEDngk=, tarball: http://r.npm.sankuai.com/supports-preserve-symlinks-flag/download/supports-preserve-symlinks-flag-1.0.0.tgz}
     engines: {node: '>= 0.4'}
 
-  /tapable@1.1.3:
-    resolution: {integrity: sha1-ofzMBrWNth/XpF2i2kT186Pme6I=, tarball: http://r.npm.sankuai.com/tapable/download/tapable-1.1.3.tgz}
-    engines: {node: '>=6'}
-    dev: true
-
   /tapable@2.2.1:
     resolution: {integrity: sha1-GWenPvQGCoLxKrlq+G1S/bdu7KA=, tarball: http://r.npm.sankuai.com/tapable/download/tapable-2.2.1.tgz}
     engines: {node: '>=6'}
@@ -6707,14 +6588,6 @@ packages:
       media-typer: 0.3.0
       mime-types: 2.1.35
 
-  /type@1.2.0:
-    resolution: {integrity: sha1-hI3XaY2vo+VKbEeedZxLw/GIR6A=, tarball: http://r.npm.sankuai.com/type/download/type-1.2.0.tgz}
-    dev: true
-
-  /type@2.7.2:
-    resolution: {integrity: sha1-I3ahWjoose+g9TUNz3LSTfbvmNA=, tarball: http://r.npm.sankuai.com/type/download/type-2.7.2.tgz}
-    dev: true
-
   /typed-array-length@1.0.4:
     resolution: {integrity: sha1-idg3heXECYvscuCLMZZR8OrJwbs=, tarball: http://r.npm.sankuai.com/typed-array-length/download/typed-array-length-1.0.4.tgz}
     dependencies:
@@ -6856,12 +6729,6 @@ packages:
   /utils-merge@1.0.1:
     resolution: {integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=, tarball: http://r.npm.sankuai.com/utils-merge/download/utils-merge-1.0.1.tgz}
     engines: {node: '>= 0.4.0'}
-
-  /uuid@3.4.0:
-    resolution: {integrity: sha1-sj5DWK+oogL+ehAK8fX4g/AgB+4=, tarball: http://r.npm.sankuai.com/uuid/download/uuid-3.4.0.tgz}
-    deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
-    hasBin: true
-    dev: true
 
   /uuid@8.3.2:
     resolution: {integrity: sha1-gNW1ztJxu5r2xEXyGhoExgbO++I=, tarball: http://r.npm.sankuai.com/uuid/download/uuid-8.3.2.tgz}
@@ -7072,16 +6939,6 @@ packages:
       - debug
       - supports-color
       - utf-8-validate
-
-  /webpack-log@1.2.0:
-    resolution: {integrity: sha1-pLNM2msitRjbsKsy5WeWLVxypD0=, tarball: http://r.npm.sankuai.com/webpack-log/download/webpack-log-1.2.0.tgz}
-    engines: {node: '>=6'}
-    dependencies:
-      chalk: 2.4.2
-      log-symbols: 2.2.0
-      loglevelnext: 1.0.5
-      uuid: 3.4.0
-    dev: true
 
   /webpack-merge@5.8.0:
     resolution: {integrity: sha1-Kznb8ir4d3atdEw5AiNzHTCmj2E=, tarball: http://r.npm.sankuai.com/webpack-merge/download/webpack-merge-5.8.0.tgz}

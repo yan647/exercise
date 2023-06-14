@@ -28,7 +28,7 @@
     "sass": "^1.60.0",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.2",
-    "ts-loader": "^9.4.2",
+    "ts-loader": "*",
     "typescript": "^5.0.2",
     "webpack-dev-server": "^4.13.1",
     "workbox-webpack-plugin": "^6.5.4"

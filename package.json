@@ -21,7 +21,8 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-vue": "^9.14.1",
-    "webpack": "^5.76.3"
+    "webpack": "^5.76.3",
+    "ts-loader": "^9.4.2"
   },
   "dependencies": {
     "@types/estree": "^1.0.1",
