@@ -1,10 +1,11 @@
-const {program} = require('commander')
+const { program } = require('commander');
 
-program.option('--init')//.option('-s,--separator <char>')
+program.name('eslint-cli-eg').description('练习commander用的').version('0.0.1');
+program.command('init').description('初始化eslint等配置').argument('<string>', 'test')
+  .option('--verbose', '打印详细的安装信息')
+  .action((str:string, options:{verbose?:boolean}) => {
+    console.log('参数：', str);
+    console.log('options:', options);
+  });
 
-program.parse()
-
-// const options = program.opts()
-// const limit = options.first ? 1 : undefined
-// console.log(program.args[0].split(options.separator, limit))
-console.log('hello world')
+program.parse();
