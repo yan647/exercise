@@ -1,6 +1,8 @@
 ### 开始使用
 - pnpm install eslint -w
 - 在项目根目录下使用eslint --init根据提示自动生成.eslintrc.js
+- 配置好需要的.eslintrc.js后，可以修改开发工具的配置，实现保存时自动格式化：WebStorm->settings->Languages&Frameworks->JavaScript->Code Quality Tools->ESLint,
+勾选run eslint --fix on save
 
 ### 常用的默认配置：
 - eslint:recommended：ESLint 内置的推荐规则，即 ESLint Rules 列表中打了钩的那些规则

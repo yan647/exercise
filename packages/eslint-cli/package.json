@@ -10,7 +10,7 @@
   },
   "author": "yan647",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "commander": "^10.0.1"
   }
 }
