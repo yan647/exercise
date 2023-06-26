@@ -45,9 +45,19 @@ Inquirer.js、enquirer 是交互式的，需要监听用户侧的键盘输入，
 - 使用enquirer.prompt与用户实现各种交互。
 - 没有使用commander就是这样的写法了。
 
+3. 新版的inquirer只支持ES6的import导入方式，如何让Node支持import？
+参考了[node支持ES module (import) 的三种方式](https://juejin.cn/post/7085724713565208589)中最简单的方法，把文件后缀js改为mjs
+
+
+
+### 自测的方法
+在本目录下执行node src/index.mjs init
 
 ### 使用方法
 
+
+
 ### 参考
 [commander官方文档](https://github.com/tj/commander.js/tree/master)
+[inquirer官方文档](https://github.com/SBoudrias/Inquirer.js)
 https://zhuanlan.zhihu.com/p/125528291

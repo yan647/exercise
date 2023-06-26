@@ -8,9 +8,14 @@
     "type": "git",
     "url": "git+https://github.com/yan647/exercise.git"
   },
+  "bin": {
+    "eslint-cli-eg": "./src/index.ts"
+  },
   "author": "yan647",
   "license": "ISC",
   "dependencies": {
-    "commander": "^10.0.1"
+    "@inquirer/select": "^1.1.7",
+    "commander": "^10.0.1",
+    "inquirer": "^9.2.7"
   }
 }
