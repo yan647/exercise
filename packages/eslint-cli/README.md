@@ -56,7 +56,7 @@ Inquirer.js、enquirer 是交互式的，需要监听用户侧的键盘输入，
 ### 在本地测试npm包是否起作用
 1. 因为用的包管理器是pnpm，因此使用npm link不管用，需要在本项目中使用pnpm link --global 来建立全局的软链
 2. 在使用者项目中使用pnpm link eslint-cli来使用本地的包
-3. 在使用者项目中，执行eslint-cli-eg init a 发现成功了！！！
+3. 在使用者项目中，执行eslint-cli-eg init发现成功了！！！
 
 ### 使用方法
 

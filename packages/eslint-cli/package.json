@@ -14,6 +14,7 @@
   "author": "yan647",
   "license": "ISC",
   "dependencies": {
+    "@inquirer/confirm": "^1.0.7",
     "@inquirer/select": "^1.1.7",
     "commander": "^10.0.1",
     "inquirer": "^9.2.7"
