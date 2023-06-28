@@ -21,9 +21,12 @@
 1. 应该使用enquirer、inquirer、commander等中的哪个？ 
 - enquirer inquirer基本没有区别（原因：https://github.com/SBoudrias/Inquirer.js/issues/839 ， https://github.com/enquirer/enquirer/issues/205 ）。
 都是编写终端交互式面板的工具。
+enquirer更加简单易用，适合于一些简单的命令行提示场景；而inquirer则更加灵活可定制，适合于一些复杂的命令行交互场景。
 根据[npm trend](https://npmtrends.com/enquirer-vs-inquirer-vs-prompt-vs-prompts)得知，inquirer使用者最多，交互方面使用inquirer。
 
-- commander.js 编写 node 命令。首先注册命令行参数处理规则，随后通过甄别用户输入（node 环境中的 progress.argv），再从已注册的处理规则中选取其一并应用之。
+- commander.js 用于创建命令行工具。编写 node 命令。是一个轻量级的、可扩展的、用户友好的命令行工具，支持解析命令行参数和选项，可以很方便地创建命令行工具。
+适用于需要创建命令行工具的场景，如创建一个命令行工具来执行某个任务。
+首先注册命令行参数处理规则，随后通过甄别用户输入（node 环境中的 progress.argv），再从已注册的处理规则中选取其一并应用之。
 commander.js 本质是非交互式的，在用户输入完成后调用 commander.js 模块进行处理，无需监听键盘事件。
 Inquirer.js、enquirer 是交互式的，需要监听用户侧的键盘输入，以实现单选、多选、密码等交互动作。它们借助 readline 模块处理标准输入 process.stdin、标准输出 process.stdout。
 
