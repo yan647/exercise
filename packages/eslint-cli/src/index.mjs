@@ -23,9 +23,6 @@ program.command('init')
         value: 'miniprogram',
       }],
     });
-    if(options.verbose) {
-      console.log('你选择的框架是：', frameworkAnswer);
-    }
 
     const languageAnswer = await select({
       message: '请选择开发语言',
@@ -37,20 +34,17 @@ program.command('init')
         value: 'javascript',
       }],
     });
-    if(options.verbose) {
-      console.log('你选择的开发语言是：', languageAnswer);
-    }
-
 
     const needStylelint=await confirm({
       message:'是否需要 scss stylelint? (默认为 Y)'
     })
+
+
     if(options.verbose) {
+      console.log('你选择的框架是：', frameworkAnswer);
+      console.log('你选择的开发语言是：', languageAnswer);
       console.log(`你选择${needStylelint ? '' : '不'}需要 scss stylelint`);
     }
-
-
-
   });
 
 program.parse();
