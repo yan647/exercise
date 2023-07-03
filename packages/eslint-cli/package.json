@@ -15,8 +15,14 @@
   "license": "ISC",
   "dependencies": {
     "@inquirer/confirm": "^1.0.7",
+    "@inquirer/input": "^1.0.7",
     "@inquirer/select": "^1.1.7",
+    "child_process": "^1.0.2",
     "commander": "^10.0.1",
-    "inquirer": "^9.2.7"
+    "fs": "0.0.1-security",
+    "inquirer": "^9.2.7",
+    "ora": "^6.3.1",
+    "path": "^0.12.7",
+    "util": "^0.12.5"
   }
 }
