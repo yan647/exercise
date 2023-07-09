@@ -29,6 +29,47 @@ function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | nul
   return result;
 }
 
+// 学习官方题解
+function addTwoNumbers2(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+  let tempL1 = l1;
+  let tempL2 = l2;
+
+  /**
+   * 这里如果只有head，没有tail，节点的next就会被覆盖，而不是正确的链表了
+   * 所以这里很关键，需要定义一头一尾两个指针，保证尾指针一直指向链表尾，头指针一直指向链表头
+   * */
+  let head = null;
+  let tail = null;
+  let gap = 0;
+  while (tempL1 || tempL2) {
+    const num1 = tempL1?.val ?? 0;
+    const num2 = tempL2?.val ?? 0;
+    const sum = num1 + num2 + gap;
+    if (!head && !tail) {
+      // 最开始，什么都没有，新加一个节点，这个节点既是头也是尾
+      tail = new ListNode(sum % 10);
+      head = tail;
+    } else {
+      (tail as ListNode).next = new ListNode(sum % 10);
+
+      // 把尾指针挪到链表尾部，保障tail永远指向链表尾部，而这时的head还是指向链表头部
+      tail = (tail as unknown as ListNode).next;
+    }
+    gap = Math.floor(sum / 10);
+    if (tempL1) {
+      tempL1 = tempL1.next;
+    }
+    if (tempL2) {
+      tempL2 = tempL2.next;
+    }
+  }
+  if (gap) {
+    // 如果算到最后，还有进位，就加到链表结尾
+    (tail as ListNode).next = new ListNode(gap);
+  }
+  return head;
+}
+
 // console.log(listNodeToList([],addTwoNumbers(listToListNode([2,4,3]), listToListNode([5,6,4]))));// [7,0,8]
 
 // console.log(listNodeToList([], addTwoNumbers(
