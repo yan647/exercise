@@ -22,5 +22,6 @@ module.exports = {
     'import/extensions': 'warn',
     'import/no-unresolved': 'warn',
     'max-len': ['error', { comments: 110, code: 90 }],
+    'no-use-before-define': 'warn',
   },
 };
