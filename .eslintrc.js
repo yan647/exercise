@@ -23,5 +23,6 @@ module.exports = {
     'import/no-unresolved': 'warn',
     'max-len': ['error', { comments: 110, code: 90 }],
     'no-use-before-define': 'warn',
+    'no-multi-assign': 'warn',
   },
 };
