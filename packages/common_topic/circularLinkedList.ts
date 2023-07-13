@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep';
 /**
  * 循环链表找环的方法
  * 1. 最简单的方法
@@ -40,12 +39,12 @@ function getRepeatFromLinkedList(list:LinkedList | undefined):string {
   const result:string[] = [];
   let head = list;
   while (head) {
-    if (result.includes(head.val)) {
+    if (!result.includes(head.val)) {
       result.push(head.val);
+      head = head.next;
     } else {
       return head.val;
     }
-    head = head.next;
   }
   return '-1';
 }
@@ -55,12 +54,12 @@ function stringToLinkedList(str:string) {
     return undefined;
   }
   const list = str.split('');
-  // let tail:LinkedList | undefined = new LinkedList(list[0]);
   let tail:LinkedList | undefined = new LinkedList(list[0]);
-  const head = cloneDeep(tail);
+  const head = tail;
+  tail.next = new LinkedList(list[1]);// 这句非常重要，不能遗漏
   tail = tail.next;
   list.forEach((item, index) => {
-    if (index && tail) {
+    if (index > 1 && tail) {
       tail.next = new LinkedList(item);
       tail = tail.next;
     }
