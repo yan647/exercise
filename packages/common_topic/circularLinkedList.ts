@@ -31,6 +31,10 @@ class LinkedList {
     this.next = next;
   }
 }
+const tempList = stringToLinkedList('ABCDEFGC');
+// @ts-ignore
+tempList.next.next.next.next.next.next.next = tempList.next.next.next;// 人工造了个环
+
 /**
  * 2. 构建链表，使用散列法，参考：
  * [检测链表中的循环(弗洛伊德循环检测算法)](https://www.techiedelight.com/zh/detect-cycle-linked-list-floyds-cycle-detection-algorithm/)
@@ -48,6 +52,27 @@ function getRepeatFromLinkedList(list:LinkedList | undefined):string {
   }
   return '-1';
 }
+console.log('散列法结果：', getRepeatFromLinkedList(tempList));
+
+/**
+ * 3. 使用弗洛伊德循环检测算法
+ * Floyd 的循环检测算法是一种指针算法，它只使用两个指针，它们以不同的速度在序列中移动。这个想法是移动快指针的速度是慢指针的两倍，它们之间的距离每一步增加一。
+ * 如果我们俩在某个时候相遇，我们在列表中找到了一个循环；否则，如果到达列表末尾，则不存在循环。它也被称为“龟兔算法”。
+ * */
+function getRepeatUseFloyd(list:LinkedList | undefined):string {
+  let slow = list;
+  let fast = list;
+  while (fast && fast.next && slow) {
+    fast = fast.next.next;
+    slow = slow.next;
+    if (fast === slow) {
+      return slow?.val ?? '-1';
+    }
+  }
+  return '-1';
+}
+
+console.log('弗洛伊德循环检测算法结果：', getRepeatUseFloyd(tempList));
 
 function stringToLinkedList(str:string) {
   if (!str) {
@@ -66,5 +91,3 @@ function stringToLinkedList(str:string) {
   });
   return head;
 }
-
-console.log('散列法结果：', getRepeatFromLinkedList(stringToLinkedList('ABCDEFGC')));
