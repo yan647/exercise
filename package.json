@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npx -y only-allow pnpm",
     "lint": "eslint --ext .ts,.tsx,.js packages",
     "fix": "eslint --ext .ts,.tsx packages --fix"
   },
