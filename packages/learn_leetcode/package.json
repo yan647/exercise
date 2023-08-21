@@ -6,7 +6,7 @@
   "author": "<yan647@aliyun.com>",
   "license": "MIT",
   "scripts": {
-    "init": "ts-node 6899.ts"
+    "init": "ts-node 354.ts"
   },
   "dependencies": {
     "ts-node": "^10.9.1",
