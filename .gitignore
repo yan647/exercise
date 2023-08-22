@@ -8,4 +8,4 @@ test.html
 yarn.lock
 coverage
 lib
-/out
+packages/my-electron-app/out
