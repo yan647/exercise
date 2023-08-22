@@ -13,13 +13,17 @@ interface Todo {
  *    2. 字符串字面量联合的 Keys，它包含了要迭代的属性名的集合。
  *    3. 属性的结果类型。
  *
- * 为什么不用interface而是用type？
+ * 问题一：为什么不用interface而是用type？
  * 因为在interface中不能使用in，否则会报下面两个错误：
  * TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
  * TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
  *
+ * 问题二：这里为什么要用extends？
+ * extends用来约束K必须是keyof T的子集。因为K不是直接从T中取出来的
  *
- * 参考：tslang.cn/docs/handbook/advanced-types.html
+ * 参考：
+ * https://juejin.cn/post/7265996663406968844
+ * tslang.cn/docs/handbook/advanced-types.html
  * */
 type MyPick<T, K extends keyof T>={
   [k in K]:T[k]
