@@ -1,0 +1,16 @@
+{
+  "name": "my-electron-app",
+  "productName": "my-electron-app",
+  "description": "My Electron application description",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "liushuiqing",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "25.3.1",
+    "path": "^0.12.7"
+  }
+}
