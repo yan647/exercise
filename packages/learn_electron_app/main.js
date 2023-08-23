@@ -1,5 +1,3 @@
-// Empty
-
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
@@ -14,7 +12,7 @@ const createWindow = () => {
 
   ipcMain.on('set-title', (event, title) => {
     const webContents = event.sender;// todo
-    const win = BrowserWindow.fromBrowserView(webContents);// todo
+    const win = BrowserWindow.fromWebContents(webContents);// todo
     win.setTitle(title);
   });
 

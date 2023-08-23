@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+
+    //清一色
+    let getAllResult = function (arr) {
+        let temp = JSON.parse(JSON.stringify(arr));
+        if (arr.length === 2) {
+            if (arr[0] === arr[1]) {
+                return "yes";
+            } else return "no";
+        } else {
+            for (let a = 0; a < arr.length - 2; a++) {
+                if (arr[a] === arr[a + 1] && arr[a + 1] === arr[a + 2]) {
+                    temp.splice(temp.indexOf(arr[a]), 3);
+                    return getAllResult(temp);
+                }
+                if (arr.length === 5 && arr[a] === arr[a + 1]) {
+                    a++;
+                    continue;
+                }
+                let item = temp[a];
+                let x = [parseInt(item), parseInt(item), parseInt(item)],
+                    y = [parseInt(item) + 1, parseInt(item) - 1, parseInt(item) - 1],
+                    z = [parseInt(item) + 2, parseInt(item) + 1, parseInt(item) - 2];
+                temp = temp.map(function (data) {
+                    return parseInt(data);
+                });
+                for (let m = 0; m < 3; m++) {
+                    let x_ = temp.indexOf(x[m]), y_ = temp.indexOf(y[m]), z_ = temp.indexOf(z[m]);
+                    if (x_ >= 0 && y_ >= 0 && z_ >= 0) {
+                        temp.splice(temp.indexOf(x[m]), 1);
+                        temp.splice(temp.indexOf(y[m]), 1);
+                        temp.splice(temp.indexOf(z[m]), 1);
+                        return getAllResult(temp);
+                    }
+                }
+            }
+        }
+    };
+    var getAll = function (str) {
+        let arr = str.split("");
+        return getAllResult(arr);
+
+    };
+    //console.log(getAll("11"));
+
+    //打印任务排序
+    var printOrder = function (arr) {
+        let temp=arr.map((data,index)=>{
+            return {
+                data:data,
+                index:index,
+                printNum:0
+            }
+        });
+        for(let a=0;a<temp.length;a++){
+            for(let b=a+1;b<temp.length;b++){
+                if(temp[a].data<temp[b].data){
+                    temp.push(temp[a]);
+                    temp.splice(a,1);
+                    b=a;
+                }
+            }
+            temp[a].printNum=a;
+        }
+
+        return temp.sort((a,b)=>{
+            return a.index-b.index;
+        }).map((data)=>{
+            return data.printNum;
+        });
+    };
+    console.log(printOrder([9, 3, 3, 5, 3, 5, 7]));
+    console.log(printOrder([9, 3, 5]));
+    console.log(printOrder([1]));
+    console.log(printOrder([0]));
+
+    //七进制加法
+    var getSum = function (a, b) {
+        let result = [];
+        let c = 0;
+        for (let m = 0; m < b.length; m++) {
+            let sum = parseInt(a[m]) + parseInt(b[m]) + c;
+            if (sum >= 7) {
+                c = 1;
+                result.unshift(sum - 7);
+            } else result.unshift(sum);
+        }
+        if (a.length !== b.length) {
+            let last = parseInt(a[a.length - 1]) + c;
+            if (last >= 7) {
+                result.unshift(last - 7);
+                result.unshift(1);
+            } else result.unshift(last);
+
+        }
+        return result.join("");
+    };
+    var sevenNum = function (str) {
+        let temp = str.split(" ");
+        let a = temp[0].split("").reverse();
+        let b = temp[1].split("").reverse();
+        let result = [];
+        if (a.length >= b.length) {
+            result = getSum(a, b);
+        } else if (a.length < b.length) {
+            result = getSum(b, a);
+        }
+        return result;
+    };
+    //console.log(sevenNum("652 35"));
+
+    var sevenNum2 = function (str) {
+        let temp = str.split(" ");
+        return (parseInt(temp[0], 7) + parseInt(temp[1], 7)).toString(7);
+    };
+    //console.log(sevenNum2("652 35"));
+
+    //集五福
+    var getFiveFu = function (arr) {
+        let result = new Array(5).fill(0);
+        for (let a = 0; a < arr.length; a++) {
+            for (let b = 0; b < 5; b++) {
+                arr[a][b] === "1" && (result[b]++);
+            }
+        }
+        result.sort((a, b) => {
+            return a - b;
+        });
+        return (result[0]);
+        return parseInt(arr.join("").split("").filter((data) => {
+            return data == 1;
+        }).length / 5);
+    };
+    //console.log(getFiveFu(["11010"]));
+
+    //消除重复数字
+    var delRepeat = function (input) {
+        let arr = input.split("");
+        arr = arr.map(function (data) {
+            return parseInt(data);
+        });
+        for (let a = 0; a < arr.length; a++) {
+            for (let b = a + 1; b < arr.length; b++) {
+                if (arr[a] === arr[b]) {
+                    if (a > b) {
+                        arr.splice(a, 1);
+                        a--;
+                    } else {
+                        arr.splice(b, 1);
+                        b--;
+                    }
+
+                }
+            }
+        }
+        return arr;
+    };
+    //console.log(delRepeat("423234"));
+
+    //掷骰子
+    var dice = function (input) {
+        let result = input.split("");
+        let l = 1, r = 2, f = 3, b = 4, u = 5, d = 6;
+        for (let a = 0; a < result.length; a++) {
+            let temp;
+            switch (result[a]) {
+                case "L"://左
+                    temp = l;
+                    l = u;
+                    u = r;
+                    r = d;
+                    d = temp;
+                    break;
+                case "R"://右
+                    temp = r;
+                    r = u;
+                    u = l;
+                    l = d;
+                    d = temp;
+                    break;
+                case "F"://前
+                    temp = f;
+                    f = u;
+                    u = b;
+                    b = d;
+                    d = temp;
+                    break;
+                case "B"://后
+                    temp = b;
+                    b = u;
+                    u = f;
+                    f = d;
+                    d = temp;
+                    break;
+                case "A"://逆
+                    temp = f;
+                    f = l;
+                    l = b;
+                    b = r;
+                    r = temp;
+                    break;
+                case "C"://顺
+                    temp = f;
+                    f = r;
+                    r = b;
+                    b = l;
+                    l = temp;
+            }
+        }
+        return [l, r, f, b, u, d].join("");
+    };
+    //console.log(dice("RA"));
+
+    //字母计数法
+    var convertTo26 = function (input) {
+        let result = 0;
+        let charts = input.split("").reverse();
+        for (let a = 0; a < charts.length; a++) {
+            let temp = charts[a].charCodeAt() - 96;
+            result = result + temp * Math.pow(26, a);
+        }
+        return result;
+    };
+    //console.log(convertTo26("ab"));
+
+    //找字符串中出现次数最多的字符
+    var findMoreTime = function (input) {
+        let type = input.split(" ")[1];
+        let str = input.split(" ")[0];
+
+        if (type === "false") {
+            str = str.toLowerCase();
+        }
+        str = str.split("");
+        let result = {};
+        str.sort().map((data) => {
+            result[data] ? (result[data]++) : (result[data] = 1);
+        });
+        let temp = [0, 0];
+        for (let a in result) {
+            if (result[a] > temp[1]) {
+                temp[0] = a;
+                temp[1] = result[a];
+            }
+        }
+        return temp.join(" ");
+    };
+    //console.log(findMoreTime("abcdABCdE false"));
+
+    //找出字符串中第一个只出现一次的字符
+    var findOnlyOnceStr = function (input) {
+        let str = input.split(" ")[0];
+        let type = input.split(" ")[1];
+        if (type === "false") {
+            str = str.toLowerCase();
+        }
+        let result;
+        return result;
+    };
+    //console.log(findOnlyOnceStr("abcdEfgABCD true"));
+
+    //一种字符串压缩表示的解压
+    var unzip = function (str) {
+        let result = "";
+        for (let a = 0; a < str.length; a++) {
+            let temp = str.charAt(a);
+            if (Number(temp) > 2) {
+                result = result + new Array(Number(temp)).fill(str.charAt(a + 1)).join("");
+                a++;
+            } else if (Number(temp) != 0 && Number(temp) != 1) {
+                result = result + temp;
+            } else return "!error"
+        }
+        return result;
+    };
+    //console.log(unzip("3abb4cd"));
+
+    //数据分类  todo
+    var numClassify = function (str) {
+        let a = str.split("、");
+        let c = a.shift();
+        let b = a.shift();
+        let result = 0;
+        a.map((data) => {
+            data.toString(2) % b < c && result++;
+        });
+        return result;
+    };
+    //https://www.nowcoder.com/discuss/62516?type=0&order=0&pos=23&page=1
+    //console.log(numClassify("5、2、1、2、3、4、5、6、7、8、9、10"));
+
+    //简单运算式计算
+    var calculate = function (str) {
+        let nums = str.split(/[\+]+|[\-]+|[\*]+/);
+        nums = nums.map((data) => {
+            return parseInt(data);
+        });
+        let operators = str.split(/\d+/);
+        operators.shift();
+        operators.pop();
+        let result = operators[0] !== "*" ? nums[0] : 0;
+        for (let a = 0; a < operators.length; a++) {
+            switch (operators[a]) {
+                case "+":
+                    if (operators[a + 1] !== "*") {
+                        result = result + nums[a + 1];
+                    } else {
+                        result = result + nums[a + 1] * nums[a + 2];
+                        a++;
+                    }
+                    break;
+                case "-":
+                    if (operators[a + 1] !== "*") {
+                        result = result - nums[a + 1];
+                    } else {
+                        result = result - nums[a + 1] * nums[a + 2];
+                        a++;
+                    }
+                    break;
+            }
+        }
+        return result;
+    };
+    //console.log(calculate("200+1-2*3"));
+
+    //德州扑克
+    var poker = function (str) {
+        str = str.replace(/J|Q|K|A/g, function (v) {
+            switch (v) {
+                case "J":
+                    return 11;
+                case "Q":
+                    return 12;
+                case "K":
+                    return 13;
+                case "A":
+                    return 1;
+            }
+        });
+        let arr = str.split(" ");
+        arr.sort((a, b) => {
+            return a.split("")[0] - b.split("")[0];
+        });
+        let nums = arr.map((data) => {
+            return parseInt(data.split("")[0]);
+        });
+        let flowers = arr.map((data) => {
+            return data.split("")[1];
+        });
+        let e1 = nums[0] == nums[1] && nums[1] == nums[2];
+        let e2 = nums[1] == nums[2] && nums[2] == nums[3];
+        let e3 = nums[2] == nums[3] && nums[3] == nums[4];
+        let t6 = e1 || e2 || e3; //三条6
+        if (t6) {
+            let t3;
+            if (e1) {
+                t3 = t6 && nums[3] == nums[4];//葫芦3
+            } else if (e2) {
+                t3 = t6 && nums[0] == nums[4];
+            } else if (e3) {
+                t3 = t6 && nums[0] == nums[1];
+            }
+            if (t3) {
+                return 3;
+            } else {
+                if (e1) {
+                    if (nums[0] == nums[3] || nums[0] == nums[4]) {
+                        return 2;
+                    }
+                } else if (e2) {
+                    if (nums[0] == nums[1] || nums[1] == nums[4]) {
+                        return 2;
+                    }
+                } else if (e3) {
+                    if (nums[0] == nums[2] || nums[1] == nums[2]) {
+                        return 2;
+                    }
+                } else return 6;
+            }
+        }
+        let t4 = (flowers[0] == flowers[1] == flowers[2] == flowers[3] == flowers[4])//同花4
+        let t5 = (nums[1] - nums[0] == nums[2] - nums[1] == nums[3] - nums[2] == nums[4] - nums[3])//顺子5
+        let t1 = t4 && t5;//同花顺1
+        if (t1) {
+            return 1;
+        } else if (t4) {
+            return 4;
+        } else if (t5) {
+            return 5;
+        } else return 7;
+
+    };
+    //console.log(poker("AH 2C 2S 2S AS"));
+
+    //单词排序输出
+    var wordSort = function (str) {
+        let arr = str.split(" ");
+        let compare = function (a, b, i) {
+            if (a.charAt(i) && b.charAt(i) && a.charAt(i) === b.charAt(i)) {
+                return compare(a, b, i + 1);
+            } else return a.charAt(i).charCodeAt() - b.charAt(i).charCodeAt();
+        };
+        arr.sort((a, b) => {
+            a = a.toUpperCase();
+            b = b.toUpperCase();
+            return compare(a, b, 0);
+        });
+        arr = arr.filter((data, index) => {
+            return arr[index + 1] ? (data.toUpperCase() !== arr[index + 1].toUpperCase()) : data.toUpperCase();
+        });
+        return arr;
+    };
+    //console.log(wordSort("Hello hello word"));
+
+    //文本逐字反转
+    var reverseWord = function (str) {
+        let arr = str.split(" ");
+        arr = arr.filter((data) => {
+            return data !== "";
+        });
+        return arr.reverse().join(" ");
+    };
+    //console.log(reverseWord(" the sky  is blue "));
+
+    //数字排列
+    var numSort = function (str) {
+        let arr = str.split(",").sort();
+        arr = arr.map((data) => {
+            return parseInt(data);
+        });
+        let n = arr[2];
+        let temp = JSON.parse(JSON.stringify(arr));
+        arr = arr.map((data) => {
+            return data.toString();
+        });
+        let add3 = function (a, b, c) {
+            temp.push(a + b);
+            temp.push(a + c);
+            temp.push(b + a);
+            temp.push(b + c);
+            temp.push(c + a);
+            temp.push(c + b);
+        };
+        let add25 = function (a, b, c) {
+            add3(a, b, c);
+            if (a === 5 || a === 2) add3(7 - a, b, c);
+            if (b === 5 || b === 2) add3(a, 7 - b, c);
+            if (c === 5 || c === 2) add3(a, b, 7 - c);
+        };
+        let add69 = function (a, b, c) {
+            add25(a, b, c);
+            if (a === 6 || a === 9) add3(15 - a, b, c);
+            if (b === 6 || b === 9) add3(a, 15 - b, c);
+            if (c === 6 || c === 9) add3(a, b, 15 - c);
+        };
+        add69(arr[0], arr[1], arr[2]);
+        temp = temp.map((data) => {
+            return parseInt(data);
+        });
+        temp.sort((a, b) => {
+            return a - b;
+        });
+        return temp[n - 1];
+    };
+    //console.log(numSort("1,4,8"));
+
+    //电报翻译
+    var telegraph = function (str) {
+        let arr = str.split("#");
+        let map = [
+            "F", "G", "R", "S", "T",//0--4
+            "L", "M", "N", "O", "P",//5--9
+            "Q", "W", "X", "Y", "Z",//10--14
+            "U", "A", "G", "H", "I",//15--19
+            "J", "K", "B", "C", "D",//20-24
+            "E", "l", "m", "n", "o",//25-29
+            "p", "i", "j", "k", "f",
+            "g", "h", "a", "b", "c",
+            "d", "e", "q", "r", "w",
+            "x", "y", "z", "s", "t",
+            "u", "v"];
+        let result = "";
+        arr = arr.map((data) => {
+            data = data.replace(/-|./g, function (v) {
+                if (v == "-") {
+                    return 0;
+                } else if (v == ".") {
+                    return 1;
+                }
+            });
+            data = parseInt(data, 2);
+            if (data > 51) {
+                result = "ERROR";
+            }
+            return map[data];
+        });
+        result = (result === "ERROR" ? result : arr.join(""));
+        return result;
+    };
+    //console.log(telegraph("--.#.#-.-"));
+
+    //仿LISP翻译
+    var LISP = function (str) {
+        str = str.split("");
+        let op = [], num = [];
+        for (let a = 0; a < str.length; a++) {
+            if (str[a] === "(") {
+                op.push(str[a + 1] + str[a + 2] + str[a + 3]);
+                a = a + 4;
+            } else if (str[a] === ")") {
+                let op_item = op.pop();
+                let num1 = num.pop();
+                let num2 = num.pop();
+                let temp;
+                switch (op_item) {
+                    case "add":
+                        temp = num1 + num2;
+                        break;
+                    case "sub":
+                        temp = num2 - num1;
+                        break;
+                    case "mul":
+                        temp = num1 * num2;
+                        break;
+                    case "div":
+                        if (num1 == 0 || num1 == "error") {
+                            return "error";
+                        } else temp = num2 / num1;
+                        break;
+                }
+                temp && num.push(temp);
+            } else if (/\d|-/.test(str[a])) {
+                let b = a;
+                while (/\d|-/.test(str[a + 1])) {
+                    a++;
+                }
+                let temp = JSON.parse(JSON.stringify(str));
+                num.push(temp.splice(b, a - b + 1).join(""));
+            }
+        }
+        return num[0];
+    };
+    //console.log(LISP("(div 1 0)"));
+    //console.log(LISP("(sub (mul 2 4) (div 9 3))"));
+
+
+    /***
+     * 2
+     */
+        //获取剩余可用字符集
+    var getRemain = function (str) {
+            let temp = str.split("@");
+            let operateFun = function (s) {
+                return s.split(",").map((_data) => {
+                    let temp = _data.split(":");
+                    temp[1] = parseInt(temp[1]);
+                    return temp;
+                }).sort((a, b) => {
+                    return a[0] - b[0];
+                });
+            };
+            let full = operateFun(temp[0]);
+            let has = operateFun(temp[1]);
+            if (has.length == 0) {
+                console.log(full);
+            } else {
+                let result = [];
+                for (let a = 0; a < full.length; a++) {
+                    for (let b = 0; b < has.length; b++) {
+                        if (full[a][0] === has[b][0]) {
+                            let t = full[a][1] - has[b][1];
+                            if (t >= 0) {
+                                result.push(full[a][0] + ":" + t);
+                                break;
+                            }
+                        }
+                    }
+                    if (!result[result.length - 1] || (result[result.length - 1] && result[result.length - 1].split(":")[0] !== full[a][0])) {
+                        result.push(full[a].join(":"));
+                    }
+                }
+                result.filter((data) => {//不确定需不需要把剩余为0的删掉
+                    return data.charAt(data.length - 1) != 0;
+                });
+                console.log(result);
+            }
+        };
+    // getRemain("a:3,b:5,c:2@a:1,b:2");
+    //getRemain("a:3,b:5,c:2@");
+    //getRemain("a:3,b:5,c:2@a:3,b:5");
+
+    //最大客人数量
+    var maxGuestNum = function (str) {
+        let time_list = [];
+        // while(readline()!=="-1,-1"){
+        //     time_list.push(readline());
+        // }
+        time_list = str.split("\n");
+        time_list.pop();
+        time_list = time_list.map((data) => {
+            return data.split(",");
+        });
+        let t = {};
+        for (let a = 0; a < 8; a++) {
+            t[a + 12] = 0;
+        }
+        for (let a = 0; a < time_list.length; a++) {
+            let temp = time_list[a][0];
+            while (temp < time_list[a][1] && temp < 20) {
+                t[temp]++;
+                temp++;
+            }
+        }
+        let result = [];
+        for (let a in t) {
+            result.push("[" + a + "," + (parseInt(a) + 1) + "):" + t[a]);
+        }
+        console.log(result.join("\n"));
+    };
+    //     maxGuestNum(`12,15
+    // 16,17
+    // 12,20
+    // -1,-1`);
+    //     maxGuestNum(`12,15
+    // -1,-1`);
+    //     maxGuestNum(`12,21
+    // -1,-1`);
+
+    //带空白字符的字符串匹配
+    var stringMatching1 = function (str) {//复杂的解法
+        if (str) {
+            let str_list = str.split("\n");
+            let allStr = str_list[0], sub = str_list[1];
+            if (allStr && sub) {
+                let ifRepeat = function (x) {
+                    return new Set(x).size === 1;
+                };
+                allStr = allStr.replace(/\s+/g, "");
+                let result = 0;
+                let flag = sub.length > 1 && ifRepeat(sub.split(""));//仅判断大于1个字符的
+                let getMatch = function (all, sub, result) {
+                    let index = all.indexOf(sub);
+                    if (index >= 0) {
+                        let temp = JSON.parse(JSON.stringify(allStr));
+                        temp = temp.split("");
+                        if (flag && ifRepeat(temp.splice(index, sub.length + 1))) {
+                            result = result + 2;
+                            all = all.split("");
+                            all.splice(0, index + sub.length + 1);
+                            return getMatch(all.join(""), sub, result);
+                        } else {
+                            result++;
+                            all = all.split("");
+                            all.splice(0, index + sub.length);
+                            return getMatch(all.join(""), sub, result);
+                        }
+                    } else return result;
+                };
+
+                return getMatch(allStr, sub, result);
+            } else return 0;
+        } else return 0;
+    };
+    //     console.log(stringMatching1(`    Abb ba
+    // bb`));
+    //     console.log(stringMatching1(`    Abb bababa
+    // bb`));
+    //     console.log(stringMatching1(`    Abb bababa
+    // b`));
+    //     console.log(stringMatching1(`    Abb bababab
+    // ba`));
+    //     console.log(stringMatching1(`    Abb bababab
+    // ba`));
+
+    var stringMatching2 = function (str) {//简单的解法
+        if (str) {
+            let str_list = str.split("\n");
+            let allStr = str_list[0], sub = str_list[1];
+            if (allStr && sub) {
+                allStr = allStr.replace(/\s+/g, "").split("");
+                let result = 0;
+                for (let a = 0; a < allStr.length; a++) {
+                    if (allStr.slice(a, sub.length + a).join("") === sub) {
+                        result++;
+                    }
+                }
+                return result;
+            } else return 0;
+        } else return 0;
+    };
+    //     console.log(stringMatching2(`    Abb ba
+    // bb`));
+
+    //优先级队列
+    var priorityQueue = function (str) {
+        if (str) {
+            str = str.split(",").map((data) => {
+                return data.split("");
+            }).sort((a, b) => {
+                return b[1] - a[1];
+            }).map((data) => {
+                return data.join("");
+            }).join(",");
+            console.log(str);
+        } else console.log("");
+    };
+    // priorityQueue("A1,B2,C3,a9,d0");//a9,C3,B2,A1,d0
+
+    //字符串过滤
+    var filterString = function (str) {
+        // while(readLine()){
+        //
+        // }
+        str = str.replace(/\s/g, "\n");
+        str = str.split("\n");
+        let legal = [], illegal = [];
+        str.map((data) => {
+            /\W+|_/g.test(data) ? illegal.push(data) : legal.push(data);
+        });
+        legal = new Set(legal);
+        console.log([...legal].join(" "));
+        console.log(illegal.join(" "));
+    };
+    //     filterString(`abc
+    // def
+    // == acd123 44234tjg aga'-= ad--s abd
+    // 123
+    // abcdef 123456789012345678901234567890123456789012345678901234567890123 EDFG
+    // SDFG
+    // ABC
+    // DEF
+    // cccc
+    // a*b=1
+    // abc
+    // cccc
+    // dd
+    // def
+    // 87&&^
+    // abc
+    // asdfas
+    // 234abc35
+    // 765rgfh4sd
+    // 1231
+    // 123
+    // ==
+    // EDFG`);
+
+    //拼接url
+    var jointUrl = function (str) {
+        str = str.split(",");
+        let a = str[0], b = str[1];
+        let result = "";
+        if (a && b) {
+            result = "/" + a + "/" + b;
+            result = result.replace(/\/\/|\/\/\//g, "\/");
+        } else result = "/";
+        console.log(result);
+    };
+    // jointUrl("/a,/b");
+    // jointUrl("/a,b");
+    // jointUrl("/a/,b");
+    // jointUrl(",");
+    // jointUrl("a,/b");
+    // jointUrl("a,b");
+
+    //强迫症卖家10000     总价m=1 台数n=2   m=d*n;  todo
+    var ocdSeller = function (d) {//0<d<10
+        let n = 1, m = 1;
+        if (d < 1) {
+            n = parseInt(1 / d);
+            m = parseInt(n * d);
+        } else {
+            n = 1;
+            d = Math.round(d);
+            m = parseInt(d);
+        }
+        console.log(m + " " + n);
+    };
+    //ocdSeller(0.50000000000000);//1 2
+    //ocdSeller(1.20000000000000);//1 1
+    //ocdSeller(1.80000000000000);//2 1
+
+    //查找算式最小值
+    var findMinFormula = function (arr) {
+        arr.sort((a, b) => {
+            return a - b;
+        });
+        let obj = {};
+        let ifAllPositive = true;
+        arr = arr.filter((data, a) => {
+            data < 0 && (ifAllPositive = false);
+            if (obj[data]) {
+                obj[data]++;
+            } else obj[data] = 1;
+            return obj[data] <= 3;
+        });
+        if (ifAllPositive) {
+            let x = arr[0], z = arr[1], y = arr[9];//全为正
+            console.log(x * x + x * y + z - y * y);
+            return 0;
+        } else {
+            let result = Infinity;
+            let calcu = function (x, y, z) {
+                return x * x + x * y + z - y * y;
+            };
+            for (let a = 0; a < arr.length; a++) {
+                for (let b = a + 1; b < arr.length; b++) {
+                    for (let c = b + 1; c < arr.length; c++) {
+                        if (arr[a] == arr[b] && arr[b] == arr[c]) {
+                            result = Math.min(calcu(arr[a], arr[b], arr[c]), result);
+                        } else result = Math.min(calcu(arr[a], arr[b], arr[c]), calcu(arr[a], arr[c], arr[b]),
+                            calcu(arr[b], arr[a], arr[c]), calcu(arr[b], arr[c], arr[a]),
+                            calcu(arr[c], arr[a], arr[b]), calcu(arr[c], arr[b], arr[a]), result);
+                    }
+                }
+            }
+            console.log(result);
+        }
+    };
+    //findMinFormula([1, 1, 3, 1, 1, 1, 1, 1, 1, 1]);
+    //findMinFormula([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
+
+    //数字分解
+    var numDecompose = function (str) {
+        str = str.split("\n");
+        str.pop();
+        let result = [];
+        let ifPrimeNumber = function (num) {
+            for (let a = 2; a < num; a++) {
+                if (num % a == 0) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        str.map((data) => {
+            if (data < 4) {
+                result.push(0);
+            } else {
+                let temp = 0;
+                let arr = [];
+                for (let a = 2; a < data - 1; a++) {
+                    if (ifPrimeNumber(a) && ifPrimeNumber(data - a) && ((arr.length && arr.indexOf(data - a) === -1) || !arr.length)) {
+                        temp++;
+                        arr.push(a);
+                    }
+                }
+                result.push(temp);
+            }
+        });
+        console.log(result.concat("end"))
+    };
+    //     numDecompose(`2
+    // 5
+    // 10
+    // 18
+    // 0`);
+
+    //事件推送EventPush
+    var EventPush = function (str) {
+        let temp1 = str.split("R="), temp2 = temp1[0].split("B="), temp3 = temp2[0].split("A=");
+        let r = parseInt(temp1[1]), b = temp2[1].substr(1), a = temp3[1].substr(1);
+        b = b.substr(0, b.length - 2).split(",");
+        a = a.substr(0, a.length - 2).split(",");
+        let result = "";
+        for (let x = 0; x < a.length; x++) {
+            for (let y = 0; y < b.length; y++) {
+                if (a[x] <= b[y]) {
+                    if (b[y] - a[x] <= r) {
+                        result = result + "(" + a[x] + "," + b[y] + ")";
+                        break;
+                    }
+                }
+            }
+        }
+        console.log(result);
+    };
+    //EventPush("A={1,3,5},B={2,4,6},R=1");
+    //EventPush("A={1,3,5},B={4,6,8},R=2");
+
+    //跳跃比赛
+    var jumpingGame = function (str) {
+        str = str.split("\n");
+        str.shift();
+        str=str.map((data)=> {
+            return parseInt(data);
+        });
+        let x = str.length - 2;
+        let result = 0;
+        while (x > 0) {
+            for (let a = 0; a <str.length; a++) {
+                if (a + str[a] >= x) {
+                    x = a;
+                    result++;
+                    break;
+                }
+            }
+        }
+        console.log(result);
+    };
+    //         jumpingGame(`7
+    // 2
+    // 3
+    // 2
+    // 1
+    // 2
+    // 1
+    // 5`);
+
+    var jump = function(nums) {
+        let p=nums.length-1;
+        let result=0;
+        while(p>0){
+            for(let a=0;a<nums.length;a++){
+                if(a+nums[a]>=p){
+                    p=a;
+                    result++;
+                    break;
+                }
+            }
+        }
+        return result;
+    };jump([2,3,1,1,4])
+
+    //流水线
+    var assemblyLine = function (str) {
+        str = str.split("\n");
+        str = str.map((data) => {
+            data=data.split(" ");
+            return data.map((_item)=>{
+                return parseFloat(_item);
+            });
+        });
+        let n,m;
+        [n,m]=str.shift();
+        let dp=[];
+        // let sum = 0;
+        // for (let a = 1; a < str[0][1]; a++) {
+        //     for (let b = 0; b < str[0][0]; b++) {
+        //         sum = sum + Number(str[a][b]);
+        //     }
+        // }
+        // console.log(sum);
+        dp[0]=[];
+        dp[0][0]=str[0][0];
+        for(let a=1;a<n;a++){
+            dp[0][a]=dp[0][a-1]+str[0][a];
+        }
+        for(let b=1;b<m;b++){
+            dp[b]=[];
+            dp[b][0]=dp[b-1][0]+str[b][0];
+        }
+        for(let b=1;b<m;b++){
+            for(let a=1;a<n;a++){
+                dp[b][a]=Math.max(dp[b-1][a]+str[b][a],dp[b][a-1]+str[b][a]);
+            }
+        }
+        console.log(dp[m-1][n-1].toFixed(6));
+
+    };
+    //         assemblyLine(`1 3
+    // 3.000500
+    // 2.000100
+    // 1.000020`);
+    //     assemblyLine(`2 3
+    // 3.200000 6.765432
+    // 2.345678 5.000000
+    // 1.000000 2.000007`)
+
+    //找终点
+    var findEnd = function (str) {
+        str = str.split(" ").map((data) => {
+            return parseInt(data);
+        });
+        let result = Infinity;
+        for (let a = 1; a < str.length / 2; a++) {
+            let temp = 0;
+            let step = 0;
+            while (step <= str.length) {
+                if (step === 0) {
+                    step = a;
+                    temp++;
+                } else {
+                    step = step + str[step];
+                    temp++;
+                }
+                if (step === str.length - 1) {
+                    result = Math.min(temp, result);
+                    break;
+                }
+            }
+        }
+        if (result === Infinity) {
+            console.log("-1");
+        } else console.log(result);
+    };
+    //findEnd("7 5 9 4 2 6 8 3 5 4 3 9");
+    // findEnd("7 1 9");
+    // findEnd("7 1 2 1 9");
+    //findEnd("2");
+
+    //磁盘容量排序
+    var diskCapacitySorting = function (str) {
+        str = str.split("\n");
+        str.shift();
+        let exchange = {
+            "M": 1,
+            "G": 1000,
+            "T": 1000000
+        };
+        str.sort((a, b) => {
+            let a1 = a.substr(0, a.length - 1);
+            let a2 = a.charAt(a.length - 1);
+            let b1 = b.substr(0, b.length - 1);
+            let b2 = b.charAt(b.length - 1);
+            return a1 * exchange[a2] - b1 * exchange[b2];
+        });
+        console.log(str.join("\n"));
+    };
+    //     diskCapacitySorting(`3
+    // 1T
+    // 20M
+    // 3G`);
+    //     diskCapacitySorting(`3
+    // 1000M
+    // 20M
+    // 1G`);
+
+    //变量替换
+    var variableSubstitution = function (str) {
+        str = str.split("\n");
+        str.shift();
+        str = str.map((data) => {
+            return data.split("=");
+        });
+        let result = str[str.length - 1][1];
+        str.pop();
+        let obj = {};
+        str.map((data) => {
+            obj[data[0]] = data[1];
+        });
+        while (result.indexOf("$\{") >= 0) {
+            let index1 = result.indexOf("$\{");
+            let index2 = result.indexOf("\}");
+            let variable = result.slice(index1 + 2, index2);
+            result = result.replace("$\{" + variable + "\}", obj[variable]);
+        }
+        console.log(result);
+    };
+    //     variableSubstitution(`4
+    // xxx=lyf/$\{ttt\}/test
+    // ttt=www
+    // yyy=seeyou
+    // aa=/aaa/$\{xxx\}/bbb/$\{yyy\}/ccc`);
+
+    //科学计算器  todo
+    var calculator = function (str) {
+        let operator = [];
+        let num = [];
+        let temp = "";
+        let calcu = function (operator, num) {
+            if (operator.length === 2) {
+                switch (operator[0]) {
+                    case "+":
+                        return parseInt(num[0]) + calcu([operator[1]], num.slice(1, 3));
+                    case "-":
+                        return parseInt(num[0]) - calcu([operator[1]], num.slice(1, 3));
+                }
+            } else switch (operator[0]) {
+                case "+":
+                    return parseInt(num[0]) + parseInt(num[1]);
+                case "-":
+                    return parseInt(num[0]) - parseInt(num[1]);
+                case "*":
+                    return parseInt(num[0]) * parseInt(num[1]);
+                case "/":
+                    return parseInt(num[0]) / parseInt(num[1]);
+            }
+        };
+        for (let a = 0; a < str.length; a++) {
+            if (a === str.length - 1 && a !== 0) {
+                temp = temp + str[a];
+                num.push(temp);
+                num[0] = calcu(operator, num);
+            } else if (str[a] === "-") {
+                if (a === 0) {//负
+                    temp = temp + str[a];
+                } else if (/\*|\/|-|\+/.test(str[a - 1])) {//负
+                    temp = temp + str[a];
+                } else {//减号
+                    operator.push(str[a]);
+                }
+            } else if (!/\*|\/|\+/.test(str[a])) {//数字
+                temp = temp + str[a];
+                if (/\*|\/|-|\+/.test(str[a + 1])) {//下一位是操作符
+                    num.push(temp);
+                    temp = "";
+                    if (!/\*|\//.test(str[a + 1]) && a + 3 !== str.length && num.length === 2) {//下一个操作符不是*/，有俩数
+                        num[0] = calcu(operator, num);
+                        num.pop();
+                    }
+                }
+            } else {
+                operator.push(str[a]);
+            }
+        }
+        console.log(num[0]);
+    };
+    // calculator("-1*6");
+    //calculator("-1-1");
+    //calculator("1-1");
+    //calculator("1-1+1-1");
+    // calculator("1+1*6");
+    //calculator("1+4/2");
+    // calculator("1+4/2*3");
+
+    //最大日期 //todo
+    var MaxDate = function (str) {
+        let result = new Array(8);
+        result[2] = ":";
+        result[5] = ":";
+        let x2 = [];
+        let x3 = [];
+        let x5 = [];
+        let x9 = [];
+        str.sort((a, b) => {
+            return b - a;
+        });
+        for (let a = 0; a < str.length; a++) {
+            if (str[a] <= 2) {
+                x2.push(str[a])
+            } else if (str[a] === 3) {
+                x3.push(str[a]);
+            } else if (str[a] <= 5) {
+                x5.push(str[a])
+            } else x9.push(str[a]);
+        }
+        result[0] = x2[0];//第一位
+        x2.shift();
+        if (result[0] === 2) {
+            if (x3.length) {
+                result[1] = x3[0];//✅
+                x3.shift();
+            } else {
+                result[1] = x2[0];
+                x2.shift();
+            }
+        } else {
+            if (x9.length) {
+                result[1] = x9[0];
+                x9.shift();
+            } else if (x5.length) {
+                result[1] = x5[0];
+                x5.shift();
+            } else {//✅
+                result[1] = x2[0];
+                x2.shift();
+            }
+        }
+        if (x5.length) {
+            result[3] = x5[0];
+            x5.shift();
+            if (x5.length) {
+                result[6] = x5[0];
+                x5.shift();
+            } else {
+                result[6] = x2[0];//✅
+                x2.shift();
+            }
+        } else {//✅
+            result[3] = x2[0];
+            x2.shift();
+            result[6] = x2[0];
+            x2.shift();
+        }
+        if (x9.length) {
+            if (x9.indexOf(result[1]) >= 0) {
+                x9.splice(x9.indexOf(result[1]), 1);
+                if (x9.length) {
+                    result[4] = x9[0];
+                    x9.shift();
+                    if (x9.length) {
+                        result[7] = x9[0];
+                    } else if (x5.length) {
+                        result[7] = x5[0];
+                    } else if (x2.length) {
+                        result[7] = x2[0];
+                    }
+                } else {
+                    if (x5.length) {
+                        result[4] = x5[0];
+                        x5.shift();
+                        if (x5.length) {
+                            result[7] = x5[0];
+                        } else result[7] = x2[0];
+                    } else {
+                        result[4] = x2[0];
+                        result[7] = x2[1];
+                    }
+                }
+            } else {
+                result[4] = x9[0];
+                x9.shift();
+                if (x9.length) {
+                    result[7] = x9[0];
+                } else {
+                    if (x5.length) {
+                        result[7] = x5[0];
+                    } else result[7] = x2[0];//✅
+                }
+            }
+        } else if (x5.length) {
+
+        } else {
+
+        }
+        console.log(result.join(""));
+    };
+    //MaxDate([0, 2, 3, 0, 5, 6]);//"23:56:00"
+    // MaxDate([0,1,0,0,0,0]);
+
+    //计算岛屿数量
+    var calcuIsland = function (str) {
+        str = str.split("\n");
+        str.shift();
+        str = str.map((data) => {
+            return data.split(" ");
+        });
+        let change = function (a, b, a_len, b_len) {
+            if (b + 1 < b_len && str[a][b + 1] && str[a][b + 1] === "1") {
+                str[a][b + 1] = "0";
+                change(a, b + 1, a_len, b_len);
+            }
+            if (b - 1 >= 0 && str[a][b - 1] && str[a][b - 1] === "1") {
+                str[a][b - 1] = "0";
+                change(a, b - 1, a_len, b_len);
+            }
+            if (a + 1 < a_len && str[a + 1][b] && str[a + 1][b] === "1") {
+                str[a + 1][b] = "0";
+                change(a + 1, b, a_len, b_len);
+            }
+            if (a - 1 >= 0 && str[a - 1][b] && str[a - 1][b] === "1") {
+                str[a - 1][b] = "0";
+                change(a - 1, b, a_len, b_len);
+            }
+        };
+        let result = 0, a_len = str.length, b_len = str[0].length;
+        for (let a = 0; a < a_len; a++) {
+            for (let b = 0; b < b_len; b++) {
+                if (str[a][b] === "1") {
+                    str[a][b] = "0";
+                    change(a, b, a_len, b_len);
+                    result++;
+                }
+            }
+        }
+        console.log(result);
+    };
+    //     calcuIsland(`5 4
+    // 1 0 1 0
+    // 1 1 1 1
+    // 1 0 0 0
+    // 0 1 0 1
+    // 0 0 0 1`)
+
+    //判断数字序列是否合法
+    var ifLegal = function (str) {
+        str = str.split("\n");
+        str = str.map((data) => {
+            return data.split(" ");
+        });
+        let result = [];
+        for (let a = 0; a < str.length; a++) {
+            let len = str[a].length;
+            if (str[a][0].length === 1 && str[a][len - 1].length === 1) {
+                for (let b = 1; b < len - 1; b++) {
+                    if (str[a][b].length !== 2) {
+                        result.push(false);
+                        break;
+                    }
+                }
+                if (result.length !== a + 1) {
+                    result.push(true);
+                }
+            } else if (str[a][0].length === 2 && str[a][len - 1].length === 2) {
+                for (let b = 1; b < len - 1; b++) {
+                    if (str[a][b].length !== 1) {
+                        result.push(false);
+                        break;
+                    }
+                }
+                if (result.length !== a + 1) {
+                    result.push(true);
+                }
+            } else {
+                let flag = 0;
+                for (let b = 0; b < str[a].length; b++) {
+                    b === 0 && (flag = str[a][b].length);
+                    if (b > 0 && ((b / 2 && str[a][b] === flag) || (!b / 2 && str[a][b] !== flag))) {
+                        result.push(false);
+                        break;
+                    }
+                }
+                if (result.length !== a + 1) {
+                    result.push(true);
+                }
+            }
+        }
+        console.log(result.join(" "));
+    };
+    //     ifLegal(`1 23 3 42 3 56
+    // 44 1 5 71 9 35
+    // 1 22 32 44 56 65 5
+    // 1 4 2 3 4 1 2 3`);
+
+    //勾股数元祖
+    var Pythagorean = function (str) {
+        str = str.split("\n");
+        str[0] = parseInt(str[0]);
+        str[1] = parseInt(str[1]);
+        let ifPrimeNumber = function (x) {
+            for (let a = 2; a < x[2]; a++) {
+                if (x[0] % a === 0 && x[1] % a === 0 && x[2] % a === 0) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        let temp = [], result = [];
+        for (let a = (str[0] >= 3 ? str[0] : 3); a < str[1]; a++) {
+            for (let b = a; b < str[1]; b++) {
+                for (let c = b + 1; c < str[1]; c++) {
+                    if (a + b > c && a * a + b * b === c * c) {
+                        temp.push([a, b, c]);
+                    }
+                }
+            }
+        }
+        for (let a = 0; a < temp.length; a++) {
+            if (ifPrimeNumber(temp[a])) {
+                result.push(temp[a]);
+            }
+        }
+        console.log(result);
+    };
+    //     Pythagorean(`1
+    // 100`);
+
+    //数组拼接
+    var arrJoint = function (str) {
+        str = str.split("\n");
+        let step = str.shift();
+        str = str.map((data) => {
+            return data.split(",");
+        });
+        let result = [];
+        while (str.length) {
+            for (let a = 0; a < str.length; a++) {
+                if (str[a].length >= step) {
+                    result = result.concat(str[a].splice(0, step));
+                } else if (str[a].length !== 0) {
+                    result = result.concat(str[a]);
+                    str.splice(a, 1);
+                }
+            }
+        }
+        console.log(result.join(","));
+    };
+    //     arrJoint(`3
+    // 2,5,6,7,9,5,7
+    // 1,7,4,3,4`);
+
+    //日期工具函数 todo
+    var dataFun = function (str) {
+        str = str.split(" ");
+        str = str.map((data) => {
+            return parseInt(data);
+        });
+        let year = str[0], month = str[1],week=str[2];
+        if(week>4 || str[3]>7){
+            console.log(0);
+        }
+        let days = 0;
+        for (let a = 2000; a < year; a++) {
+            if (a % 4 && !a % 100 || a % 400) {//闰
+                days = days + 366;
+            } else days = days + 365;
+        }
+        let ifLeap = 28;
+        if (year % 4 && !year % 100 || year % 400) {
+            ifLeap = 29;
+        }
+        switch (month - 1) {
+            case 1:
+                days = days + 31;
+                break;
+            case 2:
+                days = days + 31 + ifLeap;
+                break;
+            case 3:
+                days = days + 31 + ifLeap + 31;
+                break;
+            case 4:
+                days = days + 31 + ifLeap + 31 + 30;
+                break;
+            case 5:
+                days = days + 31 + ifLeap + 31 + 30 + 31;
+                break;
+            case 6:
+                days = days + 31 + ifLeap + 31 + 30 + 31 + 30;
+                break;
+            case 7:
+                days = days + 31 + ifLeap + 31 + 30 + 31 + 30 + 31;
+                break;
+            case 8:
+                days = days + 31 + ifLeap + 31 + 30 + 31 + 30 + 31+31;
+                break;
+            case 9:
+                days = days + 31 + ifLeap + 31 + 30 + 31 + 30 + 31+31+30;
+                break;
+            case 10:
+                days = days + 31 + ifLeap + 31 + 30 + 31 + 30 + 31+31+30+31;
+                break;
+            case 11:
+                days = days + 31 + ifLeap + 31 + 30 + 31 + 30 + 31+31+30+31+30;
+                break;
+        }
+        let date=0;
+        if(week===1){
+            if(days%7<str[3]){
+                console.log(0);
+            }
+            date=str[3];
+        } else if(week===2){
+            date=days%7+str[3];
+        } else date=7-days%7+ (week-2)*7+str[3];
+        console.log(year+"-"+month+"-"+date);
+    };
+    //dataFun(`2018 02 3 1`);
+    dataFun(`2020 02 3 1`);
+
+    let func=function(arr){
+        let result=0;
+        // if(arr.length<=1){
+        //     console.log(0);
+        //     return 0;
+        // }
+        // for(let a=0;a<arr.length;a++){
+        //     for(let b=a+1;b<arr.length;b++){
+        //         if(arr[a]<=arr[b]){
+        //             result=Math.max(result,arr[b]-arr[a]);
+        //         }
+        //     }
+        // }
+        let minNum=Infinity;
+        for(let a=0;a<arr.length;a++){
+            minNum=Math.min(minNum,arr[a]);
+            result=Math.max(arr[a]-minNum,result);
+        }
+        console.log(result);
+    };
+    func([7,1,5,3,6,4]);
+    func([7,1]);
+    func([7]);
+
+    function Node(val){
+        this.val=val;
+        this.left=null;
+        this.right=null;
+    }
+    let tree=function(root){
+        let leftEqRight=function(left,right){
+            if(!left && !right){
+                return true;
+            } if((left && !right) || (!left && right)){
+                return false;
+            }else if(left.val===right.val){
+                if(!left.left && !right.right && !left.right && !right.left){
+                    return true;
+                } else return leftEqRight(left.left,right.right) && leftEqRight(left.right,right.left);
+            }
+        };
+        if(root===null || (!root.right && !root.left)){
+            return true;
+        } else {
+            return leftEqRight(root.left,root.right);
+        }
+    };
+    let root=new Node();
+    root.val=1;
+    root.left=new Node();
+    root.left.val=2;
+    root.left.left=new Node();
+    root.left.left.val=3;
+    root.left.right=new Node();
+    root.left.right.val=4;
+
+    root.right=new Node();
+    root.right.val=2;
+    root.right.left=new Node();
+    root.right.left.val=4;
+    root.right.right=new Node();
+    root.right.right.val=3;
+    // let root=new Node();
+    // root.val=1;
+    // root.left=new Node();
+    // root.left.val=2;
+    // root.left.right=new Node();
+    // root.left.right.val=3;
+    //
+    // root.right=new Node();
+    // root.right.val=2;
+    // root.right.right=new Node();
+    // root.right.right.val=3;
+    console.log(tree(root));
+
+    let tel=function(str){
+        let arr=str.split("");
+        let result=[];
+        let word_num={
+            "2":["a","b","c"],
+            "3":["d","e","f"],
+            "4":["g","h","i"],
+            "5":["j","k","l"],
+            "6":["m","n","o"],
+            "7":["p","q","r","s"],
+            "8":["t","u","v"],
+            "9":["w","x","y","z"]
+        };
+        for(let a=0;a<arr.length;a++){
+            if(a===0){
+                result=word_num[arr[a]];
+            } else {
+                let temp=[];
+                let second=word_num[arr[a]];
+                //abc   pqrs
+                for(let x=0;x<result.length;x++){//abc
+                    for(let y=0;y<second.length;y++) {
+                        temp.push(result[x] + second[y]);
+                    }
+                }
+                result=temp;
+            }
+        }
+        return result;
+    };
+    // console.log(tel("23"));
+    // console.log(tel("2"));
+    // console.log(tel("27"));
+
+
+    let str="A1,B2,C3,a9,d0";
+    let primary=function(str){
+        if(str){
+            str=str.split(",");
+            let temp=[];
+            for(let a=0;a<str.length;a++){
+                if(str[a].length<2){
+                    console.log("");
+                    return;
+                }
+            }
+            str=str.sort((a,b)=>{
+                return b.substr(b.length-1,1).charCodeAt()-a.substr(a.length-1,1).charCodeAt();
+            }).join(",");
+            console.log(str);
+        } else  console.log("");
+    };
+    primary(str);
+</script>
+</body>
+</html>

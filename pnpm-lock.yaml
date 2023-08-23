@@ -90,6 +90,15 @@ importers:
 
   packages/learn_chatGPT: {}
 
+  packages/learn_electron_app:
+    dependencies:
+      electron:
+        specifier: 25.3.1
+        version: 25.3.1
+      path:
+        specifier: ^0.12.7
+        version: 0.12.7
+
   packages/learn_leetcode:
     dependencies:
       ts-node:
@@ -242,15 +251,6 @@ importers:
       vue-tsc:
         specifier: ^1.0.12
         version: 1.0.12(typescript@4.7.4)
-
-  packages/my-electron-app:
-    dependencies:
-      electron:
-        specifier: 25.3.1
-        version: 25.3.1
-      path:
-        specifier: ^0.12.7
-        version: 0.12.7
 
 packages:
 
@@ -2373,7 +2373,7 @@ packages:
     resolution: {integrity: sha1-sySClSds+MbxU+vmqaugyYjLJZk=, tarball: http://r.npm.sankuai.com/@types/yauzl/download/@types/yauzl-2.10.0.tgz}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.11.12
+      '@types/node': 18.17.6
     optional: true
 
   /@typescript-eslint/eslint-plugin@5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.42.0)(typescript@4.7.4):
