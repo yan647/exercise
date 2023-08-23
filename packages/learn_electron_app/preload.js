@@ -1,7 +1,14 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
+// contextBridge 接口定义 全局对象。
 contextBridge.exposeInMainWorld('electronAPI', { // todo
   setTitle: (title) => ipcRenderer.send('set-title', title),
+});
+
+contextBridge.exposeInMainWorld('versions', {
+  node: () => process.versions.node,
+  chrome: () => process.versions.chrome,
+  electron: () => process.versions.electron,
 });
 
 window.addEventListener('DOMContentLoaded', () => {

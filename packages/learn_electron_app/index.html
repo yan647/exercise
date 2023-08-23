@@ -9,12 +9,18 @@
   </head>
   <body>
     <h1>你好!</h1>
-    我们正在使用 Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    和 Electron <span id="electron-version"></span>.
+    <div>
+      我们正在使用 Node.js <span id="node-version"></span>,
+      Chromium <span id="chrome-version"></span>,
+      和 Electron <span id="electron-version"></span>.
+    </div>
 
-    Title:<input id="title">
-    <button id="btn" type="button">Set</button>
+    <div id="versionInfo"></div>
+
+    <div>
+      Title:<input id="title">
+      <button id="btn" type="button">Set</button>
+    </div>
     <script src="./renderer.js"></script>
   </body>
 </html>
