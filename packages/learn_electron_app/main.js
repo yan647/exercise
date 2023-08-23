@@ -25,6 +25,8 @@ const createWindow = () => {
 };
 
 app.whenReady().then(() => {
+  ipcMain.handle('ping', () => 'pong');// 监听器，接收器
+
   createWindow();
 
   app.on('activate', () => {
