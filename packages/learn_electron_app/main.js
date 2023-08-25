@@ -2,8 +2,17 @@
  * app，它是您应用程序的事件生命周期。
  * BrowserWindow，它负责创建和管理应用窗口。
  */
-const { app, BrowserWindow, ipcMain } = require('electron');
+const {
+  app, BrowserWindow, ipcMain, dialog,
+} = require('electron');
 const path = require('path');
+
+async function handleFileOpen() {
+  const { canceled, filePaths } = await dialog.showOpenDialog();
+  if (!canceled) {
+    return filePaths[0];
+  }
+}
 
 // createWindow函数将您的页面加载到新的 BrowserWindow 实例中
 const createWindow = () => {
@@ -26,6 +35,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong');// 监听器，接收器
+  ipcMain.handle('dialog:openFile', handleFileOpen);
 
   createWindow();
 

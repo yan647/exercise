@@ -1,9 +1,16 @@
 const setButton = document.getElementById('btn');
 const titleInput = document.getElementById('title');
+const openFileBtn = document.getElementById('openFileBtn');
+const filePathEle = document.getElementById('filePath');
 
 setButton.addEventListener('click', () => {
   const title = titleInput.value;
   window.electronAPI.setTitle(title);
+});
+
+openFileBtn.addEventListener('click', async () => {
+  const filePath = await window.electronAPI.openFile();
+  filePathEle.innerText = filePath;
 });
 
 const versionInfo = document.getElementById('versionInfo');
