@@ -3,7 +3,7 @@
  * BrowserWindow，它负责创建和管理应用窗口。
  */
 const {
-  app, BrowserWindow, ipcMain, dialog,
+  app, BrowserWindow, ipcMain, dialog, Menu,
 } = require('electron');
 const path = require('path');
 
@@ -24,6 +24,22 @@ const createWindow = () => {
     },
   });
 
+  const menu = Menu.buildFromTemplate([{
+    label: app.name,
+    submenu: [
+      {
+        label: 'Increment',
+        click: () => mainWindow.webContents.send('update-counter', 1),
+      },
+      {
+        label: 'Decrement',
+        click: () => mainWindow.webContents.send('update-counter', -1),
+      },
+    ],
+  }]);
+
+  Menu.setApplicationMenu(menu);
+
   ipcMain.on('set-title', (event, title) => {
     const webContents = event.sender;// 接收preload.js中ipcRenderer.send发送的内容
     const win = BrowserWindow.fromWebContents(webContents);// 返回拥有给定webContents的窗口
@@ -31,11 +47,15 @@ const createWindow = () => {
   });
 
   mainWindow.loadFile('index.html');
+  mainWindow.webContents.openDevTools();// 打开devTools
 };
 
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong');// 监听器，接收器
   ipcMain.handle('dialog:openFile', handleFileOpen);
+  ipcMain.on('counter-value', (_event, value) => {
+    console.log('counter-value', value);
+  });
 
   createWindow();
 

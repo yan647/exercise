@@ -2,6 +2,7 @@ const setButton = document.getElementById('btn');
 const titleInput = document.getElementById('title');
 const openFileBtn = document.getElementById('openFileBtn');
 const filePathEle = document.getElementById('filePath');
+const counter = document.getElementById('counter');
 
 setButton.addEventListener('click', () => {
   const title = titleInput.value;
@@ -25,3 +26,10 @@ const func = async () => {
 };
 
 func();
+
+window.electronAPI.handleCounter((event, value) => {
+  const oldVal = Number(counter.innerText);
+  const newVal = oldVal + value;
+  counter.innerText = newVal;
+  event.sender.send('counter-value', newVal);
+});
