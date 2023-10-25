@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .ts,.tsx,.js packages",
-    "fix": "eslint --ext .ts,.tsx packages --fix"
+    "fix": "eslint --ext .ts,.tsx packages --fix",
+    "prepare": "husky install",
+    "validate-commit-msg": "validate-commit-msg"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,8 @@
   "dependencies": {
     "@types/estree": "^1.0.1",
     "@types/json-schema": "^7.0.11",
-    "lodash": "^4.17.21"
+    "husky": "^8.0.3",
+    "lodash": "^4.17.21",
+    "validate-commit-msg": "^2.14.0"
   }
 }
