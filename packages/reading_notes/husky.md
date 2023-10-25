@@ -18,8 +18,22 @@ npx 可以帮助我们避免版本问题、依赖问题和安装我们只是想�
 
 它还为执行软件包、命令、模块，甚至是 GitHub 的清单和仓库提供了一个清晰而简单的方法。
 
+#### validate-commit-msg
+
+将其作为git hook来验证commit信息
+
+#### git hooks
+
+git hooks 就是在 Git 的命令之前或之后执行一些脚本。常见的脚本：
+1. precommit：定义在 commit 之前的脚本 
+2. prepush：定义 push 之前的脚本
+
+这些脚本都被放在了 .git/hooks隐藏目录内，以可执行文件的形式存在
+
+
+
 ### 参考
 
 1. https://www.freecodecamp.org/chinese/news/npm-vs-npx-whats-the-difference/
 2. https://typicode.github.io/husky/getting-started.html
-3. https://juejin.cn/post/7154010934401302541
+3. [用 husky 约束 Git 提交](https://juejin.cn/post/7154010934401302541)
