@@ -7,8 +7,7 @@
     "lint": "eslint --ext .ts,.tsx,.js packages",
     "fix": "eslint --ext .ts,.tsx packages --fix",
     "prepare": "husky install",
-    "validate-commit-msg": "validate-commit-msg",
-    "pre-commit": "date"
+    "validate-commit-msg": "validate-commit-msg"
   },
   "repository": {
     "type": "git",
