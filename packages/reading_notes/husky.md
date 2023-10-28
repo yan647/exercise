@@ -44,6 +44,21 @@ lint-staged 最重要的功能是：只处理暂存区的文件
 
 husky add 用于添加 Git Hook。
 
+#### husky-init 脚本的作用如下：
+1. 在 package.json 中新增 husky 依赖，并在 package.json 的 scripts 中新增脚本："prepare": "husky install"；
+2. 生成 .husky/_/.husky.sh 文件，以及一个简单的 hooks demo（pre-commit）；
+3. 执行脚本：git config core.hooksPath .husky；这就是项目git hooks新目录执行.husky
+
+
+#### lint-staged
+
+增量检查。是一个在 git 暂存文件上（也就是被 git add 的文件）运行已配置的 linter（或其他）任务。lint-staged 总是将所有暂存文件的列表传递给任务。
+
+步骤：
+1. pnpm install --save-dev lint-staged
+2. package.json中配置"lint-staged": {}
+3. .husky/pre-commit中配置npx lint-staged
+
 
 ### 参考
 
@@ -51,3 +66,5 @@ husky add 用于添加 Git Hook。
 2. https://typicode.github.io/husky/getting-started.html
 3. [用 husky 约束 Git 提交](https://juejin.cn/post/7154010934401302541)
 4. [pro git中对git hook的介绍](https://www.progit.cn/#_git_hooks)
+5. [](https://juejin.cn/post/7109337539697180703)
+6. [lint-staged官网](https://github.com/lint-staged/lint-staged#readme)

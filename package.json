@@ -7,7 +7,8 @@
     "lint": "eslint --ext .ts,.tsx,.js packages",
     "fix": "eslint --ext .ts,.tsx packages --fix",
     "prepare": "husky install",
-    "validate-commit-msg": "validate-commit-msg"
+    "validate-commit-msg": "validate-commit-msg",
+    "lint-staged": {}
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-vue": "^9.14.1",
+    "lint-staged": "^15.0.2",
     "ts-loader": "^9.4.2",
     "webpack": "^5.76.3"
   },
