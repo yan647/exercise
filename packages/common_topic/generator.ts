@@ -18,8 +18,24 @@ function* Fib() {
 
 const fib = Fib();
 
-for (let i = 0; i < 10; i++) {
+console.log('斐波那契数列的结果:');
+for (let i = 0; i < 5; i++) {
   console.log(fib.next());
 }
 
+// 阶乘函数
+function* Factorial() {
+  let x = 1;
+  let fac = 1;
+  while (true) {
+    yield fac;
+    fac *= (x++);
+  }
+}
 
+const fac = Factorial();
+
+console.log('阶乘的结果：');
+for (let i = 0; i < 5; i++) {
+  console.log(fac.next());
+}
