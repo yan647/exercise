@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="result"></div>
+<script>
+  async function ex() {
+    let result = ''
+    try {
+      result = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+    } catch (e) {
+      console.log('e:',e);
+    }
+    console.log('result:',result);
+    document.getElementById("result").innerHTML = result
+  }
+
+  ex();
+</script>
+</body>
+</html>
