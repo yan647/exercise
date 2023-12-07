@@ -1,5 +1,5 @@
 /**
- * app，它是您应用程序的事件生命周期。
+ * app，它是应用程序的事件生命周期。
  * BrowserWindow，它负责创建和管理应用窗口。
  */
 const {
@@ -14,9 +14,12 @@ async function handleFileOpen() {
   }
 }
 
+let mainWindow;
+let shutdownStarted = false;
+
 // createWindow函数将您的页面加载到新的 BrowserWindow 实例中
 const createWindow = () => {
-  const mainWindow = new BrowserWindow({ // 创建并控制浏览器窗口
+  mainWindow = new BrowserWindow({ // 创建并控制浏览器窗口
     width: 800,
     height: 800,
     webPreferences: {
@@ -48,10 +51,18 @@ const createWindow = () => {
 
   mainWindow.loadFile('index.html');
   mainWindow.webContents.openDevTools();// 打开devTools
+
+  mainWindow.on('close', () => {
+    if (!shutdownStarted) {
+      shutdownStarted = true;
+    }
+  });
 };
 
+// electron初始化完成
 app.whenReady().then(() => {
-  ipcMain.handle('ping', () => 'pong');// 监听器，接收器
+  // ipcMain 从主进程到渲染进程的异步通信
+  ipcMain.handle('ping', () => 'pong');// 监听器，接收器，当渲染进程ipcRenderer.invoke时会到handle这里
   ipcMain.handle('dialog:openFile', handleFileOpen);
   ipcMain.on('counter-value', (_event, value) => {
     console.log('counter-value', value);
@@ -69,6 +80,21 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
+  }
+});
+
+// 第二个实例被执行时
+app.on('second-instance', () => {
+  // Someone tried to run a second instance, we should focus our window.
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    if (mainWindow.isMinimized()) {
+      mainWindow.restore();
+    }
+
+    mainWindow.focus();
+  } else if (!shutdownStarted) {
+    // This instance is a zombie and we should shut down.
+    app.exit();
   }
 });
 
