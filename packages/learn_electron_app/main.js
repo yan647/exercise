@@ -3,7 +3,7 @@
  * BrowserWindow，它负责创建和管理应用窗口。
  */
 const {
-  app, BrowserWindow, ipcMain, dialog, Menu,
+  app, BrowserWindow, ipcMain, dialog, Menu, screen,
 } = require('electron');
 const path = require('path');
 
@@ -14,6 +14,17 @@ async function handleFileOpen() {
   }
 }
 
+export const OS = {
+  Windows: 'win32',
+  Mac: 'darwin',
+};
+
+export function byOS(handlers) {
+  const handler = handlers[process.platform];
+  if (typeof handler === 'function') return handler();
+  return handler;
+}
+
 let mainWindow;
 let shutdownStarted = false;
 
@@ -22,6 +33,7 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({ // 创建并控制浏览器窗口
     width: 800,
     height: 800,
+    frame: false, // 默认值为true。false表示创建无边框窗口
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'), // 将脚本附在渲染进程上
     },
@@ -57,6 +69,31 @@ const createWindow = () => {
       shutdownStarted = true;
     }
   });
+
+  // 获取当前屏幕的缩放比，Mac和Windows使用的函数也不同
+  const getScaleFactor = () => {
+    let scaleFactor = 1;
+    const bounds = byOS({
+      [OS.Windows]: () => screen.dipToScreenRect(mainWindow, mainWindow.getBounds()),
+      [OS.Mac]: () => mainWindow.getBounds(),
+    });
+    const currentDisplay = screen.getDisplayMatching(bounds);
+    scaleFactor = currentDisplay.scaleFactor;
+    return scaleFactor;
+  };
+
+  const getScaleFactor2 = () => {
+    const point = screen.getCursorScreenPoint();
+    const primaryDisplay = screen.getDisplayNearestPoint(point);
+    const { scaleFactor } = primaryDisplay;
+  };
+
+  const getScaleFactor3 = () => {
+    const primaryDisplay = screen.getPrimaryDisplay();
+    const { scaleFactor } = primaryDisplay;
+  };
+
+  const getScaleFactor4 = () => window.devicePixelRatio;
 };
 
 // electron初始化完成
