@@ -84,12 +84,12 @@ const createWindow = () => {
 
   const getScaleFactor2 = () => {
     const point = screen.getCursorScreenPoint();
-    const primaryDisplay = screen.getDisplayNearestPoint(point);
+    const primaryDisplay = screen.getDisplayNearestPoint(point);// 获取当前焦点所在的窗口
     const { scaleFactor } = primaryDisplay;
   };
 
   const getScaleFactor3 = () => {
-    const primaryDisplay = screen.getPrimaryDisplay();
+    const primaryDisplay = screen.getPrimaryDisplay();// 只获取主窗口
     const { scaleFactor } = primaryDisplay;
   };
 

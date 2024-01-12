@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 // contextBridge 接口定义 全局对象。在隔离的上下文中创建一个安全的、双向的、同步的桥梁。
-contextBridge.exposeInMainWorld('electronAPI', { // todo
+contextBridge.exposeInMainWorld('electronAPI', {
   setTitle: (title) => ipcRenderer.send('set-title', title),
   openFile: () => ipcRenderer.invoke('dialog:openFile'),
   handleCounter: (callback) => {
