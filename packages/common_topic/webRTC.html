@@ -6,19 +6,44 @@
 </head>
 <body>
 <div>
+  <div>
+    <h1>媒体信息：</h1>
+    <div id="mediaInfo"></div>
+  </div>
   <video></video>
 </div>
 <script>
-  async function ex() {
-    let result = ''
+  async function getMediaInfo() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+      console.log('mediaDevices not supported')
+    }
+    const mediaInfo = document.getElementById('mediaInfo')
+    let result = [];
     try {
-      result = await navigator.mediaDevices.getUserMedia({
+      result = await navigator.mediaDevices.enumerateDevices()
+    } catch (e) {
+      mediaInfo.innerText = `mediaDevices error:${e.name}:${e.message}`
+    }
+    mediaInfo.innerText = result.map((item) => {
+      return `${item.kind}: ${item.label},id=${item.deviceId}\n`
+    }).join('\n')
+  }
+
+  async function getLiveMediaStream() {
+    let result = ''
+    if (!navigator.mediaDevices) {
+      console.log('mediaDevices not supported!')
+      return
+    }
+
+    try {
+      result = await navigator.mediaDevices.getUserMedia({// 请求用户的媒体设备（摄像头、麦克风）的访问权限。能获取实时媒体流
         video: {
           facingMode: "user", // "user" 优先使用前置摄像头；{ exact: "environment" } 优先使用后置摄像头
           frameRate: {min: 20}, // 帧率
           width: {min: 640, ideal: 1280},
           height: {min: 360, ideal: 720},
-          aspectRatio: 16/9
+          aspectRatio: 16 / 9
         },
         audio: {
           echoCancellation: true,// 回音消除
@@ -29,15 +54,16 @@
     } catch (e) {
       console.log(`${e.name}:${e.message}`);
     }
-    console.log('result:',result);
-    const video=document.querySelector('video')
-    video.srcObject=result
-    video.onloadedmetadata=()=>{
+    console.log('result:', result);
+    const video = document.querySelector('video')
+    video.srcObject = result
+    video.onloadedmetadata = () => {
       video.play()
     }
   }
 
-  ex();
+  getMediaInfo();
+  getLiveMediaStream();
 </script>
 </body>
 </html>
