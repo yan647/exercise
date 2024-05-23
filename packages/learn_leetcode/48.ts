@@ -8,7 +8,7 @@
 /**
  Do not return anything, modify matrix in-place instead.
  */
-function rotate(matrix: number[][]): void {
+function rotate1(matrix: number[][]): void {
     // 写法不符合要求
     const matrixLen = matrix.length;
     const result = new Array(matrixLen).fill(0).map((_item) => new Array(matrixLen).fill(0));
@@ -53,14 +53,14 @@ function rotate2(matrix: number[][]): void {
 //     [15, 14, 12, 16]
 // ]);
 
-rotate2([
-    [1]
-]);
+// rotate2([
+//     [1]
+// ]);
 
-rotate2([
-    [1, 2],
-    [3, 4]
-]);
+// rotate2([
+//     [1, 2],
+//     [3, 4]
+// ]);
 
 /**
  * 1、新建个数组的情况
@@ -99,3 +99,32 @@ rotate2([
  * [7,4,1],[8,5,2],[9,6,3]
  *
  */
+
+
+// 2024.05.22
+function rotate(matrix: number[][]): void {
+ const length = matrix.length
+ const width = matrix[0].length
+ let result = new Array(length-1)
+ for(let i=0;i<length;i++){
+   result[i] = new Array(width-1)
+ }
+ for (let i = 0; i < length; i++) {
+   for (let j = 0; j < width; j++) {
+     result[j][length-i-1] = matrix[i][j]
+   }
+ }
+ console.log(result)
+}
+
+const matrix = [
+ [1, 2, 3],
+ [4, 5, 6],
+ [7, 8, 9]
+]
+// [
+//   [7,4,1],
+//   [8,5,2],
+//   [9,6,3]
+// ]
+rotate(matrix)
