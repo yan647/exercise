@@ -2,8 +2,8 @@
 - 练习各种前端技术的地方
 - 使用pnpm workspace管理 
 - 全局安装pnpm:npm install pnpm -g 
-- 安装npm使用pnpm install
-- 给特定子集安装依赖包：pnpm install commander -D --filter eslint-cli。
+- 安装依赖包使用pnpm install
+- 给特定子集安装依赖包：pnpm install commander -D --filter eslint-cli
 其中eslint-cli是对应包中package.json中的name，不是文件路径，也不一定是文件名
 - 给全部项目安装依赖包：pnpm install eslint -w
 
@@ -19,6 +19,12 @@
 - [ ] commit lint
 - [ ] typescript
 - [ ] 单测
+
+
+### 项目启动
+- 全局安装pnpm:npm install pnpm -g
+- 安装依赖包使用pnpm install（使用yarn会报错）
+- 启动每个项目：分别根据对应项目的package.json中的script进行启动
 
 ### 参考
 - [pnpm官方文档](https://pnpm.io/zh/motivation)
